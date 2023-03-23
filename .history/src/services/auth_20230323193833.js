@@ -1,0 +1,1 @@
+//auth.js: Service for handling authentication related functions.

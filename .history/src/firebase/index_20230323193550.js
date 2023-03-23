@@ -1,0 +1,1 @@
+//index.js: File exporting Firebase and Firestore services.
