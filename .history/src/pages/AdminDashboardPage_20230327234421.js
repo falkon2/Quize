@@ -101,7 +101,7 @@ export default class Welcome extends React.Component {
           </svg>
         </div>
         <div>
-          <span class="block text-2xl font-bold">7.8</span>
+          <span class="block text-2xl font-bold">6.8</span>
           <span class="block text-gray-500">Average mark</span>
         </div>
       </div>
@@ -124,7 +124,7 @@ export default class Welcome extends React.Component {
           </svg>
         </div>
         <div>
-          <span class="block text-2xl font-bold">63%</span>
+          <span class="block text-2xl font-bold">83%</span>
           <span class="block text-gray-500">Finished homeworks</span>
         </div>
       </div>
@@ -145,7 +145,7 @@ export default class Welcome extends React.Component {
           </svg>
         </div>
         <div>
-          <span class="block text-2xl font-bold">24</span>
+          <span class="block text-2xl font-bold">25</span>
           <span class="block text-gray-500">Lections left</span>
         </div>
       </div>
@@ -156,7 +156,7 @@ export default class Welcome extends React.Component {
           </svg>
         </div>
         <div>
-          <span class="block text-2xl font-bold">199</span>
+          <span class="block text-2xl font-bold">139</span>
           <span class="block text-gray-500">Hours spent on lections</span>
         </div>
       </div>
@@ -213,21 +213,21 @@ export default class Welcome extends React.Component {
                 <img src="https://randomuser.me/api/portraits/women/77.jpg" alt="Jane Lane profile picture"/>
               </div>
               <span class="text-gray-600">Jane Lane</span>
-              <span class="ml-auto font-semibold">5.1</span>
+              <span class="ml-auto font-semibold">8.1</span>
             </li>
             <li class="flex items-center">
               <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
                 <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Pat Mckinney profile picture"/>
               </div>
               <span class="text-gray-600">Pat Mckinney</span>
-              <span class="ml-auto font-semibold">9.9</span>
+              <span class="ml-auto font-semibold">7.9</span>
             </li>
             <li class="flex items-center">
               <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
                 <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Norman Walters profile picture"/>
               </div>
               <span class="text-gray-600">Norman Walters</span>
-              <span class="ml-auto font-semibold">2.7</span>
+              <span class="ml-auto font-semibold">7.7</span>
             </li>
           </ul>
         </div>

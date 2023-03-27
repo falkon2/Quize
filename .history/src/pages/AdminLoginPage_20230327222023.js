@@ -83,7 +83,7 @@ export default class AdminLoginPage extends React.Component {
   <div id="user" className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
       <h1 className="text-5xl font-bold text-blue-50">Login now!</h1>
-      <p className="py-6 text-blue-50">Experience the world of mathematics in a very fun way in our website, quize. It is an interactive way for children to learn.</p>
+      <p className="py-6 text-blue-50">Experience the world of mathematics in a very fun way in our website, quize.It is very good for children and interactive project.</p>
     </div>
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl backdrop-blur-sm bg-white/30">
       <div className="card-body">

@@ -3,7 +3,7 @@ import React from 'react'
 export default function NavBar() {
   return (
 
-<div className="navbar bg-base-100 sticky top-0 z-50">
+<div className="navbar bg-base-100 stiky">
   <div className="flex-1">
     <a className="btn btn-ghost normal-case text-xl">Quize</a>
   </div>
