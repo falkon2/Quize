@@ -2,15 +2,8 @@
 
 import React from 'react'
 import NavBar from '../components/NavBar'
-export default class Welcome extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      user: ""
-    }
-  }
-  render() {return (
+export default function AdminDashboardPage() {
+  return (
     <div className='bg-cover '>
     <div src="/images/stock/photo-1635805737707-575885ab0820.jpg" className='max-w-full max-h-full' alt="Movie">
       
@@ -37,4 +30,4 @@ export default class Welcome extends React.Component {
 </div>
 </div>
   )
-  }}
+}
