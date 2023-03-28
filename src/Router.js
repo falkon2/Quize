@@ -4,6 +4,8 @@ import StudentDashboardPage from './pages/StudentDashboardPage';
 import Welcome from './Welcome'
 import AdminLoginPage from './pages/AdminLoginPage'
 import StudentLoginPage from './pages/StudentLoginPage'
+import QuizPage from './pages/QuizFormPage';
+
 function Router() {
     return (
         <Routes>
@@ -12,6 +14,7 @@ function Router() {
             <Route path="/Login" element={<AdminLoginPage/>} />
             <Route path="/admin-dashboard" element={<AdminDashboardPage/>} />
             <Route path="/user-dashboard" element={<StudentDashboardPage/>} />
+            <Route path="/create-quiz" element={<QuizPage/>} />
         </Routes>
     )
 }
