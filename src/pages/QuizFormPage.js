@@ -48,39 +48,21 @@ export default class QuizPage extends React.Component {
 
         $(`#q-${qNo}-ans`).append(`
         <div>
-            <input id="c-q-${qNo}-${op}" type="checkbox" />
+            <input id="ans-c-q-${qNo}-${op}" type="checkbox" />
             <input id='ans-op-q-${qNo}-${op}' type="text" placeholder='Options:' />
         </div>
         `)
         $(`#ans-op-q-${qNo}-${op}`).attr("class", "bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
         $(`#ans-op-q-${qNo}-${op}`).attr("style", "min-width:90%")
+        $(`#ans-c-q-${qNo}-${op}`).on("click", () => { this.checkbox(qNo, op) })
 
     }
 
-    startQuiz() {
-        $("#start-quiz").on("click", () => {
-            for (let i = 0; i < this.state.amount; i++) {
-                var que = $(`#q-${i}`).val()
 
-                var ans = []
 
-                for (let u = 0; u < option[i]; u++) {
-                    var opt = $(`#ans-op-q-${i}-${u + 1}`).val()
-                    ans.push(opt)
-                }
 
-                for (let u = 0; u < option[i]; u++) {
-                    var c_opt = $(`#ans-c-q-${i}-1-${u + 1}`).is("checked")
-                    console.log(`ans-c-q-${i}-1-${u + 1}: ${c_opt}`)
-                }
-
-                Q_and_Ans[que] = ans
-            }
-        })
-    }
-
-    checkbox(id) {
-        $(id).attr("checked", "true")
+    checkbox(qNo, op_no) {
+        correct_ans[qNo] = op_no
     }
 
     addQuestion() {
@@ -123,13 +105,30 @@ export default class QuizPage extends React.Component {
             `)
             $(`#ans-op-q-${i}-1`).attr("style", "min-width:90%")
             $(`#add-option-button-${i}`).on("click", () => { this.addOption(i) })
-            $(`#ans-c-q-${i}-1`).on("click", () => { this.checkbox(`#ans-c-q-${i}-1`) })
+            $(`#ans-c-q-${i}-1`).on("click", () => { this.checkbox(i, 1) })
 
         }
     }
 
 
+    startQuiz() {
+        $("#start-quiz").on("click", () => {
+            for (let i = 0; i < this.state.amount; i++) {
+                var que = $(`#q-${i}`).val()
 
+                var ans = []
+
+                for (let u = 0; u < option[i]; u++) {
+                    var opt = $(`#ans-op-q-${i}-${u + 1}`).val()
+                    ans.push(opt)
+                }
+
+                Q_and_Ans[que] = ans
+            }
+            console.log(Q_and_Ans)
+            console.log(correct_ans)
+        })
+    }
 
     render() {
         if (this.state.amount > 0) {
