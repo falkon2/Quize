@@ -5,12 +5,17 @@ import Welcome from './Welcome'
 import AdminLoginPage from './pages/AdminLoginPage'
 import QuizPage from './pages/QuizFormPage';
 import TestView from './pages/TestView';
+<<<<<<< HEAD
 import PreviewQuiz from "./components/QuizPreview"
 import EditQuiz from "./components/EditQuiz"
 
+=======
+import NotFound from './pages/NotFound';
+>>>>>>> 60c6750af1505629e00a16b89501e867b9a6e7c2
 function Router() {
     return (
         <Routes>
+            <Route path='*' element={<NotFound />}/>
             <Route path="/" element={<Welcome/>} />
             <Route path="/Login" element={<AdminLoginPage/>} />
             <Route path="/admin-dashboard" element={<AdminDashboardPage/>} />
