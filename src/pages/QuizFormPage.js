@@ -3,10 +3,13 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 import QuizDetails from '../components/QuizDetails'
+import { db } from "../firebase/firebaseConfig"
+import { getDoc, doc, setDoc } from "firebase/firestore";
 import $ from 'jquery'
+import Swal from 'sweetalert2';
 
 var option = {}
-var Q_and_Ans = {}
+var Q_option_list = {}
 var correct_ans = {}
 
 
@@ -15,11 +18,13 @@ export default class QuizPage extends React.Component {
         super(props)
 
         this.state = {
-            submitButton: false,
             amount: 0,
             subject: "",
             class: "",
             section: "",
+            start_time: "",
+            quiz_date: "",
+            end_time: "",
             qAdd: false,
             link: "/admin-dashboard"
         }
@@ -32,7 +37,10 @@ export default class QuizPage extends React.Component {
             amount: searchParams.get('amount'),
             subject: searchParams.get('subject'),
             class: searchParams.get('class'),
-            section: searchParams.get('section')
+            section: searchParams.get('section'),
+            start_time: searchParams.get('start_time'),
+            quiz_date: searchParams.get('date'),
+            end_time: searchParams.get('end_time')
         })
     }
 
@@ -94,11 +102,9 @@ export default class QuizPage extends React.Component {
 
             <div class='flex justify-end w-full'>
                 <a id="add-option-button-${i}" type="button" class=" w-h hover:bg-gray-300">
-
                     <span class="p-1 material-symbols-outlined">
                         add_circle
                     </span>
-
                     <label>Add Option</label>
                 </a>
             </div>
@@ -112,8 +118,8 @@ export default class QuizPage extends React.Component {
     }
 
 
-    startQuiz() {
-        $("#start-quiz").on("click", () => {
+    prevQuiz() {
+        $("#prev-quiz").on("click", () => {
             for (let i = 0; i < this.state.amount; i++) {
                 var que = $(`#q-${i}`).val()
 
@@ -124,12 +130,74 @@ export default class QuizPage extends React.Component {
                     ans.push(opt)
                 }
 
-                Q_and_Ans[que] = ans
+                Q_option_list[que] = ans
             }
-            console.log(Q_and_Ans)
-            console.log(correct_ans)
+            // console.log(Q_option_list)
+            // console.log(correct_ans)
+
+            this.upload_to_firebase()
         })
     }
+
+
+    async upload_to_firebase() {
+        var val = Object.keys(correct_ans).length
+        var q_keys = Object.keys(Q_option_list)
+        var ans_keys = Object.keys(correct_ans)
+        var Q_and_Ans = {}
+
+
+        for (var i = 0; i < val; i++) {
+            var que = q_keys[i]
+            var options = Q_option_list[q_keys[i]]
+            var ans = correct_ans[ans_keys[i]]
+
+            Q_and_Ans[que] = {
+                "options": options,
+                "ans": ans
+            }
+        }
+
+        // console.log(Q_and_Ans)
+
+        if (val == this.state.amount) {
+            const data = {
+                no_of_question: this.state.amount,
+                subject: this.state.subject,
+                class: this.state.class,
+                section: this.state.section,
+                start_time: this.state.start_time,
+                quiz_date: this.state.quiz_date,
+                end_time: this.state.end_time,
+                questions: Q_and_Ans
+
+            };
+
+            // console.log(data)
+            try {
+                var path1 = `questions/${this.state.subject}/${this.state.class}`
+                var path2 = `${this.state.section}/${this.state.quiz_date}/no_of_question:${this.state.amount}`
+                await setDoc(doc(db, path1, path2), data);
+                setTimeout(() => { window.location.replace(`/prev-quiz?path1=${path1}&path2=${path2}`) }, 1000)
+            }
+            catch (err) {
+                Swal.fire(
+                    "An error Occurred",
+                    "Questions were not uploaded",
+                    "error"
+                )
+            }
+        }
+        else {
+            Swal.fire(
+                "Not enough answer",
+                "Please select correct answer for each question",
+                "warning"
+            )
+        }
+    }
+
+
 
     render() {
         if (this.state.amount > 0) {
@@ -152,10 +220,10 @@ export default class QuizPage extends React.Component {
 
                         <form className="md:p-8 max-w-[500px] space-y-8  rounded-lg w-11/12 mb-4">
 
-                            <a style={{ borderRadius: "10px", textAlign: "center" }} id="start-quiz" type="submit"
+                            <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
                                 className="bg-yellow-600 rounde-md w-full p-2 text-white hover:bg-yellow-500"
-                                onClick={() => { this.startQuiz() }}>
-                                Start Quiz
+                                onClick={() => { this.prevQuiz() }}>
+                                Preview Quiz
                             </a>
                         </form>
                     </div>

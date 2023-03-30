@@ -8,7 +8,7 @@ export default class QuizDetails extends React.Component {
     constructor() {
         super()
         this.state = {
-          link: "/admin-dashboard"
+            link: "/admin-dashboard"
         }
     }
     render() {
@@ -33,6 +33,46 @@ export default class QuizDetails extends React.Component {
                                 max={50}
                             />
                         </div>
+
+                        <div className="flex flex-col space-y-2">
+                            <label className="text-gray-600 font-medium" htmlFor="data">
+                                Date of the Quiz
+                            </label>
+                            <input
+                                type="date"
+                                id="date"
+                                name="date"
+                                className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+                            />
+                        </div>
+                        <div className="flex flex-row justify-start">
+                            <div className="flex flex-col space-y-2">
+                                <label className="text-gray-600 font-medium" htmlFor="time">
+                                    Start Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    id="start_time"
+                                    name="start_time"
+                                    className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+                                    placeholder='start time'
+                                />
+                            </div>
+
+                            <div className="pl-5 flex flex-col space-y-2">
+                                <label className="text-gray-600 font-medium" htmlFor="time">
+                                    End Time
+                                </label>
+                                <input
+                                    type="time"
+                                    id="end_amount"
+                                    name="end_time"
+                                    className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+                                />
+                            </div>
+                        </div>
+
                         <div className="flex flex-col space-y-2">
                             <label className="text-gray-600 font-medium" htmlFor="class">
                                 Select Class
@@ -86,7 +126,7 @@ export default class QuizDetails extends React.Component {
                             </select>
                         </div>
 
-                        <button style={{borderRadius: "10px"}} type="submit" className="bg-yellow-600 rounde-md w-full p-2 text-white hover:bg-yellow-500">
+                        <button style={{ borderRadius: "10px" }} type="submit" className="bg-yellow-600 rounde-md w-full p-2 text-white hover:bg-yellow-500">
                             Start
                         </button>
                     </form>

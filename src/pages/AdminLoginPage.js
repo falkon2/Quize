@@ -83,15 +83,6 @@ export default class AdminLoginPage extends React.Component {
       )
     }
   }
-  /*
-  const data = {
-    nam: 'Los Angeles',
-    state: 'CA',
-    country: 'USA'
-  };
-
-  await setDoc(doc(db, "cities", "new-city-id"), data);
-  */
 
   render() {
     return (
