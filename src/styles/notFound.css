@@ -12,7 +12,8 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */       /* -- overflow: hidden is creating problem in the create-quize, preview-quiz and edit-quiz*/
+  overflow-x: hidden;
 }
 
 body {
@@ -481,7 +482,7 @@ fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, 
   }
 }
 @media (max-width: 750px) {
-  body, html, {
+  body, html {
     max-height: 100vh;
   }
    .error__content {

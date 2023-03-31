@@ -78,25 +78,45 @@ export default class PreviewQuiz extends React.Component {
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
                 var questions = Object.keys(data["questions"])[i]
 
-                $("#question-container").append(`
-                    <form id=""form-q-${i} class="bg-white p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
+                let result = questions.includes("https://firebasestorage.googleapis.com/v0/b/quize-a1c9e.appspot.com/o/");
+                // console.log(result)
 
-                        <div class="flex flex-col space-y-2">
-                            <textarea
-                                type="text"
-                                aria-multiline="true"
-                                id="q-${i}"
-                                class="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
-                                placeholder='Question:'
-                                wrap='hard'
-                                disabled
-                            >${questions}</textarea>
-                            <div id="q-${i}-ans">
+                if (result === true) {
+                    $("#question-container").append(`
+                        <form id=""form-q-${i} class="bg-white p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
 
+                            <div class="flex flex-col space-y-2">
+                                <img
+                                    id="q-${i}"
+                                    class="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+                                    placeholder='Question:' src="${questions}"></img>
+                                <div id="q-${i}-ans">
+
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                `)
+                        </form>
+                    `)
+                } else {
+                    $("#question-container").append(`
+                        <form id=""form-q-${i} class="bg-white p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
+
+                            <div class="flex flex-col space-y-2">
+                                <textarea
+                                    type="text"
+                                    aria-multiline="true"
+                                    id="q-${i}"
+                                    class="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+                                    placeholder='Question:'
+                                    wrap='hard'
+                                    disabled
+                                >${questions}</textarea>
+                                <div id="q-${i}-ans">
+
+                                </div>
+                            </div>
+                        </form>
+                    `)
+                }
 
             }
 
@@ -123,7 +143,7 @@ export default class PreviewQuiz extends React.Component {
             "success"
         )
 
-        setTimeout(() => { window.location.replace("/admin-dashboard") },2000)
+        setTimeout(() => { window.location.replace("/admin-dashboard") }, 2000)
     }
 
 
