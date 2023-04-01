@@ -11,7 +11,7 @@
 }
 
 html, body {
-  height: 100%;
+  height: auto;
   /* overflow: hidden; */       /* -- overflow: hidden is creating problem in the create-quize, preview-quiz and edit-quiz*/
   overflow-x: hidden;
 }
