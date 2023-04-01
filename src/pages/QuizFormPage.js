@@ -268,13 +268,13 @@ export default class QuizPage extends React.Component {
     render() {
         if (this.state.amount > 0) {
             return (
-                <div>
+                <div className="bg-gradient-to-r from-primary to-accent">
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
                 
                     <NavBar link={this.state.link} />
 
-                    <div className=" bg-gradient-to-r from-primary to-accent flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
+                    <div className="flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
                         <form className="bg-white p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
                             <h2 className="text-3xl font-medium">Questions</h2>
                             <h4 className="text-2xl font-medium">Subject: {`${this.state.subject}`}</h4>
