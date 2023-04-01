@@ -270,7 +270,7 @@ export default class QuizPage extends React.Component {
             return (
                 <div>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /> //important for displaying icon
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
                 
                     <NavBar link={this.state.link} />
 
