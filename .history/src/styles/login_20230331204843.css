@@ -1,0 +1,11 @@
+
+body{
+    background-image: url("https://cdn.discordapp.com/attachments/916242371652509726/1089932592599539832/p7fCigR.png");
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    background-attachment: fixed;
+    /* display: flex; */
+    font-family: 'Roboto', sans-serif; 
+  }
+  
