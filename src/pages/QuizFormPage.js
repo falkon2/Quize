@@ -3,8 +3,9 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 import QuizDetails from '../components/QuizDetails'
-import { db } from "../firebase/firebaseConfig"
+import { db, storage } from "../firebase/firebaseConfig"
 import { getDoc, doc, setDoc } from "firebase/firestore";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import $ from 'jquery'
 import Swal from 'sweetalert2';
 
@@ -83,14 +84,21 @@ export default class QuizPage extends React.Component {
             <form id=""form-q-${i} class="bg-white p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
 
             <div class="flex flex-col space-y-2">
-                <textarea
-                    type="text"
-                    aria-multiline="true"
-                    id="q-${i}"
-                    class="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
-                    placeholder='Question:'
-                    wrap='hard'
-                ></textarea>
+                <div class="flex justify-evenly">
+                    <textarea
+                        type="text"
+                        aria-multiline="true"
+                        id="q-${i}"
+                        class="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+                        placeholder='Question:'
+                        wrap='hard'
+                        style=min-width:90%></textarea>
+                    <a id="add-image-button-${i}" type="button" class=" w-h hover:bg-gray-300">
+                        <span class="p-1 pl-2 material-symbols-outlined">
+                            upload_file
+                        </span>
+                    </a>
+                </div>
                 <div id="q-${i}-ans">
                     <div>
                         <input id="ans-c-q-${i}-1" type="checkbox" name="checked"/>
@@ -111,8 +119,10 @@ export default class QuizPage extends React.Component {
         </form>
             `)
             $(`#ans-op-q-${i}-1`).attr("style", "min-width:90%")
+
             $(`#add-option-button-${i}`).on("click", () => { this.addOption(i) })
             $(`#ans-c-q-${i}-1`).on("click", () => { this.checkbox(i, 1) })
+            $(`#add-image-button-${i}`).on("click", () => { this.upload_img(i) })
 
         }
     }
@@ -194,6 +204,62 @@ export default class QuizPage extends React.Component {
                 "Please select correct answer for each question",
                 "warning"
             )
+        }
+    }
+
+
+    upload_img = async (qNo) => {
+        const { value: file } = await Swal.fire({
+            title: 'Select image',
+            input: 'file',
+            inputAttributes: {
+                'accept': 'image/*',
+                'aria-label': 'Upload question picture'
+            }
+        })
+
+        if (file) {
+
+            const storageRef = ref(storage, `files/${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on("state_changed",
+                (snapshot) => {
+                    const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+
+                    let timerInterval
+                    Swal.fire({
+                        title: 'Uploading Image',
+                        text: 'Please wait whlie the image is uploading',
+                        didOpen: () => {
+                            if (progress === 100) {
+                                Swal.close()
+                            } else {
+                                Swal.showLoading()
+                            }
+                        },
+                    })
+                },
+                (error) => {
+                    alert(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        const reader = new FileReader()
+                        reader.onload = (e) => {
+                            Swal.fire({
+                                title: 'Question Image uploaded',
+                                imageUrl: downloadURL,
+                                imageAlt: 'Picture of the question'
+                            })
+                        }
+                        reader.readAsDataURL(file)
+
+                        $(`#q-${qNo}`).append(`${downloadURL}`)
+                        $(`#q-${qNo}`).attr("disabled", 'disabled');
+                    });
+                }
+            );
         }
     }
 

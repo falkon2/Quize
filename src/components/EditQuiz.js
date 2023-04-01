@@ -1,7 +1,8 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
-import { db } from "../firebase/firebaseConfig"
+import { db, storage } from "../firebase/firebaseConfig"
 import { getDoc, doc, setDoc } from "firebase/firestore";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import $ from 'jquery'
 import Swal from 'sweetalert2';
 
@@ -99,19 +100,30 @@ export default class PreviewQuiz extends React.Component {
                     <form id=""form-q-${i} class="bg-white p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
 
                         <div class="flex flex-col space-y-2">
-                            <textarea
-                                type="text"
-                                aria-multiline="true"
-                                id="q-${i}"
-                                class="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
-                                placeholder='Question:'
-                                wrap='hard'
-                                 
-                            >${questions}</textarea>
+                            <div class="flex justify-evenly">
+                                <textarea
+                                    type="text"
+                                    aria-multiline="true"
+                                    id="q-${i}"
+                                    class="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+                                    placeholder='Question:'
+                                    wrap='hard'
+                                    style=min-width:90%
+                                >${questions}</textarea>
+
+                                <a id="add-image-button-${i}" type="button" class=" w-h hover:bg-gray-300">
+                                    <span class="p-1 pl-2 material-symbols-outlined">
+                                        upload_file
+                                    </span>
+                                </a>
+                            </div>
+
                             <div id="q-${i}-ans">
 
                             </div>
                         </div>
+
+
 
                         <div class='flex justify-end w-full'>
                             <a id="add-option-button-${i}" type="button" class=" w-h hover:bg-gray-300">
@@ -125,6 +137,7 @@ export default class PreviewQuiz extends React.Component {
                 `)
                 $(`#ans-op-q-${i}-1`).attr("style", "min-width:90%")
                 $(`#add-option-button-${i}`).on("click", () => { this.addOptions(i) })
+                $(`#add-image-button-${i}`).on("click", () => { this.upload_img(i) })
             }
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
@@ -269,6 +282,61 @@ export default class PreviewQuiz extends React.Component {
         }
     }
 
+    upload_img = async (qNo) => {
+        const { value: file } = await Swal.fire({
+            title: 'Select image',
+            input: 'file',
+            inputAttributes: {
+                'accept': 'image/*',
+                'aria-label': 'Upload question picture'
+            }
+        })
+
+        if (file) {
+
+            const storageRef = ref(storage, `files/${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on("state_changed",
+                (snapshot) => {
+                    const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+
+                    let timerInterval
+                    Swal.fire({
+                        title: 'Uploading Image',
+                        text: 'Please wait whlie the image is uploading',
+                        didOpen: () => {
+                            if (progress === 100) {
+                                Swal.close()
+                            } else {
+                                Swal.showLoading()
+                            }
+                        },
+                    })
+                },
+                (error) => {
+                    alert(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        const reader = new FileReader()
+                        reader.onload = (e) => {
+                            Swal.fire({
+                                title: 'Question Image uploaded',
+                                imageUrl: downloadURL,
+                                imageAlt: 'Picture of the question'
+                            })
+                        }
+                        reader.readAsDataURL(file)
+
+                        $(`#q-${qNo}`).val(`${downloadURL}`)
+                        $(`#q-${qNo}`).attr("disabled", 'disabled');
+                    });
+                }
+            );
+        }
+    }
+
 
     render() {
         return (
@@ -346,7 +414,7 @@ export default class PreviewQuiz extends React.Component {
                                 id="class"
                                 name="class"
                                 className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
-                                defaultValue={this.state.data["class"]}                                >
+                                defaultValue={this.state.data["class"]}>
 
                                 <option value="6">6</option>
                                 <option value="7">7</option>
