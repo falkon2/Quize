@@ -286,7 +286,7 @@ export default class QuizPage extends React.Component {
                         <form className="md:p-8 max-w-[500px] space-y-8  rounded-lg w-11/12 mb-4">
 
                             <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
-                                className="bg-yellow-600 rounded-md cursor-pointer w-full p-2 text-white hover:bg-yellow-500"
+                                className="bg-yellow-600 rounded-md w-full p-2 text-white hover:bg-yellow-500"
                                 onClick={() => { this.prevQuiz() }}>
                                 Preview Quiz
                             </a>

@@ -81,7 +81,7 @@ export default class QuizPage extends React.Component {
             option[i] = 1
 
             $("#question-container").append(`
-            <form id=""form-q-${i} class="bg-white text-poppins p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
+            <form id=""form-q-${i} class="bg-white p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
 
             <div class="flex flex-col space-y-2">
                 <div class="flex justify-evenly">
@@ -109,7 +109,7 @@ export default class QuizPage extends React.Component {
             </div>
 
             <div class='flex justify-end w-full'>
-                <a id="add-option-button-${i}" type="button" class=" w-h rounded-lg  hover:bg-gray-300">
+                <a id="add-option-button-${i}" type="button" class=" w-h rounded-lg justify-center items-center hover:bg-gray-300">
                     <span class="p-1 rounded-lg material-symbols-outlined">
                         add_circle
                     </span>
@@ -268,8 +268,7 @@ export default class QuizPage extends React.Component {
     render() {
         if (this.state.amount > 0) {
             return (
-                <div>
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+                <div><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
                     <NavBar link={this.state.link} />
 
                     <div className=" bg-gradient-to-r from-primary to-accent flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
@@ -286,7 +285,7 @@ export default class QuizPage extends React.Component {
                         <form className="md:p-8 max-w-[500px] space-y-8  rounded-lg w-11/12 mb-4">
 
                             <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
-                                className="bg-yellow-600 rounded-md cursor-pointer w-full p-2 text-white hover:bg-yellow-500"
+                                className="bg-yellow-600 rounde-md w-full p-2 text-white hover:bg-yellow-500"
                                 onClick={() => { this.prevQuiz() }}>
                                 Preview Quiz
                             </a>

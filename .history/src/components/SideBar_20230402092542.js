@@ -132,7 +132,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         <div className="flex items-center justify-between">
                         <NavLink
                   end
-                  to="/admin-dashboard"
+                  to="/admin-dashboard/test-view"
                   className={`block text-slate-200 truncate transition duration-150 ${
                     pathname.includes('/admin-dashboard') ? 'hover:text-slate-200' : 'hover:text-white'
                   }`}
@@ -187,7 +187,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         <div className="flex items-center justify-between">
                         <NavLink
                   end
-                  to="/test-view"
+                  to="/admin-dashboard/test-view"
                   className={`block text-slate-200 truncate transition duration-150 ${
                     pathname.includes('/test-view') ? 'hover:text-slate-200' : 'hover:text-white'
                   }`}

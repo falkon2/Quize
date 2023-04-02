@@ -130,13 +130,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         }}
                       >
                         <div className="flex items-center justify-between">
-                        <NavLink
-                  end
-                  to="/admin-dashboard"
-                  className={`block text-slate-200 truncate transition duration-150 ${
-                    pathname.includes('/admin-dashboard') ? 'hover:text-slate-200' : 'hover:text-white'
-                  }`}
-                >
                           <div className="flex items-center">
                             <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                               <path
@@ -162,7 +155,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               Dashboard
                             </span>
                           </div>
-                          </NavLink >
                         </div>
                       </a>
                     </React.Fragment>
@@ -187,7 +179,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         <div className="flex items-center justify-between">
                         <NavLink
                   end
-                  to="/test-view"
+                  to="/admin-dashboard/test-view"
                   className={`block text-slate-200 truncate transition duration-150 ${
                     pathname.includes('/test-view') ? 'hover:text-slate-200' : 'hover:text-white'
                   }`}

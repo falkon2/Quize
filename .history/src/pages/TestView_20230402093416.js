@@ -39,7 +39,7 @@ export default function TestView() {
                     </button></Link>
                     </div>
                   </div>
-                  <div className="grid grid-cols-20 gap-6">
+                  <div className="grid grid-cols-12 gap-2">
                     <DashboardStudent />
                   </div>
                 </div>

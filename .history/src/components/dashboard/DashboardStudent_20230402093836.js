@@ -31,7 +31,7 @@ function DashboardStudent() {
                 </th>
               </tr>
             </thead>
-            {/* Table body */}{/* All Tests get mapped here  */}
+            {/* Table body */}
             <tbody className="text-sm font-medium divide-y divide-slate-100">
               {/* Row */}
               <tr>
