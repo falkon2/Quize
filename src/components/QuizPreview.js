@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 import { db } from "../firebase/firebaseConfig"
-import { getDoc, doc, setDoc } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import $ from 'jquery'
 import Swal from 'sweetalert2';
 
