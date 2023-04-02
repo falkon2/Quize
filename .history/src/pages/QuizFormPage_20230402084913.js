@@ -4,7 +4,7 @@ import React from 'react'
 import NavBar from '../components/NavBar'
 import QuizDetails from '../components/QuizDetails'
 import { db, storage } from "../firebase/firebaseConfig"
-import { addDoc, collection } from "firebase/firestore";
+import { getDoc, doc, setDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import $ from 'jquery'
 import Swal from 'sweetalert2';
@@ -83,40 +83,40 @@ export default class QuizPage extends React.Component {
             $("#question-container").append(`
             <form id=""form-q-${i} class="bg-white text-poppins p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
 
-                <div class="flex flex-col space-y-2">
-                    <div class="flex justify-evenly">
-                        <textarea
-                            type="text"
-                            aria-multiline="true"
-                            id="q-${i}"
-                            class="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
-                            placeholder='Question:'
-                            wrap='hard'
-                            style=min-width:90%></textarea>
-                        <a id="add-image-button-${i}" type="button" class=" w-h hover:bg-gray-300">
-                            <span class="p-1 pl-2 material-symbols-outlined">
-                                upload_file
-                            </span>
-                        </a>
-                    </div>
-                    <div id="q-${i}-ans">
-                        <div>
-                            <input id="ans-c-q-${i}-1" type="checkbox" name="checked"/>
-                            <input id='ans-op-q-${i}-1' type="text" placeholder='Options:' class="bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100" />
-                        </div>
-                    </div>
-            
-                </div>
-            
-                <div class='flex justify-end w-full'>
-                    <a id="add-option-button-${i}" type="button" class=" w-h hover:bg-gray-300">
-                        <span class="p-1 material-symbols-outlined">
-                            add_circle
+            <div class="flex flex-col space-y-2">
+                <div class="flex justify-evenly">
+                    <textarea
+                        type="text"
+                        aria-multiline="true"
+                        id="q-${i}"
+                        class="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+                        placeholder='Question:'
+                        wrap='hard'
+                        style=min-width:90%></textarea>
+                    <a id="add-image-button-${i}" type="button" class=" rounded-lg cursor-pointer w-h hover:bg-gray-300">
+                        <span class="p-1 pl-2 material-symbols-outlined">
+                            upload_file
                         </span>
-                        <label>Add Option</label>
                     </a>
                 </div>
-            </form>
+                <div id="q-${i}-ans">
+                    <div>
+                        <input id="ans-c-q-${i}-1" type="checkbox" name="checked"/>
+                        <input id='ans-op-q-${i}-1' type="text" placeholder='Options:' class="bg-gray-50 m-1 ml-4 p-2  outline-0 focus:bg-gray-100" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class='flex justify-end w-full'>
+                <a id="add-option-button-${i}" type="button" class=" w-h rounded-lg  hover:bg-gray-300">
+                    <span class="p-1 rounded-lg material-symbols-outlined">
+                        add_circle
+                    </span>
+                    <label>Add Option</label>
+                </a>
+            </div>
+        </form>
             `)
             $(`#ans-op-q-${i}-1`).attr("style", "min-width:90%")
 
@@ -169,8 +169,6 @@ export default class QuizPage extends React.Component {
         }
 
         // console.log(Q_and_Ans)
-        // console.log(val)
-        // console.log(this.state.amount)
 
         if (val == this.state.amount) {
             const data = {
@@ -187,22 +185,10 @@ export default class QuizPage extends React.Component {
 
             // console.log(data)
             try {
-                var path1 = `questions/`
-                var path2 = ``
-
-                const dbRef = collection(db, path1);
-
-                addDoc(dbRef, data)
-                    .then(docRef => {
-                        console.log(docRef.id)
-                        path2 = `${docRef.id}`
-                        setTimeout(() => { window.location.replace(`/prev-quiz?path1=${path1}&path2=${path2}`) }, 1000)
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    })
-
-
+                var path1 = `questions/${this.state.subject}/${this.state.class}`
+                var path2 = `${this.state.section}/${this.state.quiz_date}/no_of_question:${this.state.amount}`
+                await setDoc(doc(db, path1, path2), data);
+                setTimeout(() => { window.location.replace(`/prev-quiz?path1=${path1}&path2=${path2}`) }, 1000)
             }
             catch (err) {
                 Swal.fire(
@@ -210,7 +196,6 @@ export default class QuizPage extends React.Component {
                     "Questions were not uploaded",
                     "error"
                 )
-                console.log(err)
             }
         }
         else {
@@ -242,6 +227,7 @@ export default class QuizPage extends React.Component {
                 (snapshot) => {
                     const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
 
+                    let timerInterval
                     Swal.fire({
                         title: 'Uploading Image',
                         text: 'Please wait whlie the image is uploading',
@@ -282,13 +268,11 @@ export default class QuizPage extends React.Component {
     render() {
         if (this.state.amount > 0) {
             return (
-                <div className="bg-gradient-to-r from-primary to-accent">
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
+                <div>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-
                     <NavBar link={this.state.link} />
 
-                    <div className="flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
+                    <div className=" bg-gradient-to-r from-primary to-accent flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
                         <form className="bg-white p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 mb-4">
                             <h2 className="text-3xl font-medium">Questions</h2>
                             <h4 className="text-2xl font-medium">Subject: {`${this.state.subject}`}</h4>
@@ -300,8 +284,9 @@ export default class QuizPage extends React.Component {
                         </div>
 
                         <form className="md:p-8 max-w-[500px] space-y-8  rounded-lg w-11/12 mb-4">
-                            <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="button"
-                                className="bg-yellow-600 rounde-md w-full p-2 text-white hover:bg-yellow-500"
+
+                            <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
+                                className="bg-yellow-600 rounded-md w-full p-2 text-white hover:bg-yellow-500"
                                 onClick={() => { this.prevQuiz() }}>
                                 Preview Quiz
                             </a>

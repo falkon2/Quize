@@ -30,7 +30,7 @@ export default function TestView() {
                   <div className="sm:flex sm:justify-between sm:items-center mb-8">
                     <DashboardAvatars />
                     
-                    <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+                    <div className="grid grid-flow-col sm:auto-cols-max justify-center sm:justify-end gap-2">
                     <Link to="/create-quiz"><button className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                       <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-secondary  -ml-1 mr-2">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -39,7 +39,7 @@ export default function TestView() {
                     </button></Link>
                     </div>
                   </div>
-                  <div className="grid grid-cols-20 gap-6">
+                  <div className="grid grid-cols-12 gap-6">
                     <DashboardStudent />
                   </div>
                 </div>
