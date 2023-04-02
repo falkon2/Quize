@@ -1,7 +1,7 @@
 import React from 'react';
 import { db } from '../../firebase/firebaseConfig'
 import { getDocs, collection} from "firebase/firestore";
-import $, { data } from "jquery"
+import $ from "jquery"
 
 var quiz_list = {}
 var quiz_displayed = false
