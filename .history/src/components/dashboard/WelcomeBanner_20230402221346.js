@@ -1,9 +1,17 @@
 import React from 'react';
+import $ from 'jquery'
 
+var name = ""
+var daytime = ""
+var greeting = false
 
-function WelcomeBanner() {
-  const name = localStorage.getItem('name')
+class WelcomeBanner extends React.Component {
+
+  name = localStorage.getItem('name')
   
+
+
+  render() {
     return (
       <div className="relative bg-indigo-200 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
 
@@ -57,7 +65,7 @@ function WelcomeBanner() {
 
       </div>
     );
-
+  }
 }
 
 

@@ -1,9 +1,32 @@
 import React from 'react';
+import $ from 'jquery'
 
+var name = ""
+var daytime = ""
+var greeting = false
 
-function WelcomeBanner() {
-  const name = localStorage.getItem('name')
-  
+class WelcomeBanner extends React.Component {
+
+  componentDidMount() {
+    name = localStorage.getItem('name')
+    this.getTime()
+  }
+
+  getTime() {
+    const new_date = new Date()
+    var time = new_date.getHours()
+
+    if (time >= 0 && time < 12) daytime = "Morning"
+    if (time >= 12 && time < 18) daytime = "Afternoon"
+    if (time >= 18 && time <= 24) daytime = "Evening"
+
+    if (greeting === false) {
+      $("#greeting").append(`Good ${daytime}, ${name}. 👋`)
+      greeting = true
+    }
+  }
+
+  render() {
     return (
       <div className="relative bg-indigo-200 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
 
@@ -51,13 +74,13 @@ function WelcomeBanner() {
 
         {/* Content */}
         <div className="relative">
-          <h1 id="greeting" className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">{`Welcome, ${name}. 👋`}</h1>
+          <h1 id="greeting" className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">{`Good ${daytime}, ${name}. 👋`}</h1>
           <p>Here is what’s happening with your projects today:</p>
         </div>
 
       </div>
     );
-
+  }
 }
 
 
