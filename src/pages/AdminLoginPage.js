@@ -29,7 +29,7 @@ export default class AdminLoginPage extends React.Component {
         const docSnap = await getDoc(docRef);
         var data = docSnap.data()
 
-        // console.log(data)
+        console.log(data)
 
         if (data.id === id && data.password === password) {
           const Toast = Swal.mixin({
@@ -45,6 +45,7 @@ export default class AdminLoginPage extends React.Component {
               setTimeout(() => {
                 localStorage.setItem("user-id", data.id);
                 localStorage.setItem("name", data.name);
+                localStorage.setItem("subject", data.subject);
                 window.location.replace(`${link}`)
               }, 3000)
             }

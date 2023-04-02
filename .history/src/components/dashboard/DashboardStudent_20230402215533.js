@@ -109,5 +109,3 @@ function DashboardStudent() {
     </div>
     );
   }
-  
-export default DashboardStudent;

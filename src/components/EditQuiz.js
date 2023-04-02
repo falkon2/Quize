@@ -253,8 +253,9 @@ export default class PreviewQuiz extends React.Component {
 
             // console.log(data)
             try {
-                var path1 = `questions/${this.state.subject}/${this.state.class}`
-                var path2 = `${this.state.section}/${this.state.quiz_date}/no_of_question:${this.state.amount}`
+                var path1 = `questions/`
+                var path2 = this.state.path2
+
                 await setDoc(doc(db, path1, path2), data);
                 setTimeout(() => {
                     Swal.fire(
