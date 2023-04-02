@@ -340,12 +340,12 @@ export default class PreviewQuiz extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="bg-gradient-to-r from-primary to-accent">
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
                 <NavBar link={this.state.link} />
 
-                <div className="flex justify-center bg-gradient-to-r from-primary to-accent items-center min-h-screen flex-col mt-10" id="questions" >
+                <div className="flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
                     <form
                         className="bg-white p-5 md:p-8 max-w-[500px] space-y-8 shadow rounded-lg w-11/12 ">
 

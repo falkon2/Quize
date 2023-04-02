@@ -149,12 +149,12 @@ export default class PreviewQuiz extends React.Component {
 
     render() {
         return (
-            <div>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
+            <div className="bg-gradient-to-r from-primary to-accent ">
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
 
                 <NavBar link={this.state.link} />
 
-                <div className="flex bg-gradient-to-r from-primary to-accent justify-center items-center min-h-screen flex-col mt-10" id="questions" >
+                <div className="flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
                     <form className="bg-white p-5 md:p-8 max-w-[500px] space-y-2 shadow rounded-lg w-11/12 mb-4">
                         <h2 className="text-3xl font-medium pb-4">Details:</h2>
                         <h4 className="text-2xl font-medium">Subject: {`${this.state.data["subject"]}`}</h4>
