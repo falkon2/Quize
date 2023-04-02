@@ -1,6 +1,6 @@
 import React from 'react';
 import { db } from '../../firebase/firebaseConfig'
-import { getDocs, doc, setDoc, collection, Timestamp } from "firebase/firestore";
+import { getDocs, collection} from "firebase/firestore";
 import $, { data } from "jquery"
 
 var quiz_list = {}
@@ -85,7 +85,7 @@ export default class DashboardStudent extends React.Component {
               <div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>
             </td>
             <td id="view-quiz-${i}" class="p-2">
-              <a id=${data.id} class="text-center text-sky-500">View</a>
+              <div id=${data.id} class="text-center text-sky-500">View</div>
             </td>
           </tr>
         `)
