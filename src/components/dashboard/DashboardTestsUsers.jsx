@@ -38,7 +38,7 @@ function DashboardTestsUsers() {
                 <td className="p-2">
                   <div className="flex items-center">
                   <div className="flex items-center">
-                    <img className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/office/40/null/checked--v1.png" width="36" height="36" viewBox="0 0 36 36" />
+                    <img alt=""className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/office/40/null/checked--v1.png" width="36" height="36" viewBox="0 0 36 36" />
                     </div>
                     <div className="text-slate-800">Algebra (IX-B)</div>
                   </div>
@@ -60,7 +60,7 @@ function DashboardTestsUsers() {
               <tr>
                 <td className="p-2">
                   <div className="flex items-center">
-                    <img className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/office/40/null/checked--v1.png" width="36" height="36" viewBox="0 0 36 36" />
+                    <img alt=""className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/office/40/null/checked--v1.png" width="36" height="36" viewBox="0 0 36 36" />
                     <div className="text-slate-800">Polynomials (X-A)</div>
                   </div>
                 </td>
@@ -82,7 +82,7 @@ function DashboardTestsUsers() {
                 <td className="p-2">
                   <div className="flex items-center">
                   <div className="flex items-center">
-                    <img className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/office/40/null/checked--v1.png" width="36" height="36" viewBox="0 0 36 36" />
+                    <img alt=""className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/office/40/null/checked--v1.png" width="36" height="36" viewBox="0 0 36 36" />
                     </div>
                     <div className="text-slate-800">Nazism (IX-ALL)</div>
                   </div>
@@ -105,7 +105,7 @@ function DashboardTestsUsers() {
                 <td className="p-2">
                   <div className="flex items-center">
                   <div className="flex items-center">
-                    <img className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/fluency/48/null/cancel.png" width="36" height="36" viewBox="0 0 36 36" />
+                    <img alt=""className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/fluency/48/null/cancel.png" width="36" height="36" viewBox="0 0 36 36" />
                     </div>
                     <div className="text-slate-800">Geometry (VII-ALL)</div>
                   </div>
@@ -127,7 +127,7 @@ function DashboardTestsUsers() {
               <tr>
                 <td className="p-2">
                   <div className="flex items-center">
-                  <img className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/fluency/48/null/cancel.png" width="36" height="36" viewBox="0 0 36 36" />
+                  <img alt=""className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/fluency/48/null/cancel.png" width="36" height="36" viewBox="0 0 36 36" />
                     
                     <div className="text-slate-800">Nationialism in Europe (IX-ALL)</div>
                   </div>
@@ -151,7 +151,7 @@ function DashboardTestsUsers() {
                 <td className="p-2">
                   <div className="flex items-center">
                   <div className="flex items-center">
-                    <img className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/fluency/48/null/cancel.png" width="36" height="36" viewBox="0 0 36 36" />
+                    <img alt=""className="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/fluency/48/null/cancel.png" width="36" height="36" viewBox="0 0 36 36" />
                   </div>
                     <div className="text-slate-800">Geometry (VII-ALL)</div>
                   </div>

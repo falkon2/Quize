@@ -192,6 +192,7 @@ export default class PreviewQuiz extends React.Component {
 
 
     prevQuiz() {
+
         $("#prev-quiz").on("click", () => {
             for (let i = 0; i < this.state.amount; i++) {
                 var que = $(`#q-${i}`).val()
@@ -216,71 +217,92 @@ export default class PreviewQuiz extends React.Component {
 
 
 
-    async upload_to_firebase() {
-        var val = Object.keys(correct_ans).length
-        var q_keys = Object.keys(Q_option_list)
-        var ans_keys = Object.keys(correct_ans)
-        var Q_and_Ans = {}
+    upload_to_firebase() {
+        Swal.fire({
+            title: 'Loading',
+            text: 'Please wait...',
+            didOpen: async () => {
+                Swal.showLoading()
 
-        // console.log(correct_ans)
+                var val = Object.keys(correct_ans).length
+                var q_keys = Object.keys(Q_option_list)
+                var ans_keys = Object.keys(correct_ans)
+                var Q_and_Ans = {}
+
+                // console.log(correct_ans)
 
 
-        for (var i = 0; i < val; i++) {
-            var que = q_keys[i]
-            var options = Q_option_list[q_keys[i]]
-            var ans = correct_ans[ans_keys[i]]
+                for (var i = 0; i < val; i++) {
+                    var que = q_keys[i]
+                    var options = Q_option_list[q_keys[i]]
+                    var ans = correct_ans[ans_keys[i]]
 
-            Q_and_Ans[que] = {
-                "options": options,
-                "ans": ans + 1
-            }
-        }
+                    Q_and_Ans[que] = {
+                        "options": options,
+                        "ans": ans + 1
+                    }
+                }
 
-        // console.log(Q_and_Ans)
+                // console.log(Q_and_Ans)
 
-        if (val == this.state.amount) {
-            const data = {
-                no_of_question: this.state.amount,
-                subject: this.state.subject,
-                class: this.state.class,
-                section: this.state.section,
-                start_time: this.state.start_time,
-                quiz_date: this.state.quiz_date,
-                end_time: this.state.end_time,
-                questions: Q_and_Ans
+                if (val == this.state.amount) {
+                    if (this.state.quiz_date !== "" && this.state.start_time !== "" && this.state.end_time !== "") {
+                        const data = {
+                            no_of_question: this.state.amount,
+                            subject: this.state.subject,
+                            class: this.state.class,
+                            section: this.state.section,
+                            start_time: this.state.start_time,
+                            quiz_date: this.state.quiz_date,
+                            end_time: this.state.end_time,
+                            questions: Q_and_Ans
 
-            };
+                        };
 
-            // console.log(data)
-            try {
-                var path1 = `questions/`
-                var path2 = this.state.path2
+                        // console.log(data)
+                        try {
+                            var path1 = `questions/`
+                            var path2 = this.state.path2
 
-                await setDoc(doc(db, path1, path2), data);
-                setTimeout(() => {
+                            await setDoc(doc(db, path1, path2), data);
+                            Swal.close()
+                            setTimeout(() => {
+                                Swal.fire(
+                                    "Updated!!!",
+                                    "Quiz was edited successfully",
+                                    "success"
+                                )
+                                window.location.replace(`/prev-quiz?path1=${path1}&path2=${path2}`)
+                            }, 2000)
+                        }
+                        catch (err) {
+                            Swal.close()
+                            Swal.fire(
+                                "An error Occurred",
+                                "Questions were not uploaded",
+                                "error"
+                            )
+                        }
+                    }
+                    else {
+                        Swal.close()
+                        Swal.fire(
+                            "Quiz Details Incomplete",
+                            "Please Complete the Quiz Details",
+                            "warning"
+                        )
+                    }
+                }
+                else {
                     Swal.fire(
-                        "Updated!!!",
-                        "Quiz was edited successfully",
-                        "success"
+                        "Not enough answer",
+                        "Please select correct answer for each question",
+                        "warning"
                     )
-                    window.location.replace(`/prev-quiz?path1=${path1}&path2=${path2}`)
-                }, 2000)
+                }
             }
-            catch (err) {
-                Swal.fire(
-                    "An error Occurred",
-                    "Questions were not uploaded",
-                    "error"
-                )
-            }
-        }
-        else {
-            Swal.fire(
-                "Not enough answer",
-                "Please select correct answer for each question",
-                "warning"
-            )
-        }
+        })
+
     }
 
     upload_img = async (qNo) => {
