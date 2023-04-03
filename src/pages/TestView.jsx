@@ -39,7 +39,7 @@ export default function TestView() {
                     </div>
                   </div>
                   <div className="grid grid-cols-20 gap-6">
-                    <DashboardTests />
+                    <DashboardTests e={false}/>
                   </div>
                 </div>
             </main>

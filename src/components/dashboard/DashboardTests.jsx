@@ -4,9 +4,21 @@ import { getDocs, collection } from "firebase/firestore";
 import $ from "jquery"
 
 var quiz_list = {}
-var quiz_displayed = false
+var quiz_displayed = ""
 
 export default class DashboardStudent extends React.Component {
+
+  constructor(e) {
+    super()
+
+    this.state = {
+      a: e.e
+    }
+    quiz_displayed = this.state.a
+    console.clear()
+    // console.log(quiz_displayed)
+  }
+
   async getQuiz() {
     const colRef = collection(db, "questions");
     const docsSnap = await getDocs(colRef);
@@ -145,7 +157,7 @@ export default class DashboardStudent extends React.Component {
       }
       quiz_displayed = !quiz_displayed
     }
-    else{
+    else {
       quiz_displayed = !quiz_displayed
     }
   }

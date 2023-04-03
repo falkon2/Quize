@@ -41,7 +41,7 @@ export default function AdminDashboardPage() {
                   </div>
                   <div className="grid grid-cols-12 gap-6">
                     <DashboardList />
-                    <DashboardTests />
+                    <DashboardTests e={false}/>
                   </div>
                 </div>
             </main>
