@@ -38,8 +38,6 @@ export default class DashboardStudent extends React.Component {
     if (quiz_displayed === false) {
       console.clear()
 
-
-
       const new_date = new Date()
       var hour = new_date.getHours()
       var min = new_date.getMinutes()
