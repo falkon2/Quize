@@ -143,10 +143,10 @@ export default class DashboardStudent extends React.Component {
         }
 
       }
-      quiz_displayed = true
+      quiz_displayed = !quiz_displayed
     }
     else{
-      quiz_displayed = false
+      quiz_displayed = !quiz_displayed
     }
   }
 
