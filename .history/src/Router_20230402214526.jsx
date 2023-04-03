@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import TeachersStudentViewUser from './pages/TeachersStudentViewUser';
 import ProfileTeacher from './pages/ProfileTeacher';
 function Router() {
+    //here firebase needs to be implemented for dynamic routing for user profile
     const name = localStorage.getItem('name')
 
     return (
