@@ -117,17 +117,17 @@ export default class DashboardStudent extends React.Component {
 
             if (start_exam_hour <= hour && end_exam_hour >= hour) {
               if (end_exam_min >= min) {
-                $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">In Progress</div>`)
+                $(`#status-${i}`).append(`<div class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">In Progress</div>`)
                 $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
               }
               else {
-                $(`#status-${i}`).append(`<div class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">Closed</div>`)
+                $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
                 $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
               }
 
             }
             else {
-              $(`#status-${i}`).append(`<div class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">Closed</div>`)
+              $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
               $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
             }
 
@@ -138,7 +138,7 @@ export default class DashboardStudent extends React.Component {
           }
         }
         else {
-          $(`#status-${i}`).append(`<div class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">Closed</div>`)
+          $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
           $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
         }
 
