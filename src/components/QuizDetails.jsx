@@ -121,9 +121,7 @@ export default class QuizDetails extends React.Component {
                                 <option value="Social Studies">Social Studies</option>
                                 <option value="Mathematics">Mathematics</option>
                                 <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                <option value="Assamese">Assamese</option>
-                                <option value="Hindi">Hindi</option>
-                                <option value="Sanskrit">Sanskrit</option>
+                                
                             </select>
                         </div>
 
