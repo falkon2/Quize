@@ -23,7 +23,7 @@ export default class Welcome extends React.Component {
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Quize</h1>
+            <h1 className="mb-5 text-5xl font-bold">Quiz</h1>
             <p className="mb-5">Join us today to experience the extraordinary world of mathematics. In a simplistic fun manner.</p>
             <Link to="Login"><button className="btn btn-neutral">Get Started</button></Link>
           </div>
