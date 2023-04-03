@@ -35,8 +35,10 @@ export default class DashboardStudent extends React.Component {
   }
 
   display_quiz_details() {
+    console.clear()
+
     if (quiz_displayed === false) {
-      console.clear()
+
 
       const new_date = new Date()
       var hour = new_date.getHours()
@@ -143,7 +145,10 @@ export default class DashboardStudent extends React.Component {
         }
 
       }
-      quiz_displayed = true
+      quiz_displayed = !quiz_displayed
+    }
+    else{
+      quiz_displayed = !quiz_displayed
     }
   }
 
