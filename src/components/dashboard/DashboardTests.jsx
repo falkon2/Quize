@@ -35,10 +35,10 @@ export default class DashboardStudent extends React.Component {
   }
 
   display_quiz_details() {
-    console.clear()
+    // console.clear()
+    // console.log(quiz_displayed)
 
     if (quiz_displayed === false) {
-
 
       const new_date = new Date()
       var hour = new_date.getHours()
@@ -83,8 +83,6 @@ export default class DashboardStudent extends React.Component {
         catch (err) {
           console.log(err)
         }
-
-
 
         $("#quiz-details").append(`
           <tr>
@@ -191,9 +189,6 @@ export default class DashboardStudent extends React.Component {
               </thead>
               {/* Table body */}
               <tbody id='quiz-details' className="text-sm font-medium divide-y divide-slate-100">
-                {/* Row */}
-
-
 
               </tbody>
             </table>
