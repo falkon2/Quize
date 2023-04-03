@@ -1,1 +1,0 @@
-//AuthContext.js: Context provider for handling authentication.
