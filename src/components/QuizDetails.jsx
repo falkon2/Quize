@@ -11,6 +11,7 @@ export default class QuizDetails extends React.Component {
             link: "/admin-dashboard"
         }
     }
+
     render() {
         return (
             <div>

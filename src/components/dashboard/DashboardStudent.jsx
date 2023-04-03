@@ -1,7 +1,7 @@
 import React from 'react';
-import { db } from '../../firebase/firebaseConfig'
-import { getDocs, collection} from "firebase/firestore";
-import $ from "jquery"
+// import { db } from '../../firebase/firebaseConfig'
+// import { getDocs, collection} from "firebase/firestore";
+// import $ from "jquery"
 import Jdenticon from 'react-jdenticon';
 
 function DashboardStudent() {

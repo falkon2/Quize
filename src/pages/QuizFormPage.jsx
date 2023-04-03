@@ -129,6 +129,14 @@ export default class QuizPage extends React.Component {
 
 
     prevQuiz() {
+        Swal.fire({
+            title: 'Loading',
+            text: 'Please wait...',
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        })
+
         $("#prev-quiz").on("click", () => {
             for (let i = 0; i < this.state.amount; i++) {
                 var que = $(`#q-${i}`).val()
@@ -151,6 +159,14 @@ export default class QuizPage extends React.Component {
 
 
     async upload_to_firebase() {
+        Swal.fire({
+            title: 'Loading',
+            text: 'Please wait...',
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        })
+        
         var val = Object.keys(correct_ans).length
         var q_keys = Object.keys(Q_option_list)
         var ans_keys = Object.keys(correct_ans)

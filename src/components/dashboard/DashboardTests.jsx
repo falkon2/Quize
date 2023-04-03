@@ -1,11 +1,10 @@
 import React from 'react';
 import { db } from '../../firebase/firebaseConfig'
-import { getDocs, collection} from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 import $ from "jquery"
 
 var quiz_list = {}
 var quiz_displayed = false
-
 
 export default class DashboardStudent extends React.Component {
   async getQuiz() {
@@ -37,33 +36,55 @@ export default class DashboardStudent extends React.Component {
 
   display_quiz_details() {
     if (quiz_displayed === false) {
-      const new_date = new Date()
-      var time = `${new_date.getHours()}:${new_date.getMinutes()}`
+      console.clear()
 
-      var date = new_date.getDate()
+
+
+      const new_date = new Date()
+      var hour = new_date.getHours()
+      var min = new_date.getMinutes()
+
+      var date = parseInt(new_date.getDate())
       var year = new_date.getFullYear()
       var month = new_date.getMonth() + 1
 
-      if (date < 10) date = `0${date}`
-      if (month < 10) month = `0${month}`
 
-      var full_date = year + "-" + month + "-" + date
       // console.log(full_date)
 
       var ids = Object.keys(quiz_list)
 
-      if(ids.length === 0){
+      if (ids.length === 0) {
         $("#quiz-details").append(`
           <h1 class="p-5">
           No Quiz scheduled</h1>
         `)
       }
-
       for (var i = 0; i < ids.length; i++) {
-
         var data = quiz_list[ids[i]]
-        var location = `/prev-quiz?path1=questions/&path2=${ids[i]}`
+        var location = `/prev-quiz?path1=questions/&path2=`
         // console.log(location)
+
+
+        try {
+          var time = data.time
+          var start_exam_hour = parseInt(time.split("-")[0].split(":")[0])
+          var start_exam_min = parseInt(time.split("-")[0].split(":")[1])
+          var end_exam_hour = parseInt(time.split("-")[1].split(":")[0])
+          var end_exam_min = parseInt(time.split("-")[1].split(":")[1])
+          // console.log(exam_hour)
+
+
+          var full_exam_date = data.quiz_date
+          var eaxm_year = parseInt(full_exam_date.split("-")[0])
+          var exam_mon = parseInt(full_exam_date.split("-")[1])
+          var exam_date = parseInt(full_exam_date.split("-")[2])
+          // console.log(exam_date + " :: " + date)
+        }
+        catch (err) {
+          console.log(err)
+        }
+
+
 
         $("#quiz-details").append(`
           <tr>
@@ -76,29 +97,61 @@ export default class DashboardStudent extends React.Component {
               </div>
             </td>
             <td class="p-2">
-              <div class="text-center">${data.quiz_date}</div>
+              <div class="text-center">${full_exam_date}</div>
             </td>
             <td class="p-2">
-              <div class="text-center">${data.time}</div>
+              <div class="text-center">${time}</div>
             </td>
-            <td class="p-2">
-              <div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>
+            <td id="status-${i}" class="p-2">
+              
             </td>
-            <td id="view-quiz-${i}" class="p-2">
+            <td id="view-quiz${i}" class="p-2">
               <div id=${data.id} class="text-center text-sky-500">View</div>
             </td>
           </tr>
         `)
-        $(`#view-quiz-${i}`).on("click", () => { this.view_quiz(location, data.subject, i) })
+
+        // console.log(sub)
+        // console.log(ids[i])
+
+        if (eaxm_year >= year && exam_mon > month || exam_date >= date) {
+          if (exam_mon === month && exam_date === date) {
+
+            if (start_exam_hour <= hour && end_exam_hour >= hour) {
+              if (end_exam_min >= min) {
+                $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">In Progress</div>`)
+                $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+              }
+              else {
+                $(`#status-${i}`).append(`<div class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">Closed</div>`)
+                $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+              }
+
+            }
+            else {
+              $(`#status-${i}`).append(`<div class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">Closed</div>`)
+              $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+            }
+
+          }
+          else {
+            $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>`)
+            $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+          }
+        }
+        else {
+          $(`#status-${i}`).append(`<div class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">Closed</div>`)
+          $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+        }
 
       }
       quiz_displayed = true
     }
   }
 
-  view_quiz(location, sub, i) {
-    console.log(location)
-    console.log(sub + " : " + i)
+  view_quiz(el, location) {
+    let id = el.target.getAttribute("id");
+    window.location.replace(location + id)
   }
 
 
@@ -111,7 +164,7 @@ export default class DashboardStudent extends React.Component {
         <div className="p-3">
 
           {/* Table */}
-          <div style={{maxHeight:"340px", minHeight:"100px"}} className="overflow-x-auto overflow-y-auto">
+          <div style={{ maxHeight: "340px", minHeight: "100px" }} className="overflow-x-auto overflow-y-auto">
             <table className="table-auto w-full">
               {/* Table header */}
               <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
