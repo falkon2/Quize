@@ -1,25 +1,21 @@
-//StudentDashboardPage.js: Page for displaying the student dashboard.
-//StudentDashboardPage.js: Page for displaying the student dashboard.
-
 import React from 'react'
-import NavBar from '../components/NavBar';
+
+import React from 'react';
 import { useState } from 'react';
+import NavBar from '../components/NavBar';
 import SideBar from '../components/SideBar';
 import WelcomeBanner from '../components/dashboard/WelcomeBanner';
 import DashboardAvatars from '../components/dashboard/DashboardAvatars';
-import DashboardList from '../components/dashboard/DashboardList';
-import DashboardTests from '../components/dashboard/DashboardTests';
 
-export default function StudentDashboardPage() {
 
-  
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
+export default function TeachersStudentViewUser() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-      <div className="flex h-screen overflow-hidden bg-gradient-to-tl from-primary to-secondary font-poppins">
-              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
-        <SideBar  sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+    
+        <div className="flex h-screen overflow-hidden bg-gradient-to-tl from-primary to-secondary font-poppins">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
+        <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <NavBar link={'./user-dashboard'} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             <main>
@@ -31,18 +27,14 @@ export default function StudentDashboardPage() {
                     <DashboardAvatars />
                     
                     <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-                    
                     </div>
                   </div>
-                  <div className="grid grid-cols-12 gap-6">
-                    <DashboardList />
-                    <DashboardTests e={false}/>
+                  <div className="grid grid-cols-20 gap-6">
+                    To show the user result with the quiz questions and correct answers here
                   </div>
                 </div>
             </main>
         </div>
-      </div>        
-    )
+        </div>
+  )
 }
-
-

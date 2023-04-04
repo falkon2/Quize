@@ -6,7 +6,7 @@ import $ from "jquery"
 var quiz_list = {}
 var quiz_displayed = ""
 
-export default class DashboardTests extends React.Component {
+export default class DashboardStudent extends React.Component {
 
   constructor(e) {
     super()

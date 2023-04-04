@@ -12,11 +12,9 @@ function UserMenu() {
 
   const name = localStorage.getItem('name') 
   const id = localStorage.getItem('user-id')
-  const role = localStorage.getItem('role')
+  
   const handleLogOut = () => {
-    localStorage.removeItem('user-id')
-    localStorage.removeItem('name')
-    localStorage.removeItem('role');
+    localStorage.clear();
     window.location.href = '/login'
   }  
   // close on click outside
@@ -50,7 +48,7 @@ function UserMenu() {
       >
         <Jdenticon value={`${name}`} size={32} />
         <div className="flex items-center truncate">
-          <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">{name}</span>
+          <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">{`${name}`}</span>
           <svg className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
@@ -73,7 +71,7 @@ function UserMenu() {
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-10 mb-1 border-b border-slate-200">
-            <div className="font-medium  text-slate-800">{role}</div>
+            <div className="font-medium  text-slate-800">{`Name: ${name}`}</div>
             <div className="text-xs text-slate-500 italic">{`ID: ${id}`}</div>
           </div>
           <ul>

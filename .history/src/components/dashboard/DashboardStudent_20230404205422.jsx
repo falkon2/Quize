@@ -1,5 +1,5 @@
 import React from 'react';
-import  Jdenticon  from 'react-jdenticon';
+
 function DashboardStudent() {
 
 

@@ -7,15 +7,16 @@ import NavBar from '../components/NavBar';
 import SideBar from '../components/SideBar';
 import WelcomeBanner from '../components/dashboard/WelcomeBanner';
 import DashboardAvatars from '../components/dashboard/DashboardAvatars';
-import DashboardTests from '../components/dashboard/DashboardTests';
+import DashboardTestsUsers from '../components/dashboard/DashboardTestsUsers';
 
-export default function TestView() {
+export default function TestViewUser() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+
     return (
       <div className="flex h-screen overflow-hidden bg-gradient-to-tl from-primary to-secondary font-poppins">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
         <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <NavBar link={'./admin-dashboard'} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -28,16 +29,11 @@ export default function TestView() {
                     <DashboardAvatars />
                     
                     <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-                    <Link to="/create-quiz"><button className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                      <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-secondary  -ml-1 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                      </svg>
-                      Create New Quiz
-                    </button></Link>
+                    
                     </div>
                   </div>
                   <div className="grid grid-cols-20 gap-6">
-                    <DashboardTests e={false}/>
+                    <DashboardTestsUsers />
                   </div>
                 </div>
             </main>

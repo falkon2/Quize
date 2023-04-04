@@ -20,7 +20,7 @@ export default class AdminLoginPage extends React.Component {
     var password = $("#password").val()
     var link = ""
 
-    if (user === "Teachers") { link = "/admin-dashboard" }
+    if (user === "Teacher") { link = "/admin-dashboard" }
     if (user === "Student") { link = "/user-dashboard" }
 
     if (link !== "") {
@@ -46,8 +46,7 @@ export default class AdminLoginPage extends React.Component {
                 localStorage.setItem("user-id", data.id);
                 localStorage.setItem("name", data.name);
                 localStorage.setItem("subject", data.subject);
-                if (user === "Teachers") { localStorage.setItem("role", "Teacher") }
-                if (user === "Student") { localStorage.setItem("role", "Student") }
+                localStorage.setItem("role", user)
                 window.location.replace(`${link}`)
               }, 3000)
             }
@@ -105,7 +104,7 @@ export default class AdminLoginPage extends React.Component {
               </label>
               <select className="select select-primary w-full max-w-xs backdrop-blur-sm bg-white/40 text-black" name="User" id="User">
                 <option disabled selected>Select Login method</option>
-                <option value="Teachers">Teacher</option>
+                <option value="Teacher">Teacher</option>
                 <option value="Student">Student</option>
               </select>
               <div className="form-control">

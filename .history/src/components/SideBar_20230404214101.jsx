@@ -482,7 +482,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         <div className="flex items-center justify-between">
                         <NavLink
                   end
-                to={`/${name}/result`}
+                to={`/results`}
                   className={`block text-slate-200 truncate transition duration-150 ${
                     pathname.includes(`/result`) ? 'hover:text-slate-200' : 'hover:text-white'
                   }`}

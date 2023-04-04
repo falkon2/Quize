@@ -46,8 +46,6 @@ export default class AdminLoginPage extends React.Component {
                 localStorage.setItem("user-id", data.id);
                 localStorage.setItem("name", data.name);
                 localStorage.setItem("subject", data.subject);
-                if (user === "Teachers") { localStorage.setItem("role", "Teacher") }
-                if (user === "Student") { localStorage.setItem("role", "Student") }
                 window.location.replace(`${link}`)
               }, 3000)
             }

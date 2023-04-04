@@ -1,8 +1,10 @@
 import React from 'react';
-import  Jdenticon  from 'react-jdenticon';
+// import { db } from '../../firebase/firebaseConfig'
+// import { getDocs, collection} from "firebase/firestore";
+// import $ from "jquery"
+import Jdenticon from 'react-jdenticon';
+
 function DashboardStudent() {
-
-
 
   const customers = [
     {

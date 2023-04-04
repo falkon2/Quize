@@ -8,7 +8,7 @@ import SideBar from '../components/SideBar';
 import WelcomeBanner from '../components/dashboard/WelcomeBanner';
 import DashboardAvatars from '../components/dashboard/DashboardAvatars';
 import DashboardList from '../components/dashboard/DashboardList';
-import DashboardTests from '../components/dashboard/DashboardTests';
+import DashboardTestsUsers from '../components/dashboard/DashboardTestsUsers';
 
 export default function StudentDashboardPage() {
 
@@ -36,7 +36,7 @@ export default function StudentDashboardPage() {
                   </div>
                   <div className="grid grid-cols-12 gap-6">
                     <DashboardList />
-                    <DashboardTests e={false}/>
+                    <DashboardTestsUsers />
                   </div>
                 </div>
             </main>

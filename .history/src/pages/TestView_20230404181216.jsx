@@ -11,11 +11,13 @@ import DashboardTests from '../components/dashboard/DashboardTests';
 
 export default function TestView() {
 
+  
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
 
     return (
       <div className="flex h-screen overflow-hidden bg-gradient-to-tl from-primary to-secondary font-poppins">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
         <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <NavBar link={'./admin-dashboard'} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />

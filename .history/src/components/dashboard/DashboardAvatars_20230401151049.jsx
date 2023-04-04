@@ -1,10 +1,12 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Jdenticon from 'react-jdenticon';
+import { db } from "../../firebase/firebaseConfig"
+import { getDoc, doc } from "firebase/firestore";
 
 function DashboardAvatars() {
 
-  
     const name = localStorage.getItem('name')
 
     return (

@@ -10,7 +10,6 @@ import PreviewQuiz from "./components/QuizPreview"
 import EditQuiz from "./components/EditQuiz"
 import NotFound from './pages/NotFound';
 import Results from './pages/Results';
-import ResultsStudent from './pages/ResultsStudent';
 import Profile from './pages/Profile';
 import ProtectedRouter from './components/ProtectedRouter';
 import ProtectedRouterStudent from './components/ProtectedRouterStudent';
@@ -37,7 +36,7 @@ function Router() {
             <Route element={<ProtectedRouterStudent/>}>
                 <Route path="/user-dashboard" element={<StudentDashboardPage/>} />
                 <Route path={`/${name}/test-view`} element={<TestViewStudent />} />
-                <Route path={`/${name}/result`} element={<ResultsStudent />} />
+                <Route path={`/${name}/result`} element={<TeachersStudentView />} />
 
             </Route>
             

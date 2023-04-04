@@ -4,11 +4,11 @@
 import React from 'react'
 import NavBar from '../components/NavBar';
 import { useState } from 'react';
-import SideBar from '../components/SideBar';
+import SideBarUsers from '../components/SideBarUsers';
 import WelcomeBanner from '../components/dashboard/WelcomeBanner';
 import DashboardAvatars from '../components/dashboard/DashboardAvatars';
 import DashboardList from '../components/dashboard/DashboardList';
-import DashboardTests from '../components/dashboard/DashboardTests';
+import DashboardTestsUsers from '../components/dashboard/DashboardTestsUsers';
 
 export default function StudentDashboardPage() {
 
@@ -19,7 +19,7 @@ export default function StudentDashboardPage() {
     return (
       <div className="flex h-screen overflow-hidden bg-gradient-to-tl from-primary to-secondary font-poppins">
               <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
-        <SideBar  sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <SideBarUsers  sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <NavBar link={'./user-dashboard'} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             <main>
@@ -36,7 +36,7 @@ export default function StudentDashboardPage() {
                   </div>
                   <div className="grid grid-cols-12 gap-6">
                     <DashboardList />
-                    <DashboardTests e={false}/>
+                    <DashboardTestsUsers />
                   </div>
                 </div>
             </main>

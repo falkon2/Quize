@@ -1,22 +1,42 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Jdenticon from 'react-jdenticon';
+import { db } from "../../firebase/firebaseConfig"
+import { getDoc, doc } from "firebase/firestore";
 
 function DashboardAvatars() {
 
   
+  const getStudent = async () => {
+    const colRef = collection(db, "Student");
+    const docsSnap = await getDocs(colRef);
+    docsSnap.forEach(doc => {
+
+      var res = doc.data()
+
+      Student_list[doc.id] = {
+        "name": res.name
+      }
+    })
+  };
+
+  useEffect(()=> {
+    getStudent()
+  })
+
     const name = localStorage.getItem('name')
 
     return (
     <ul className="flex  flex-wrap justify-center sm:justify-start mb-8 sm:mb-0 -space-x-3 -ml-px">
       <li>
         <Link className="block" to="#0">
-            <Jdenticon value={`${name}`} size={32} />
+            <Jdenticon value={`${data.name}`} size={32} />
         </Link>
       </li>
       <li>
         <Link className="block" to="#0">
-            <Jdenticon value={`${name}`} size={32} />
+            <Jdenticon value={`${data.name}`} size={32} />
         </Link>
       </li>
       <li>
