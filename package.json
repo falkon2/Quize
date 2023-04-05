@@ -10,7 +10,6 @@
     "chart.js": "^4.2.1",
     "chartjs-adapter-moment": "^1.0.1",
     "daisyui": "^2.51.5",
-    "faker": "^6.6.6",
     "firebase": "^9.18.0",
     "flowbite": "^1.6.4",
     "flowbite-react": "^0.4.2",
