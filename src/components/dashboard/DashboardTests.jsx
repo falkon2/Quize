@@ -15,7 +15,7 @@ export default class DashboardTests extends React.Component {
       a: e.e
     }
     quiz_displayed = this.state.a
-    console.clear()
+    // console.clear()
     // console.log(quiz_displayed)
   }
 
@@ -41,8 +41,8 @@ export default class DashboardTests extends React.Component {
 
   }
 
-  useEffect() {
-    this.getQuiz()
+  componentDidMount(){
+    // this.getQuiz()
     // this.display_quiz_details()
   }
 

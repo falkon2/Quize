@@ -53,7 +53,7 @@ function DashboardCard01() {
           <Jdenticon src={name} size={32} alt="Icon 01" />
           {/* Menu button */}
           <EditMenu className="relative inline-flex">
-            <li>
+            <li style={{minWidth: "50px"}} >
               <Link className="font-medium text-sm text-slate-600 hover:text-slate-800 flex py-1 px-3" to="#0">Option 1</Link>
             </li>
             <li>
