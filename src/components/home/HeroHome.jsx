@@ -74,7 +74,7 @@ function HeroHome() {
             <Modal id="modal" ariaLabel="modal-headline" show={videoModalOpen} handleClose={() => setVideoModalOpen(false)}>
               <div className="relative pb-9/16">
                 <video ref={video} className="absolute w-full h-full" width="1920" height="1080" loop autoPlay controls>
-                  <source src="/videos/video.mkv" type="video/mkv" />
+                  <source src="" type="video/mkv" />
                   Your browser does not support the video tag.
                 </video>
               </div>

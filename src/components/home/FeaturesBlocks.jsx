@@ -14,7 +14,7 @@ export default function FeaturesBlocks() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             <h2 className="h2 mb-4">How <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">Quize</span> works</h2>
-            <p className="text-xl text-gray-600">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat.</p>
+            <p className="text-xl text-gray-600">Quize leverages cutting-edge technology and innovative features to provide a seamless and effective platform for quiz and test taking, performance tracking, and results analysis.</p>
           </div>
 
           {/* Items */}
@@ -114,7 +114,8 @@ export default function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1"> Performance Tracking 🤖</h4>
+              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
+                 Performance Tracking 🤖</h4>
               <p className="text-gray-600 text-center">Monitor Progress on Quize.</p>
             </div>
 
