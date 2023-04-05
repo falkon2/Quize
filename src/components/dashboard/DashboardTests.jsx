@@ -42,7 +42,7 @@ export default class DashboardTests extends React.Component {
   }
 
   componentDidMount(){
-    // this.getQuiz()
+    this.getQuiz()
     // this.display_quiz_details()
   }
 
