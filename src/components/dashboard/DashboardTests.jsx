@@ -5,6 +5,7 @@ import $ from "jquery"
 
 var quiz_list = {}
 var quiz_displayed = ""
+var role_value = ""
 
 export default class DashboardTests extends React.Component {
 
@@ -15,8 +16,10 @@ export default class DashboardTests extends React.Component {
       a: e.e
     }
     quiz_displayed = this.state.a
-    // console.clear()
-    // console.log(quiz_displayed)
+
+
+    if (localStorage.getItem("role") === "Student") role_value = "Start"
+    else if (localStorage.getItem("role") === "Teacher") role_value = "View"
   }
 
   async getQuiz() {
@@ -41,7 +44,7 @@ export default class DashboardTests extends React.Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getQuiz()
     // this.display_quiz_details()
   }
@@ -73,7 +76,7 @@ export default class DashboardTests extends React.Component {
       }
       for (var i = 0; i < ids.length; i++) {
         var data = quiz_list[ids[i]]
-        var location = `/prev-quiz?path1=questions/&path2=`
+        var location = `path1=questions/&path2=`
         // console.log(location)
 
 
@@ -116,7 +119,7 @@ export default class DashboardTests extends React.Component {
               
             </td>
             <td id="view-quiz${i}" class="p-2">
-              <div id=${data.id} class="text-center text-sky-500">View</div>
+              <div id=${data.id} class="text-center text-sky-500">${role_value}</div>
             </td>
           </tr>
         `)
@@ -134,24 +137,24 @@ export default class DashboardTests extends React.Component {
               }
               else {
                 $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
-                $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+                if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
               }
 
             }
             else {
               $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
-              $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+              if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
             }
 
           }
           else {
             $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>`)
-            $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+            if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
           }
         }
         else {
           $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
-          $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+          if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
         }
 
       }
@@ -164,7 +167,14 @@ export default class DashboardTests extends React.Component {
 
   view_quiz(el, location) {
     let id = el.target.getAttribute("id");
-    window.location.replace(location + id)
+
+    if (role_value === "View") {
+      window.location.replace("/prev-quiz?" + location + id)
+    }
+
+    else if (role_value === "Start") {
+      window.location.replace("/start-quiz?" + location + id)
+    }
   }
 
 
