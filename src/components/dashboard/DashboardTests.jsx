@@ -124,8 +124,6 @@ export default class DashboardTests extends React.Component {
           </tr>
         `)
 
-        // console.log(sub)
-        // console.log(ids[i])
 
         if (eaxm_year >= year && exam_mon > month || exam_date >= date) {
           if (exam_mon === month && exam_date === date) {
