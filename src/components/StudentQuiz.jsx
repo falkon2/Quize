@@ -1,22 +1,72 @@
 import React from 'react'
 import NavBar from './NavBar'
 import { db } from "../firebase/firebaseConfig"
-import { getDoc, doc, setDoc } from "firebase/firestore";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
 import $ from 'jquery'
 import Swal from 'sweetalert2';
 
 var question_add = false
-
-
+var correct_ans = {}
 
 export default class StartQuiz extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            data: {},
+            // data: {},
+            data: {
+                "end_time": "23:59",
+                "questions": {
+                    "False\n": {
+                        "ans": 1,
+                        "options": [
+                            "True",
+                            "False",
+                            "True"
+                        ]
+                    },
+                    "True": {
+                        "ans": 4,
+                        "options": [
+                            "False",
+                            "True",
+                            "True",
+                            "False"
+                        ]
+                    },
+                    "1st": {
+                        "ans": 1,
+                        "options": [
+                            "First",
+                            "aa"
+                        ]
+                    },
+                    "Option A": {
+                        "ans": 1,
+                        "options": [
+                            "Option a ",
+                            "False"
+                        ]
+                    },
+                    "False": {
+                        "options": [
+                            "True",
+                            "True",
+                            "False",
+                            "answer"
+                        ],
+                        "ans": 4
+                    }
+                },
+                "class": "8",
+                "no_of_question": "5",
+                "section": "E",
+                "start_time": "00:05",
+                "quiz_date": "2023-04-24",
+                "subject": "Social Studies"
+            },
             path1: "",
-            path2: ""
+            path2: "",
         }
     }
 
@@ -28,8 +78,8 @@ export default class StartQuiz extends React.Component {
 
         this.setState({ path1: path1, path2: path2 })
 
-        this.getData(path1, path2)
-        // this.addQuestion(this.state.data)
+        // this.getData(path1, path2)
+        this.addQuestion(this.state.data)
     }
 
     async getData(path1, path2) {
@@ -51,12 +101,14 @@ export default class StartQuiz extends React.Component {
                 // console.log(`: ${i}`)
                 $(`#q-${qNo}-ans`).append(`
                     <div>
-                        <input id="ans-c-q-${qNo}-${i}" type="checkbox" />
-                        <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
+                        <input id="ans-c-q-${qNo}-${i}" type="checkbox" correct />
+                        <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" correct disabled></input>
                     </div>
                     `)
                 $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
                 $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
+                $(`#ans-c-q-${qNo}-${i}`).on("click", () => { this.checkbox(qNo, i, "true") })
+
             }
             else {
                 $(`#q-${qNo}-ans`).append(`
@@ -67,8 +119,13 @@ export default class StartQuiz extends React.Component {
                 `)
                 $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
                 $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
+                $(`#ans-c-q-${qNo}-${i}`).on("click", () => { this.checkbox(qNo, i, "false") })
             }
         }
+    }
+
+    checkbox(qNo, op_no, result) {
+        correct_ans[qNo] = [op_no, result]
     }
 
     addQuestion(data) {
@@ -132,44 +189,70 @@ export default class StartQuiz extends React.Component {
         }
     }
 
-    async submit() {
+    submit() {
 
+        var score = 0
         var path1 = `Student/`
         var path2 = localStorage.getItem("user-id")
-        var passed_quiz = localStorage.getItem("quiz")
-        var quiz = passed_quiz.split(",")
 
-        quiz.push(this.state.path2)
+        var quiz_id = this.state.path2
+        var quiz = {}
 
-        console.log(quiz)
+        // console.log(correct_ans[quiz_id])
+        var keys = Object.keys(correct_ans)
 
-        const data = {
-            "class": localStorage.getItem("class"),
-            "id": localStorage.getItem("user-id"),
-            "name": localStorage.getItem("name"),
-            "password": localStorage.getItem("pass"),
-            "quiz": quiz
+        for (var i = 0; i < keys.length; i++) {
+            var result = (correct_ans[keys[i]][1])
+            if (result === "true") score += 1
         }
 
-        localStorage.setItem("quiz", quiz)
+        var total_q = keys.length
 
-        await setDoc(doc(db, path1, path2), data);
+        var update_data_structure = {
+            "ans": correct_ans,
+            "marks": score,
+            "percentage": (score / total_q) * 100
+        }
+
+        // console.log(update_data_structure)
+        // quiz[quiz_id] = update_data_structure
+
+        var data = {}
+        data[quiz_id] = update_data_structure
+
 
         Swal.fire({
             title: 'Submit Response?',
-            text: "You won't be able to revert this!",
+            text: "You won't be able to change the answers!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, Submit!'
-        }).then((result) => {
+
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    'Success!',
-                    'Your Response has been submited.',
-                    'success'
-                )
+
+                const docRef = doc(db, path1, path2)
+
+                await updateDoc(docRef, data)
+                    .then(docRef => {
+                        console.log("Submited");
+                        Swal.fire(
+                            'Success!',
+                            'Your Response has been submited.',
+                            'success'
+                        )
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        Swal.fire(
+                            'Error Occured!',
+                            'Sorry an error occured.',
+                            'error'
+                        )
+                    })
+
                 setTimeout(() => { window.location.replace("/user-dashboard") }, 2000)
             }
         })
