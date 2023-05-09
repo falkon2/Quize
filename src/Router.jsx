@@ -15,7 +15,8 @@ import ResultsStudent from './pages/ResultsStudent';
 import Profile from './pages/Profile';
 import ProtectedRouter from './components/ProtectedRouter';
 import ProtectedRouterStudent from './components/ProtectedRouterStudent';
-import StudentQuiz from './components/StudentQuiz'
+import StudentQuiz from './components/StudentQuiz';
+import ViewQuizResult from './components/ViewQuizResult';
 
 function Router() {
     const name = localStorage.getItem('name')
@@ -41,6 +42,7 @@ function Router() {
                 <Route path="/user-dashboard" element={<StudentDashboardPage />} />
                 <Route path={`/${name}/test-view`} element={<TestViewStudent />} />
                 <Route path={`/${name}/result`} element={<ResultsStudent />} />
+                <Route path={`/${name}/ViewQuizResult`} element={<ViewQuizResult />} />
                 <Route path={`/start-quiz`} element={<StudentQuiz />} />
 
             </Route>

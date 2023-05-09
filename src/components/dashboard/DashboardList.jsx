@@ -1,15 +1,51 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LineChart from '../charts/LineChart01';
+import { db } from "../../firebase/firebaseConfig"
+import { getDoc, doc } from "firebase/firestore";
 import EditMenu from '../EditMenu';
 
 // Import utilities
 import { tailwindConfig, hexToRGB } from '../../services/Utils';
-import  Jdenticon  from 'react-jdenticon';
+import Jdenticon from 'react-jdenticon';
+
+var load = false
+var percentag_list = [50, 80, 60, 70, 50, 60, 40, 50, 20, 10, 5, 70]
+// var percentag_list = []
+
+
+async function getQuiz() {
+  var st_id = localStorage.getItem("user-id")
+
+  const docRef = doc(db, "Student", st_id)
+  const docSnap = await getDoc(docRef);
+  var data = docSnap.data()
+
+  var data = data
+  var quiz_id = data.quiz
+
+  if (load === false) {
+
+    for (var i = 0; i < quiz_id.length; i++) {
+      var list_ = data[quiz_id[i]]
+
+      try {
+        var percentage = list_.percentage
+        percentag_list.push(percentage)
+      }
+
+      catch (err) { }
+    }
+
+    load = true
+  }
+
+}
 
 function DashboardCard01() {
+  // getQuiz()
 
-    const name = localStorage.getItem('name')
+  const name = localStorage.getItem('name')
 
   const chartData = {
     labels: [
@@ -26,12 +62,7 @@ function DashboardCard01() {
     datasets: [
       // Indigo line
       {
-        data: [
-          32, 10, 10, 4, 5, 4, 9,
-          9, 4, 2, 4, 4, 6, 2,
-          54, 23,19, 9, 0 ,2,2,3,49,
-          2, 3, 6, 0, 6,
-        ],
+        data: percentag_list,
         fill: true,
         backgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.blue[500])}, 0.08)`,
         borderColor: tailwindConfig().theme.colors.indigo[500],
@@ -53,7 +84,7 @@ function DashboardCard01() {
           <Jdenticon src={name} size={32} alt="Icon 01" />
           {/* Menu button */}
           <EditMenu className="relative inline-flex">
-            <li style={{minWidth: "50px"}} >
+            <li style={{ minWidth: "50px" }} >
               <Link className="font-medium text-sm text-slate-600 hover:text-slate-800 flex py-1 px-3" to="#0">Option 1</Link>
             </li>
             <li>
