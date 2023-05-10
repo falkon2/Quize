@@ -2,6 +2,7 @@ import React from 'react';
 import { db } from "../firebase/firebaseConfig"
 import { getDoc, doc } from "firebase/firestore";
 import $ from "jquery"
+import { list } from 'firebase/storage';
 
 var quiz_displayed = ""
 
@@ -43,19 +44,23 @@ export default class displayResultsStudent extends React.Component {
     var quiz_date = {}
 
     for (var i in quiz_id) {
+
       try {
         const docRef = doc(db, "questions", quiz_id[i])
         const docSnap = await getDoc(docRef);
         var data = docSnap.data()
 
-        subject[quiz_id[i]] = data.subject
-        quiz_date[quiz_id[i]] = data.quiz_date
-        no_of_question[quiz_id[i]] = data.no_of_question
-
+        // console.log(data)
+        if (data !== undefined) {
+          subject[quiz_id[i]] = data.subject
+          quiz_date[quiz_id[i]] = data.quiz_date
+          no_of_question[quiz_id[i]] = data.no_of_question
+        }
 
       }
       catch (err) {
         console.log(err)
+        continue
       }
 
       this.setState({
@@ -64,6 +69,7 @@ export default class displayResultsStudent extends React.Component {
         "dates": quiz_date
       })
     }
+
   }
 
   componentDidMount() {
@@ -73,7 +79,7 @@ export default class displayResultsStudent extends React.Component {
 
   display_quiz_details() {
 
-    console.clear()
+    // console.clear()
 
     if (quiz_displayed === true) {
 
@@ -92,12 +98,13 @@ export default class displayResultsStudent extends React.Component {
         var percentage, marks
         var location = `path1=questions/&path2=`
 
-        try {
-          percentage = (list_.percentage)
-          marks = (list_.marks)
+        if (list_ !== undefined) {
+          try {
+            percentage = (list_.percentage)
+            marks = (list_.marks)
 
 
-          $("#quiz-details").append(`
+            $("#quiz-details").append(`
           <tr>
             <td class="p-2">
               <div class="flex items-center">
@@ -122,9 +129,13 @@ export default class displayResultsStudent extends React.Component {
             </td>
           </tr>
         `)
-          $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+            $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+          }
+          catch (err) {
+            console.log(err)
+            continue
+          }
         }
-        catch (err) { console.log(err) }
 
 
       }
