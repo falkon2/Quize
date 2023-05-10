@@ -50,7 +50,7 @@ export default class displayResultsStudent extends React.Component {
         const docSnap = await getDoc(docRef);
         var data = docSnap.data()
 
-        // console.log(data)
+        console.log(data)
         if (data !== undefined) {
           subject[quiz_id[i]] = data.subject
           quiz_date[quiz_id[i]] = data.quiz_date
