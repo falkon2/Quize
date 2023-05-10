@@ -2,7 +2,6 @@ import React from 'react';
 import { db } from "../firebase/firebaseConfig"
 import { getDoc, doc } from "firebase/firestore";
 import $ from "jquery"
-import { list } from 'firebase/storage';
 
 var quiz_displayed = ""
 
@@ -81,7 +80,7 @@ export default class displayResultsStudent extends React.Component {
 
     // console.clear()
 
-    if (quiz_displayed === true) {
+    if (quiz_displayed === false) {
 
       var quiz_data = this.state.data
       var quiz_id = this.state.quiz_id
