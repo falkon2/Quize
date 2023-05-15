@@ -28,7 +28,7 @@ export default function AdminDashboardPage() {
                 <WelcomeBanner />
                   
                   <div className="sm:flex sm:justify-between sm:items-center mb-8">
-                    <DashboardAvatars e={false}/>
+                    <DashboardAvatars/>
                     
                     <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
                     <Link to="/create-quiz"><button className="btn bg-indigo-500 hover:bg-indigo-600 text-white">

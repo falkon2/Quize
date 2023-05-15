@@ -27,3 +27,14 @@ code {
 #question{
   flex-direction: column;
 }
+
+.icons_avatar svg{
+  max-height: 55px;
+  margin-left: 5px;
+  padding-left: 5px;
+}
+
+.icons_avatar button{
+  margin-left: 20px;
+  align-self: center;
+}

@@ -164,78 +164,79 @@ export default class QuizPage extends React.Component {
             text: 'Please wait...',
             didOpen: () => {
                 Swal.showLoading()
+
+
+                var val = Object.keys(correct_ans).length
+                var q_keys = Object.keys(Q_option_list)
+                var ans_keys = Object.keys(correct_ans)
+                var Q_and_Ans = {}
+
+
+                for (var i = 0; i < val; i++) {
+                    var que = q_keys[i]
+                    var options = Q_option_list[q_keys[i]]
+                    var ans = correct_ans[ans_keys[i]]
+
+                    Q_and_Ans[que] = {
+                        "options": options,
+                        "ans": ans
+                    }
+                }
+
+                // console.log(Q_and_Ans)
+                // console.log(val)
+                // console.log(this.state.amount)
+
+                if (val == this.state.amount) {
+                    const data = {
+                        no_of_question: this.state.amount,
+                        subject: this.state.subject,
+                        class: this.state.class,
+                        section: this.state.section,
+                        start_time: this.state.start_time,
+                        quiz_date: this.state.quiz_date,
+                        end_time: this.state.end_time,
+                        questions: Q_and_Ans
+
+                    };
+
+                    // console.log(data)
+                    try {
+                        var path1 = `questions/`
+                        var path2 = ``
+
+                        const dbRef = collection(db, path1);
+
+                        addDoc(dbRef, data)
+                            .then(docRef => {
+                                console.log(docRef.id)
+                                path2 = `${docRef.id}`
+                                setTimeout(() => { window.location.replace(`/prev-quiz?path1=${path1}&path2=${path2}`) }, 1000)
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
+
+
+                    }
+                    catch (err) {
+                        Swal.fire(
+                            "An error Occurred",
+                            "Questions were not uploaded",
+                            "error"
+                        )
+                        console.log(err)
+                    }
+                }
+                else {
+                    Swal.fire(
+                        "Not enough answer",
+                        "Please select correct answer for each question",
+                        "warning"
+                    )
+                }
             }
         })
-        
-        var val = Object.keys(correct_ans).length
-        var q_keys = Object.keys(Q_option_list)
-        var ans_keys = Object.keys(correct_ans)
-        var Q_and_Ans = {}
-
-
-        for (var i = 0; i < val; i++) {
-            var que = q_keys[i]
-            var options = Q_option_list[q_keys[i]]
-            var ans = correct_ans[ans_keys[i]]
-
-            Q_and_Ans[que] = {
-                "options": options,
-                "ans": ans
-            }
-        }
-
-        // console.log(Q_and_Ans)
-        // console.log(val)
-        // console.log(this.state.amount)
-
-        if (val == this.state.amount) {
-            const data = {
-                no_of_question: this.state.amount,
-                subject: this.state.subject,
-                class: this.state.class,
-                section: this.state.section,
-                start_time: this.state.start_time,
-                quiz_date: this.state.quiz_date,
-                end_time: this.state.end_time,
-                questions: Q_and_Ans
-
-            };
-
-            // console.log(data)
-            try {
-                var path1 = `questions/`
-                var path2 = ``
-
-                const dbRef = collection(db, path1);
-
-                addDoc(dbRef, data)
-                    .then(docRef => {
-                        console.log(docRef.id)
-                        path2 = `${docRef.id}`
-                        setTimeout(() => { window.location.replace(`/prev-quiz?path1=${path1}&path2=${path2}`) }, 1000)
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    })
-
-
-            }
-            catch (err) {
-                Swal.fire(
-                    "An error Occurred",
-                    "Questions were not uploaded",
-                    "error"
-                )
-                console.log(err)
-            }
-        }
-        else {
-            Swal.fire(
-                "Not enough answer",
-                "Please select correct answer for each question",
-                "warning"
-            )
-        }
     }
 
 

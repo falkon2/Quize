@@ -1,8 +1,11 @@
 import React from 'react'
 import { db } from "../firebase/firebaseConfig"
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, getDocs, collection } from "firebase/firestore";
 import $ from "jquery"
 import Swal from 'sweetalert2';
+
+var nameList = []
+
 export default class AdminLoginPage extends React.Component {
 
   constructor() {
@@ -11,6 +14,26 @@ export default class AdminLoginPage extends React.Component {
     this.state = {
       user: ""
     }
+  }
+
+  async get_names() {
+    const colRef = collection(db, "Student");
+    const docsSnap = await getDocs(colRef);
+    docsSnap.forEach(doc => {
+      var res = doc.data()
+
+      if (nameList.includes(res.name) === false) {
+        if (nameList.length < 5) {
+          nameList.push(res.name)
+        }
+      }
+      console.log(nameList.length)
+      localStorage.setItem("nameList", nameList)
+    })
+  }
+
+  componentDidMount() {
+    this.get_names()
   }
 
 
@@ -51,11 +74,15 @@ export default class AdminLoginPage extends React.Component {
                 localStorage.setItem("subject", data.subject);
 
                 if (user === "Teachers") { localStorage.setItem("role", "Teacher") }
-                if (user === "Student") { localStorage.setItem("role", "Student") }
+                if (user === "Student") {
+                  localStorage.setItem("role", "Student")
+                  localStorage.removeItem("nameList")
+                }
                 window.location.replace(`${link}`)
               }, 3000)
             }
           })
+
 
           Toast.fire({
             icon: 'success',
