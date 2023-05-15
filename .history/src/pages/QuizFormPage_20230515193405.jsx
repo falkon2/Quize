@@ -299,7 +299,7 @@ export default class QuizPage extends React.Component {
     render() {
         if (this.state.amount > 0) {
             return (
-                <div className="bg-[cbd5e1]">
+                <div className="bg-gradient-to-r from-primary to-accent">
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
