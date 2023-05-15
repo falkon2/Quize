@@ -27,7 +27,6 @@ export default class AdminLoginPage extends React.Component {
           nameList.push(res.name)
         }
       }
-      console.log(nameList.length)
       localStorage.setItem("nameList", nameList)
     })
   }
