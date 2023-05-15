@@ -80,7 +80,7 @@ export default class displayResultsStudent extends React.Component {
 
   display_quiz_details() {
 
-    if (quiz_displayed === true) {
+    if (quiz_displayed === false) {
 
       var quiz_data = this.state.data
       var quiz_id = this.state.quiz_id
