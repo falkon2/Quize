@@ -122,7 +122,7 @@ export default class AdminLoginPage extends React.Component {
         <div id="user" className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
             <h1 className="text-5xl py-2 font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">Login now!</h1>
-            <p className="py-6 text-gray-600">Experience the world of create test taking in a very fun way in our website, quiz. It is an interactive way for children to learn.</p>
+            <p className="py-6 text-gray-400">Experience the world of mathematics in a very fun way in our website, quiz. It is an interactive way for children to learn.</p>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl backdrop-blur-sm bg-white/30">
             <div className="card-body">
