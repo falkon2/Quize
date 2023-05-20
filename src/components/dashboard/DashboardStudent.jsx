@@ -114,7 +114,7 @@ class DashboardStudent extends React.Component {
                           </td>
                           <td className="p-2 whitespace-nowrap">
                             <div className="text-m font-semibold text-center text-sky-500">
-                              <button>View</button>
+                              <button onClick={(e)=>{window.location.href =`/individual-results?id=${student.id}`;}}>View</button>
                             </div>
                           </td>
                         </tr>

@@ -17,6 +17,7 @@ import ProtectedRouter from './components/ProtectedRouter';
 import ProtectedRouterStudent from './components/ProtectedRouterStudent';
 import StudentQuiz from './components/StudentQuiz';
 import ViewQuizResult from './components/ViewQuizResult';
+import IndividualResult from './pages/StudentResultIn'
 
 function Router() {
     const name = localStorage.getItem('name')
@@ -36,6 +37,8 @@ function Router() {
                 <Route path="/create-quiz" element={<QuizPage />} />
                 <Route path={`/test-view`} element={<TestView />} />
                 <Route path="/results" element={<Results />} />
+                <Route path="/individual-results" element={<IndividualResult />} />
+                
             </Route>
 
             <Route element={<ProtectedRouterStudent />}>

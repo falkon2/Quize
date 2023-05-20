@@ -47,12 +47,12 @@ export default class DashboardAvatars extends React.Component {
               )}
 
 
-            <button class="flex justify-center items-center w-9 h-9 rounded-full bg-white border border-slate-200 hover:border-slate-300 text-indigo-500 shadow-sm transition duration-150 ml-2"
+            <button onClick={()=>{window.location.href="/results"}} class="flex justify-center items-center w-9 h-9 rounded-full bg-white border border-slate-200 hover:border-slate-300 text-indigo-500 shadow-sm transition duration-150 ml-2"
               style={{ marginLeft: "10px", alignSelf: "center" }}>
               <span class="sr-only">Add new user</span>
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16">
-                <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z">
-                </path>
+
+              <svg width="24" height="24" fill-rule="evenodd" clip-rule="evenodd" opacity="75%">
+                <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
               </svg>
             </button>
 
