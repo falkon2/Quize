@@ -119,7 +119,7 @@ export default class DashboardTests extends React.Component {
               
             </td>
             <td id="view-quiz${i}" class="p-2">
-              <div id=${data.id} class="text-center cursor-pointer text-sky-500">${role_value}</div>
+              <div id=${data.id} class="text-center text-sky-500">${role_value}</div>
             </td>
           </tr>
         `)
@@ -203,7 +203,7 @@ export default class DashboardTests extends React.Component {
                     <div className="font-semibold text-center">Status</div>
                   </th>
                   <th className="p-2">
-                    <div className="font-semibold text-center ">View</div>
+                    <div className="font-semibold text-center cursor-pointer">View</div>
                   </th>
                 </tr>
               </thead>

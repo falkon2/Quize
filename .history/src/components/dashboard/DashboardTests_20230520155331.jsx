@@ -203,7 +203,7 @@ export default class DashboardTests extends React.Component {
                     <div className="font-semibold text-center">Status</div>
                   </th>
                   <th className="p-2">
-                    <div className="font-semibold text-center ">View</div>
+                    <div className="font-semibold text-center cursor-pointer">View</div>
                   </th>
                 </tr>
               </thead>
