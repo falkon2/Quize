@@ -186,7 +186,7 @@ export default class ViewQuizResult extends React.Component {
 
                     <form className="md:p-8 max-w-[500px] flex rounded-lg w-11/12 mb-4">
                         <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
-                            className="bg-yellow-600 cursor-pointer rounded-md w-full p-2 ml-5 text-white hover:bg-yellow-500"
+                            className="bg-yellow-600 rounde-md w-full p-2 ml-5 text-white hover:bg-yellow-500"
                             onClick={() => { this.submit() }}>
                             Back
                         </a>

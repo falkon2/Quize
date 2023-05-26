@@ -10,7 +10,7 @@ import { tailwindConfig, hexToRGB } from '../../services/Utils';
 import Jdenticon from 'react-jdenticon';
 
 var load = false
-var percentag_list = [50, 80, 60, 70, 50, 60, 40, 50, 20, 10, 5, 70]// student marks 
+var percentag_list = [50, 80, 60, 70, 50, 60, 40, 50, 20, 10, 5, 70]
 // var percentag_list = []
 
 
@@ -95,7 +95,7 @@ function DashboardCard01() {
         <h2 className="text-lg font-semibold text-slate-800 mb-2">Score Card</h2>
         <div className="text-xs font-semibold text-slate-400 uppercase mb-1">Average:</div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 mr-2">15</div>{/* average student marks */}
+          <div className="text-3xl font-bold text-slate-800 mr-2">15</div>
         </div>
       </div>
       {/* Chart built with Chart.js 3 */}

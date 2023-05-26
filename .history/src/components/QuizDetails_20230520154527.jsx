@@ -125,7 +125,7 @@ export default class QuizDetails extends React.Component {
                             </select>
                         </div>
 
-                        <button style={{ borderRadius: "10px" }} type="submit" className="bg-yellow-600 cursor-pointer rounded-md w-full p-2 text-white hover:bg-yellow-500">
+                        <button style={{ borderRadius: "10px" }} type="submit" className="bg-yellow-600 cursor-pointer rounde-md w-full p-2 text-white hover:bg-yellow-500">
                             Start
                         </button>
                     </form>

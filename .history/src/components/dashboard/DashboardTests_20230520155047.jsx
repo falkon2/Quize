@@ -7,8 +7,6 @@ var quiz_list = {}
 var quiz_displayed = ""
 var role_value = ""
 
-var subject_selected = "All"
-
 export default class DashboardTests extends React.Component {
 
   constructor(e) {
@@ -51,15 +49,9 @@ export default class DashboardTests extends React.Component {
     // this.display_quiz_details()
   }
 
-  filter() {
-    subject_selected = $("#filter").val()
-    quiz_displayed = false
-    $("#quiz-details").remove()
-    $("#table").append(`<tbody id='quiz-details' className="text-sm font-medium divide-y divide-slate-100"></tbody>`)
-    this.display_quiz_details()
-  }
-
   display_quiz_details() {
+    // console.clear()
+    // console.log(quiz_displayed)
 
     if (quiz_displayed === false) {
 
@@ -83,10 +75,10 @@ export default class DashboardTests extends React.Component {
         `)
       }
       for (var i = 0; i < ids.length; i++) {
-
         var data = quiz_list[ids[i]]
         var location = `path1=questions/&path2=`
         // console.log(location)
+
 
         try {
           var time = data.time
@@ -106,9 +98,9 @@ export default class DashboardTests extends React.Component {
         catch (err) {
           console.log(err)
         }
-        if (subject_selected === "All" || subject_selected === data.subject) {
-          $("#quiz-details").append(`
-          <tr id="display-quiz">
+
+        $("#quiz-details").append(`
+          <tr>
             <td class="p-2">
               <div class="flex items-center">
                 <div class="flex items-center">
@@ -127,17 +119,17 @@ export default class DashboardTests extends React.Component {
               
             </td>
             <td id="view-quiz${i}" class="p-2">
-              <div id=${data.id} class="text-center cursor-pointer text-sky-500">${role_value}</div>
+              <div id=${data.id} class="text-center text-sky-500">${role_value}</div>
             </td>
           </tr>
         `)
 
 
+        if (eaxm_year >= year && exam_mon > month || exam_date >= date) {
+          if (exam_mon === month && exam_date === date) {
 
-          if (eaxm_year >= year && exam_mon > month || exam_date >= date) {
-            if (exam_mon === month && exam_date === date) {
-
-              if (start_exam_hour <= hour && end_exam_hour >= hour) {
+            if (start_exam_hour <= hour && end_exam_hour >= hour) {
+              if (end_exam_min >= min) {
                 $(`#status-${i}`).append(`<div class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">In Progress</div>`)
                 $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
               }
@@ -148,16 +140,21 @@ export default class DashboardTests extends React.Component {
 
             }
             else {
-              $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>`)
+              $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
               if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
             }
+
           }
           else {
-            $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
+            $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>`)
             if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
           }
-
         }
+        else {
+          $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
+          if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+        }
+
       }
       quiz_displayed = !quiz_displayed
     }
@@ -182,49 +179,14 @@ export default class DashboardTests extends React.Component {
   render() {
     return (
       <div className="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-slate-200">
-        <header className="px-5 py-4 border-b border-slate-100 flex justify-between">
+        <header className="px-5 py-4 border-b border-slate-100">
           <h2 className="font-semibold text-slate-800">QUIZS</h2>
-
-
-          <div style={{
-            "minWidth": "250px",
-            "display": "flex",
-            "justifyContent": "space-evenly",
-            "alignItems": 'center'
-          }}>
-            <label className="text-gray-600 font-medium" htmlFor="filter">
-              Subject:
-            </label>
-
-            <select
-              id="filter"
-              name="filter"
-              className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
-
-            >
-              <option value="All">All</option>
-              <option value="English">English</option>
-              <option value="Science">Science</option>
-              <option value="Social Studies">Social Studies</option>
-              <option value="Mathematics">Mathematics</option>
-              <option value="Artificial Intelligence">Computer</option>
-            </select>
-
-            <button style={{ borderRadius: "10px" }} type="submit" className="bg-green-600 rounde-md p-3 text-white hover:bg-yellow-500"
-              onClick={(e) => { this.filter() }}>
-              Filter
-            </button>
-          </div>
-
-
         </header>
-
-
         <div className="p-3">
 
           {/* Table */}
           <div style={{ maxHeight: "340px", minHeight: "100px" }} className="overflow-x-auto overflow-y-auto">
-            <table id="table" className="table-auto w-full">
+            <table className="table-auto w-full">
               {/* Table header */}
               <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
                 <tr>
@@ -241,7 +203,7 @@ export default class DashboardTests extends React.Component {
                     <div className="font-semibold text-center">Status</div>
                   </th>
                   <th className="p-2">
-                    <div className="font-semibold text-center ">View</div>
+                    <div className="font-semibold text-center cursor-pointer">View</div>
                   </th>
                 </tr>
               </thead>

@@ -3,18 +3,18 @@ import NavBar from './NavBar'
 import { db } from "../firebase/firebaseConfig"
 import { getDoc, doc } from "firebase/firestore";
 import $ from 'jquery'
+import Swal from 'sweetalert2';
 
 var question_add = false
 
-export default class ViewQuizResult extends React.Component {
+
+
+export default class PreviewQuiz extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
             data: {},
-            st_data: {},
-            quiz_id: "",
-            question_id: [],
             path1: "",
             path2: ""
         }
@@ -25,24 +25,11 @@ export default class ViewQuizResult extends React.Component {
 
         var path1 = searchParams.get("path1")
         var path2 = searchParams.get("path2")
-        console.log(path2)
 
         this.setState({ path1: path1, path2: path2 })
-        this.get_answer_data(path1, path2)
 
-    }
-
-    async get_answer_data(path1, path2) {
-        var st_id = localStorage.getItem("user-id")
-
-        const docRef = doc(db, "Student", st_id)
-        const docSnap = await getDoc(docRef);
-        var data = docSnap.data()
-
-        this.setState({ st_data: data, question_id: data.quiz })
-
-
-        await this.getData(path1, path2)
+        this.getData(path1, path2)
+        // this.addQuestion(this.state.data)
     }
 
     async getData(path1, path2) {
@@ -51,21 +38,24 @@ export default class ViewQuizResult extends React.Component {
         var data = docSnap.data()
 
         this.setState({ data: data })
-        this.addQuestion(data, path2)
+        // console.log(data)
+        this.addQuestion(data)
     }
 
     addOption = (qNo, options, data, ans, ques) => {
         var options_len = (data["questions"][ques]["options"].length)
+        // console.log(ans)
 
         for (var i = 0; i < options_len; i++) {
             if (i === ans - 1) {
+                // console.log(`: ${i}`)
                 $(`#q-${qNo}-ans`).append(`
                     <div>
                         <input id="ans-c-q-${qNo}-${i}" type="checkbox" checked disabled/>
                         <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
                     </div>
                     `)
-                $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-green-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
+                $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
                 $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
             }
             else {
@@ -81,19 +71,15 @@ export default class ViewQuizResult extends React.Component {
         }
     }
 
-    addQuestion(data, id_ques) {
-        if (question_add === false) {
-            console.clear()
-
-            var quiz_data = this.state.st_data
-
-            console.log(quiz_data[id_ques].ans)
-            console.log(id_ques)
+    addQuestion(data) {
+        if (question_add == false) {
+            // console.log(data["questions"])
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
                 var questions = Object.keys(data["questions"])[i]
 
                 let result = questions.includes("https://firebasestorage.googleapis.com/v0/b/quize-a1c9e.appspot.com/o/");
+                // console.log(result)
 
                 if (result === true) {
                     $("#question-container").append(`
@@ -135,13 +121,12 @@ export default class ViewQuizResult extends React.Component {
             }
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
-                var questions_ = Object.keys(data["questions"])[i]
-                var options = data["questions"][questions_]["options"]
-                var ans = data["questions"][questions_]["ans"]
+                var questions = Object.keys(data["questions"])[i]
+                var options = data["questions"][questions]["options"]
+                var ans = data["questions"][questions]["ans"]
 
-                this.addOption(i, options, data, ans, questions_)
+                this.addOption(i, options, data, ans, questions)
             }
-
 
             question_add = true
         }
@@ -152,9 +137,13 @@ export default class ViewQuizResult extends React.Component {
     }
 
     submit() {
-        let name_ = localStorage.getItem("name")
+        Swal.fire(
+            "Quiz Ready",
+            "Quiz will start according to the given time",
+            "success"
+        )
 
-        window.location.replace(`/${name_}/result`)
+        setTimeout(() => { window.location.replace("/admin-dashboard") }, 2000)
     }
 
 
@@ -167,10 +156,6 @@ export default class ViewQuizResult extends React.Component {
 
                 <div className="flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
                     <form className="bg-white p-5 md:p-8 max-w-[500px] space-y-2 shadow rounded-lg w-11/12 mb-4">
-                        <h2 className="text-3xl font-medium pb-4">Result:</h2>
-                    </form>
-
-                    <form className="bg-white p-5 md:p-8 max-w-[500px] space-y-2 shadow rounded-lg w-11/12 mb-4">
                         <h2 className="text-3xl font-medium pb-4">Details:</h2>
                         <h4 className="text-2xl font-medium">Subject: {`${this.state.data["subject"]}`}</h4>
                         <h4 className="text-2xl font-medium">Class & Section: {`${this.state.data["class"]}/${this.state.data["section"]}`}</h4>
@@ -178,17 +163,21 @@ export default class ViewQuizResult extends React.Component {
                         <h4 className="text-2xl font-medium">Duration {`${this.state.data["start_time"]} - ${this.state.data["end_time"]}`}</h4>
                     </form>
 
-
-
                     <div id='question-container' className="w-full flex justify-center items-center min-h-screen flex-col">
 
                     </div>
 
                     <form className="md:p-8 max-w-[500px] flex rounded-lg w-11/12 mb-4">
                         <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
-                            className="bg-yellow-600 cursor-pointer rounded-md w-full p-2 ml-5 text-white hover:bg-yellow-500"
+                            className="bg-yellow-600 rounde-md w-full p-2 text-white hover:bg-yellow-500"
+                            onClick={() => { this.changeQuiz() }}>
+                            Edit
+                        </a>
+
+                        <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
+                            className="bg-yellow-600 rounde-md w-full p-2 ml-5 text-white hover:bg-yellow-500"
                             onClick={() => { this.submit() }}>
-                            Back
+                            Submit
                         </a>
                     </form>
                 </div>

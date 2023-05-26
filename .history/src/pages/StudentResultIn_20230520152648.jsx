@@ -20,7 +20,7 @@ class StudentResultIND extends Component {
     const { sidebarOpen } = this.state;
 
     return (
-      <div className="flex h-screen overflow-hidden bg-[cbd5e1] font-poppins">
+      <div className="flex h-screen overflow-hidden bg-gradient-to-tl from-primary to-secondary font-poppins">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
         <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={this.setSidebarOpen} />
         <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">

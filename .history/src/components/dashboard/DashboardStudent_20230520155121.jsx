@@ -113,7 +113,7 @@ class DashboardStudent extends React.Component {
                             <div className="text-left font-medium ">{student.percent} %</div>
                           </td>
                           <td className="p-2 whitespace-nowrap">
-                            <div className="text-m font-semibold cursor-pointer text-center text-sky-500">
+                            <div className="text-m font-semibold text-center text-sky-500">
                               <button onClick={(e)=>{window.location.href =`/individual-results?id=${student.id}`;}}>View</button>
                             </div>
                           </td>
