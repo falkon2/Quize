@@ -6,7 +6,6 @@ import $ from "jquery"
 var quiz_list = {}
 var quiz_displayed = ""
 var role_value = ""
-
 var subject_selected = "All"
 
 export default class DashboardTests extends React.Component {
@@ -59,20 +58,43 @@ export default class DashboardTests extends React.Component {
     this.display_quiz_details()
   }
 
+  check_date(date, st_time, end_time) {
+    // Define the date, start time, and end time of the quiz
+    var quizDate = date;  // Replace with the quiz date
+    var quizStartTime = st_time;  // Replace with the quiz start time
+    var quizEndTime = end_time;    // Replace with the quiz end time
+
+    // Get the current date and time
+    var currentDate = new Date();
+    var currentYear = currentDate.getFullYear();
+    var currentMonth = currentDate.getMonth() + 1;  // Months are zero-based (0-11)
+    var currentDay = currentDate.getDate();
+    var currentHour = currentDate.getHours();
+    var currentMinute = currentDate.getMinutes();
+
+    // Parse the quiz date, start time, and end time
+    var [quizYear, quizMonth, quizDay] = quizDate.split('-').map(Number);
+    var [startHour, startMinute] = quizStartTime.split(':').map(Number);
+    var [endHour, endMinute] = quizEndTime.split(':').map(Number);
+
+    // Convert the quiz date, start time, and end time to Date objects
+    var quizStartDate = new Date(quizYear, quizMonth - 1, quizDay, startHour, startMinute, 0);
+    var quizEndDate = new Date(quizYear, quizMonth - 1, quizDay, endHour, endMinute, 0);
+
+    // Compare the current date and time with the quiz start and end times
+    if (currentDate < quizStartDate) {
+      return ('will_Start');
+    } else if (currentDate >= quizStartDate && currentDate <= quizEndDate) {
+      return ('progress');
+    } else {
+      return ('ended');
+    }
+
+  }
+
   display_quiz_details() {
 
     if (quiz_displayed === false) {
-
-      const new_date = new Date()
-      var hour = new_date.getHours()
-      var min = new_date.getMinutes()
-
-      var date = parseInt(new_date.getDate())
-      var year = new_date.getFullYear()
-      var month = new_date.getMonth() + 1
-
-
-      // console.log(full_date)
 
       var ids = Object.keys(quiz_list)
 
@@ -90,18 +112,14 @@ export default class DashboardTests extends React.Component {
 
         try {
           var time = data.time
-          var start_exam_hour = parseInt(time.split("-")[0].split(":")[0])
-          var start_exam_min = parseInt(time.split("-")[0].split(":")[1])
-          var end_exam_hour = parseInt(time.split("-")[1].split(":")[0])
-          var end_exam_min = parseInt(time.split("-")[1].split(":")[1])
-          // console.log(exam_hour)
 
+          var start_time = time.split("-")[0]
+          var end_time = time.split("-")[1]
 
           var full_exam_date = data.quiz_date
-          var eaxm_year = parseInt(full_exam_date.split("-")[0])
-          var exam_mon = parseInt(full_exam_date.split("-")[1])
-          var exam_date = parseInt(full_exam_date.split("-")[2])
-          // console.log(exam_date + " :: " + date)
+
+          var test_status = this.check_date(full_exam_date, start_time, end_time)
+
         }
         catch (err) {
           console.log(err)
@@ -127,35 +145,25 @@ export default class DashboardTests extends React.Component {
               
             </td>
             <td id="view-quiz${i}" class="p-2">
-              <div id=${data.id} class="text-center cursor-pointer text-sky-500">${role_value}</div>
+              <div id=${data.id}:${test_status} class="text-center cursor-pointer text-sky-500">${role_value}</div>
             </td>
           </tr>
         `)
 
 
-
-          if (eaxm_year >= year && exam_mon > month || exam_date >= date) {
-            if (exam_mon === month && exam_date === date) {
-
-              if (start_exam_hour <= hour && end_exam_hour >= hour) {
-                $(`#status-${i}`).append(`<div class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">In Progress</div>`)
-                $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
-              }
-              else {
-                $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
-                if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
-              }
-
-            }
-            else {
-              $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>`)
-              if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
-            }
+          if (test_status === "progress") {
+            $(`#status-${i}`).append(`<div  class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">In Progress</div>`)
+            $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
           }
-          else {
-            $(`#status-${i}`).append(`<div class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
+          else if (test_status === "ended") {
+            $(`#status-${i}`).append(`<div  class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
             if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
           }
+          else if (test_status === "will_Start") {
+            $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>`)
+            if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+          }
+
 
         }
       }
@@ -167,10 +175,11 @@ export default class DashboardTests extends React.Component {
   }
 
   view_quiz(el, location) {
-    let id = el.target.getAttribute("id");
+    let id = el.target.getAttribute("id").split(":")[0];
+    let status_test = el.target.getAttribute("id").split(":")[1];
 
     if (role_value === "View") {
-      window.location.replace("/prev-quiz?" + location + id)
+      window.location.replace("/prev-quiz?" + location + id + "&status=" + status_test)
     }
 
     else if (role_value === "Start") {

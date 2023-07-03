@@ -20,14 +20,18 @@ export default class PreviewQuiz extends React.Component {
         }
     }
 
+
+
     componentDidMount() {
         let searchParams = new URLSearchParams(window.location.search)
 
         var path1 = searchParams.get("path1")
         var path2 = searchParams.get("path2")
+        var test_status = searchParams.get("status")
 
-        this.setState({ path1: path1, path2: path2 })
-
+        
+        this.setState({ path1: path1, path2: path2, test_status: test_status })
+        
         this.getData(path1, path2)
         // this.addQuestion(this.state.data)
     }
@@ -72,7 +76,7 @@ export default class PreviewQuiz extends React.Component {
     }
 
     addQuestion(data) {
-        if (question_add == false) {
+        if (question_add === false) {
             // console.log(data["questions"])
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
@@ -121,11 +125,11 @@ export default class PreviewQuiz extends React.Component {
             }
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
-                var questions = Object.keys(data["questions"])[i]
-                var options = data["questions"][questions]["options"]
-                var ans = data["questions"][questions]["ans"]
+                var questions_ = Object.keys(data["questions"])[i]
+                var options = data["questions"][questions_]["options"]
+                var ans = data["questions"][questions_]["ans"]
 
-                this.addOption(i, options, data, ans, questions)
+                this.addOption(i, options, data, ans, questions_)
             }
 
             question_add = true
@@ -133,7 +137,33 @@ export default class PreviewQuiz extends React.Component {
     }
 
     changeQuiz() {
-        window.location.replace(`/edit-quiz?path1=${this.state.path1}&path2=${this.state.path2}`)
+        var status_ = this.state.test_status
+
+        if (status_ === "will_Start") {
+            window.location.replace(`/edit-quiz?path1=${this.state.path1}&path2=${this.state.path2}`)
+        }
+        else if (status_ === "progress") {
+            Swal.fire(
+                "Quiz is in progress",
+                "Editing is closed",
+                "info"
+            )
+        }
+        else if (status_ === "ended") {
+            Swal.fire({
+                title: 'Quiz has ended',
+                text: "Editing is closed!",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'View Result'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.replace(`/results`)
+                }
+            })
+        }
     }
 
     submit() {
@@ -168,13 +198,14 @@ export default class PreviewQuiz extends React.Component {
                     </div>
 
                     <form className="md:p-8 max-w-[500px] flex rounded-lg w-11/12 mb-4">
+
                         <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
                             className="bg-yellow-600 rounde-md w-full p-2 text-white hover:bg-yellow-500"
                             onClick={() => { this.changeQuiz() }}>
                             Edit
                         </a>
 
-                        <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
+                        <a style={{ borderRadius: "10px", textAlign: "center" }} href="javascript:void(0);" id="prev-quiz" type="submit"
                             className="bg-yellow-600 rounded-md w-full p-2 ml-5 text-white hover:bg-yellow-500"
                             onClick={() => { this.submit() }}>
                             Submit
