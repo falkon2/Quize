@@ -16,7 +16,8 @@ export default class IndividualResult extends React.Component {
       quiz_id: [],
       subject: "",
       no_of_question: "",
-      dates: ""
+      dates: "",
+      name: ""
     }
     quiz_displayed = this.state.a
 
@@ -31,7 +32,7 @@ export default class IndividualResult extends React.Component {
     const docSnap = await getDoc(docRef);
     var data = docSnap.data()
 
-    this.setState({ data: data, quiz_id: data.quiz })
+    this.setState({ name: data.name, data: data, quiz_id: data.quiz })
 
     await this.getQuizDetails(data.quiz)
     this.display_quiz_details()
@@ -83,6 +84,7 @@ export default class IndividualResult extends React.Component {
   display_quiz_details() {
 
     if (quiz_displayed === false) {
+
 
       var quiz_data = this.state.data
       var quiz_id = this.state.quiz_id
@@ -154,10 +156,11 @@ export default class IndividualResult extends React.Component {
 
 
   render() {
+    const {name} = this.state
     return (
       <div className="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-slate-200">
-        <header className="px-5 py-4 border-b border-slate-100">
-          <h2 className="font-semibold text-slate-800">QUIZS</h2>
+        <header id="name_header" className="px-5 py-4 border-b border-slate-100">
+          <h2 id="name" className="font-semibold text-slate-800">QUIZS Results:  {name}</h2>
         </header>
         <div className="p-3">
 
@@ -183,7 +186,7 @@ export default class IndividualResult extends React.Component {
               </thead>
               {/* Table body */}
               <tbody id='quiz-details' className="text-sm font-medium divide-y divide-slate-100">
-                <div id="tag" style={{paddingTop:"20px", paddingLeft:"5px"}}>
+                <div id="tag" style={{ paddingTop: "20px", paddingLeft: "5px" }}>
                   <text>
                     <i>Loading....</i>
                   </text>
