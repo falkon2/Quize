@@ -7,11 +7,6 @@ import Swal from 'sweetalert2';
 import $ from "jquery"
 
 var studentDetails = []
-var studentDetails = [
-  ["Fred Nerk", "001"],
-  ["Joe Bloggs", "9120"],
-  ["Zahin A. Tapadar", "9051"]
-];
 var fetch_data = false
 var looked_up = []
 
@@ -49,7 +44,7 @@ export default class SearchModal extends React.Component {
 
 
   componentDidMount() {
-    // this.getData()
+    this.getData()
 
     document.addEventListener('click', this.handleOutsideClick);
     document.addEventListener('keydown', this.handleEscKey);
