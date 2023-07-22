@@ -50,6 +50,7 @@ function Header({
               </svg>
             </button>
             <SearchModal id="search-modal" searchId="search" modalOpen={searchModalOpen} setModalOpen={setSearchModalOpen} />
+            {/* <SearchModal id="search-modal" searchId="search" modalOpen="true" setModalOpen={setSearchModalOpen} /> */}
             <Notifications />
             
             {/*  Divider */}
