@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import $ from "jquery"
 
 var studentDetails = []
-var fetch_data = false
 var looked_up = []
 
 export default class SearchModal extends React.Component {
@@ -22,24 +21,20 @@ export default class SearchModal extends React.Component {
   }
 
   async getData() {
+    var demi_list = []
 
     const colRef = collection(db, "Student");
     const docsSnap = await getDocs(colRef);
     docsSnap.forEach(doc => {
-      if (fetch_data === false) {
-        var res = doc.data()
-        var st_data = [res.name, res.id]
-        console.log(st_data)
+      var res = doc.data()
+      var st_data = [res.name, res.id]
 
-        studentDetails.push(st_data)
-        fetch_data = !fetch_data
-      }
-      else {
-        fetch_data = !fetch_data
-      }
+      demi_list.push(st_data)
     })
 
-    console.log(studentDetails)
+    const dataArray = demi_list
+    studentDetails  = [...new Set(dataArray)];
+
   }
 
 
@@ -79,11 +74,11 @@ export default class SearchModal extends React.Component {
 
   filter(term) {
     var searchTerm
-    console.log(term)
+    // console.log(term)
 
     if (term === undefined) {
       searchTerm = this.searchInput.current.value.toLowerCase();
-      console.log(searchTerm)
+      // console.log(searchTerm)
     }
     else {
       searchTerm = term
