@@ -5,6 +5,10 @@ import $ from "jquery"
 
 var quiz_displayed = ""
 
+var subject_1 = ""
+var no_of_question_1 = ""
+var dates_1 = ""
+
 export default class IndividualResult extends React.Component {
 
   constructor(e) {
@@ -41,9 +45,9 @@ export default class IndividualResult extends React.Component {
   async getQuizDetails(id) {
     var quiz_id = id
 
-    var subject = {}
-    var no_of_question = {}
-    var quiz_date = {}
+    var subject_ = {}
+    var no_of_question_ = {}
+    var quiz_date_ = {}
 
     for (var i in quiz_id) {
 
@@ -56,9 +60,9 @@ export default class IndividualResult extends React.Component {
 
         if (data !== undefined) {
 
-          subject[quiz_id[i]] = data.subject
-          quiz_date[quiz_id[i]] = data.quiz_date
-          no_of_question[quiz_id[i]] = data.no_of_question
+          subject_[quiz_id[i]] = data.subject
+          quiz_date_[quiz_id[i]] = data.quiz_date
+          no_of_question_[quiz_id[i]] = data.no_of_question
         }
 
       }
@@ -67,10 +71,15 @@ export default class IndividualResult extends React.Component {
         continue
       }
 
+      subject_1 = subject_
+      no_of_question_1 = no_of_question_
+      dates_1 = quiz_date_
+  
+  
       this.setState({
-        "subject": subject,
-        "no_of_question": no_of_question,
-        "dates": quiz_date
+        "subject": subject_,
+        "no_of_question": no_of_question_,
+        "dates": quiz_date_
       })
     }
 
@@ -88,9 +97,9 @@ export default class IndividualResult extends React.Component {
 
       var quiz_data = this.state.data
       var quiz_id = this.state.quiz_id
-      var subject = this.state.subject
-      var no_of_question = this.state.no_of_question
-      var dates = this.state.dates
+      var subject = subject_1
+      var no_of_question = no_of_question_1
+      var dates = dates_1
 
       $("#tag").remove()
 
