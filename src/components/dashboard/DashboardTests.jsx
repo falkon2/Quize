@@ -9,6 +9,8 @@ var quiz_displayed = ""
 var role_value = ""
 var subject_selected = "All"
 
+end_line_displayed = false
+
 var quiz_done = localStorage.getItem("quiz")
 var st_class = localStorage.getItem("class").split("-")[0]
 var sec_class_st = localStorage.getItem("class").split("-")[1]
@@ -131,6 +133,9 @@ export default class DashboardTests extends React.Component {
         if (q_class === st_class || st_class === "undefined") {
           if (sec_class === sec_class_st || st_class === "undefined") {
             if (subject_selected === "All" || subject_selected === data.subject) {
+
+              end_line_displayed = false
+
               $("#quiz-details").append(`
               <tr id="display-quiz">
                 <td class="p-2">
@@ -172,16 +177,22 @@ export default class DashboardTests extends React.Component {
 
             }
           } else {
-            $("#quiz-details").append(`
-                <h3 class="p-5">
-                <I>---End Line---</I></h3>
-              `)
+              if(end_line_displayed = false){
+                $("#quiz-details").append(`
+                    <h3 class="p-5">
+                    <I>---End Line---</I></h3>
+                  `)
+              end_line_displayed = true
+            }
           }
         } else {
-          $("#quiz-details").append(`
-              <h3 class="p-5">
-              <I>---End Line---</I></h3>
-            `)
+            if(end_line_displayed = false){
+              $("#quiz-details").append(`
+                  <h3 class="p-5">
+                  <I>---End Line---</I></h3>
+                `)
+            end_line_displayed = true
+          }
         }
 
 
