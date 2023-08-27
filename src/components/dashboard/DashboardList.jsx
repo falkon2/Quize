@@ -95,7 +95,7 @@ function DashboardCard01() {
         <h2 className="text-lg font-semibold text-slate-800 mb-2">Score Card</h2>
         <div className="text-xs font-semibold text-slate-400 uppercase mb-1">Average:</div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 mr-2"><I>demo</I></div>{/* average student marks */}
+          <div className="text-3xl font-bold text-slate-800 mr-2"><i>demo</i></div>{/* average student marks */}
         </div>
       </div>
       {/* Chart built with Chart.js 3 */}

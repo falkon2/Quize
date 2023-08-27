@@ -9,7 +9,7 @@ var quiz_displayed = ""
 var role_value = ""
 var subject_selected = "All"
 
-end_line_displayed = false
+var end_line_displayed = false
 
 var quiz_done = localStorage.getItem("quiz")
 var st_class = localStorage.getItem("class").split("-")[0]
