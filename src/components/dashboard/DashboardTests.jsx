@@ -2,11 +2,16 @@ import React from 'react';
 import { db } from '../../firebase/firebaseConfig'
 import { getDocs, collection } from "firebase/firestore";
 import $ from "jquery"
+import Swal from 'sweetalert2';
 
 var quiz_list = {}
 var quiz_displayed = ""
 var role_value = ""
 var subject_selected = "All"
+
+var quiz_done = localStorage.getItem("quiz")
+var st_class = localStorage.getItem("class").split("-")[0]
+var sec_class_st = localStorage.getItem("class").split("-")[1]
 
 export default class DashboardTests extends React.Component {
 
@@ -14,13 +19,14 @@ export default class DashboardTests extends React.Component {
     super()
 
     this.state = {
-      a: e.e
+      a: e.e,
     }
     quiz_displayed = this.state.a
 
 
     if (localStorage.getItem("role") === "Student") role_value = "Start"
     else if (localStorage.getItem("role") === "Teacher") role_value = "View"
+
   }
 
   async getQuiz() {
@@ -66,11 +72,6 @@ export default class DashboardTests extends React.Component {
 
     // Get the current date and time
     var currentDate = new Date();
-    var currentYear = currentDate.getFullYear();
-    var currentMonth = currentDate.getMonth() + 1;  // Months are zero-based (0-11)
-    var currentDay = currentDate.getDate();
-    var currentHour = currentDate.getHours();
-    var currentMinute = currentDate.getMinutes();
 
     // Parse the quiz date, start time, and end time
     var [quizYear, quizMonth, quizDay] = quizDate.split('-').map(Number);
@@ -124,48 +125,67 @@ export default class DashboardTests extends React.Component {
         catch (err) {
           console.log(err)
         }
-        if (subject_selected === "All" || subject_selected === data.subject) {
+        var q_class = data.class
+        var sec_class = data.section
+
+        if (q_class === st_class || st_class === "undefined") {
+          if (sec_class === sec_class_st || st_class === "undefined") {
+            if (subject_selected === "All" || subject_selected === data.subject) {
+              $("#quiz-details").append(`
+              <tr id="display-quiz">
+                <td class="p-2">
+                  <div class="flex items-center">
+                    <div class="flex items-center">
+                      <img class="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/office/40/null/checked--v1.png" width="36" height="36" viewBox="0 0 36 36" />
+                      <div class="text-slate-800">${data.subject} (${data.class}-${data.section})</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-2">
+                  <div class="text-center">${full_exam_date}</div>
+                </td>
+                <td class="p-2">
+                  <div class="text-center">${time}</div>
+                </td>
+                <td id="status-${i}" class="p-2">
+
+                </td>
+                <td id="view-quiz${i}" class="p-2">
+                  <div id=${data.id}:${test_status} class="text-center cursor-pointer text-sky-500">${role_value}</div>
+                </td>
+              </tr>
+              `)
+
+
+              if (test_status === "progress") {
+                $(`#status-${i}`).append(`<div  class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">In Progress</div>`)
+                $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+              }
+              else if (test_status === "ended") {
+                $(`#status-${i}`).append(`<div  class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
+                if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+              }
+              else if (test_status === "will_Start") {
+                $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>`)
+                if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+              }
+
+            }
+          } else {
+            $("#quiz-details").append(`
+                <h3 class="p-5">
+                <I>---End Line---</I></h3>
+              `)
+          }
+        } else {
           $("#quiz-details").append(`
-          <tr id="display-quiz">
-            <td class="p-2">
-              <div class="flex items-center">
-                <div class="flex items-center">
-                  <img class="shrink-0 mr-2 sm:mr-3" src="https://img.icons8.com/office/40/null/checked--v1.png" width="36" height="36" viewBox="0 0 36 36" />
-                  <div class="text-slate-800">${data.subject} (${data.class}-${data.section})</div>
-                </div>
-              </div>
-            </td>
-            <td class="p-2">
-              <div class="text-center">${full_exam_date}</div>
-            </td>
-            <td class="p-2">
-              <div class="text-center">${time}</div>
-            </td>
-            <td id="status-${i}" class="p-2">
-              
-            </td>
-            <td id="view-quiz${i}" class="p-2">
-              <div id=${data.id}:${test_status} class="text-center cursor-pointer text-sky-500">${role_value}</div>
-            </td>
-          </tr>
-        `)
-
-
-          if (test_status === "progress") {
-            $(`#status-${i}`).append(`<div  class="text-center text-yellow-500 bg-yellow-200 p-1 rounded-full">In Progress</div>`)
-            $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
-          }
-          else if (test_status === "ended") {
-            $(`#status-${i}`).append(`<div  class="text-center text-red-500 bg-red-200 p-1 rounded-full">Closed</div>`)
-            if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
-          }
-          else if (test_status === "will_Start") {
-            $(`#status-${i}`).append(`<div class="text-center text-green-500 bg-green-200 p-1 rounded-full">Active</div>`)
-            if (role_value === "View") $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
-          }
-
-
+              <h3 class="p-5">
+              <I>---End Line---</I></h3>
+            `)
         }
+
+
+
       }
       quiz_displayed = !quiz_displayed
     }
@@ -183,7 +203,13 @@ export default class DashboardTests extends React.Component {
     }
 
     else if (role_value === "Start") {
-      window.location.replace("/start-quiz?" + location + id)
+      var quizes = quiz_done.split(",")
+
+      if (quizes.includes(id)) {
+        Swal.fire("Quiz Attempted", "You have already attempted the quiz", "info")
+      } else {
+        window.location.replace("/start-quiz?" + location + id)
+      }
     }
   }
 
@@ -196,11 +222,16 @@ export default class DashboardTests extends React.Component {
 
 
           <div style={{
-            "minWidth": "250px",
+            "minWidth": "400px",
             "display": "flex",
             "justifyContent": "space-evenly",
             "alignItems": 'center'
           }}>
+
+            <label style={{ marginLeft: "-10px" }} className="text-gray-600 font-medium">
+              Class:  {st_class}-{sec_class_st}
+            </label>
+
             <label className="text-gray-600 font-medium" htmlFor="filter">
               Subject:
             </label>

@@ -16,6 +16,7 @@ export default class StartQuiz extends React.Component {
             data: {},
             path1: "",
             path2: "",
+            no_question_value: 0
         }
     }
 
@@ -46,40 +47,50 @@ export default class StartQuiz extends React.Component {
         // console.log(ans)
 
         for (var i = 0; i < options_len; i++) {
+            var op_ans = options[i]
             if (i === ans - 1) {
                 // console.log(`: ${i}`)
                 $(`#q-${qNo}-ans`).append(`
                     <div>
-                        <input id="ans-c-q-${qNo}-${i}" type="checkbox" correct />
+                        <input id="ans-c-q-${qNo}-${i}" class="${options[i]}" type="checkbox" correct />
                         <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" correct disabled></input>
                     </div>
                     `)
                 $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
                 $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
-                $(`#ans-c-q-${qNo}-${i}`).on("click", () => { this.checkbox(qNo, i, "true") })
+                $(`#ans-c-q-${qNo}-${i}`).on("click", (e) => {
+                    var op_selected = $(e.target).attr("class")
+                    this.checkbox(qNo, op_selected, "true", ques)
+
+                })
 
             }
             else {
                 $(`#q-${qNo}-ans`).append(`
                 <div>
-                    <input id="ans-c-q-${qNo}-${i}" type="checkbox"  />
+                    <input id="ans-c-q-${qNo}-${i}" class="${options[i]}" type="checkbox"  />
                     <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
                 </div>
                 `)
                 $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
                 $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
-                $(`#ans-c-q-${qNo}-${i}`).on("click", () => { this.checkbox(qNo, i, "false") })
+                $(`#ans-c-q-${qNo}-${i}`).on("click", (e) => {
+                    var op_selected = $(e.target).attr("class")
+                    this.checkbox(qNo, op_selected, "false", ques)
+                })
             }
         }
     }
 
-    checkbox(qNo, op_no, result) {
-        correct_ans[qNo] = [op_no, result]
+    checkbox(qNo, op_no, result, ques) {
+        correct_ans[qNo] = [op_no, result, ques]
     }
 
     addQuestion(data) {
         if (question_add === false) {
             // console.log(data["questions"])
+
+            this.setState({ no_question_value: parseInt(data["no_of_question"]) })
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
                 var questions = Object.keys(data["questions"])[i]
@@ -140,81 +151,119 @@ export default class StartQuiz extends React.Component {
 
     submit() {
 
-        var score = 0
-        var path1 = `Student/`
-        var path2 = localStorage.getItem("user-id")
-        var quiz =[]
+        console.log(this.state.data["start_time"], this.state.data["end_time"])
+        const currentTime = new Date();
 
-        var quiz_id = this.state.path2
-        try {
-            var passed_quiz = localStorage.getItem("quiz")
-            quiz = passed_quiz.split(",")
-            quiz.push(this.state.path2)
-            console.log(quiz)
-        }
-        catch (err) { console.log(err) }
+        // Extract hours and minutes from start and end times
+        const startTimeParts = this.state.data.start_time.split(":");
+        const endTimeParts = this.state.data.end_time.split(":");
 
-        // console.log(correct_ans[quiz_id])
-        var keys = Object.keys(correct_ans)
+        // Create Date objects for start and end times
+        const startTime = new Date(currentTime);
+        startTime.setHours(parseInt(startTimeParts[0], 10));
+        startTime.setMinutes(parseInt(startTimeParts[1], 10));
 
-        for (var i = 0; i < keys.length; i++) {
-            var result = (correct_ans[keys[i]][1])
-            if (result === "true") score += 1
-        }
+        const endTime = new Date(currentTime);
+        endTime.setHours(parseInt(endTimeParts[0], 10));
+        endTime.setMinutes(parseInt(endTimeParts[1], 10));
 
-        var total_q = keys.length
+        // Check if the current time is within the quiz duration
+        if (currentTime >= startTime && currentTime <= endTime) {
+            // Your existing submission logic here
 
-        var update_data_structure = {
-            "ans": correct_ans,
-            "marks": score,
-            "percentage": (score / total_q) * 100,
-        }
+            var score = 0;
 
-        // console.log(update_data_structure)
-        // quiz[quiz_id] = update_data_structure
+            var score = 0
+            var path1 = `Student/`
+            var path2 = localStorage.getItem("user-id")
+            var quiz = []
 
-        var data = {"quiz":quiz}
-        data[quiz_id] = update_data_structure
+            var quiz_id = this.state.path2
+            var q_number = this.state.no_question_value
 
-
-        Swal.fire({
-            title: 'Submit Response?',
-            text: "You won't be able to change the answers!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Submit!'
-
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-
-                const docRef = doc(db, path1, path2)
-
-                await updateDoc(docRef, data)
-                    .then(docRef => {
-                        console.log("Submited");
-                        Swal.fire(
-                            'Success!',
-                            'Your Response has been submited.',
-                            'success'
-                        )
-                        localStorage.setItem("quiz", quiz)
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        Swal.fire(
-                            'Error Occured!',
-                            'Sorry an error occured.',
-                            'error'
-                        )
-                    })
-
-                setTimeout(() => { window.location.replace("/user-dashboard") }, 2000)
+            try {
+                var passed_quiz = localStorage.getItem("quiz")
+                quiz = passed_quiz.split(",")
+                quiz.push(this.state.path2)
+                console.log(quiz)
             }
-        })
+            catch (err) { console.log(err) }
 
+            console.log(correct_ans)
 
+            var keys = Object.keys(correct_ans)
+
+            for (var i = 0; i < keys.length; i++) {
+                var result = (correct_ans[keys[i]][1])
+                if (result === "true") score += 1
+            }
+
+            var total_q = keys.length
+
+            var update_data_structure = {
+                "ans": correct_ans,
+                "marks": score,
+                "percentage": (score / total_q) * 100,
+            }
+
+            // console.log(update_data_structure)
+            // quiz[quiz_id] = update_data_structure
+
+            var data = { "quiz": quiz }
+            data[quiz_id] = update_data_structure
+
+            if (keys.length === q_number) {
+
+                Swal.fire({
+                    title: 'Submit Response?',
+                    text: "You won't be able to change the answers!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Submit!'
+
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        console.log("success")
+
+                        const docRef = doc(db, path1, path2)
+
+                        await updateDoc(docRef, data)
+                            .then(docRef => {
+                                console.log("Submited");
+                                Swal.fire(
+                                    'Success!',
+                                    'Your Response has been submited.',
+                                    'success'
+                                )
+                                localStorage.setItem("quiz", quiz)
+                            })
+                            .catch(error => {
+                                console.log(error);
+                                Swal.fire(
+                                    'Error Occured!',
+                                    'Sorry an error occured.',
+                                    'error'
+                                )
+                            })
+
+                        setTimeout(() => { window.location.replace("/user-dashboard") }, 2000)
+                    }
+                })
+
+            } else {
+                Swal.fire("All questions are mandatory",
+                    "Please answer all question",
+                    "warning")
+            }
+        }
+        else {
+            // Display an error message if the quiz is over
+            Swal.fire("Quiz Over",
+                "The quiz duration has ended. You cannot submit responses anymore.",
+                "error");
+        }
     }
 
 

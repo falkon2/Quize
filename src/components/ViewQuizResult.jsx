@@ -5,6 +5,7 @@ import { getDoc, doc } from "firebase/firestore";
 import $ from 'jquery'
 
 var question_add = false
+var ans_val = {}
 
 export default class ViewQuizResult extends React.Component {
     constructor(props) {
@@ -54,30 +55,70 @@ export default class ViewQuizResult extends React.Component {
         this.addQuestion(data, path2)
     }
 
-    addOption = (qNo, options, data, ans, ques) => {
+    addOption = (qNo, options, data, ans, ques, id_ques) => {
         var options_len = (data["questions"][ques]["options"].length)
 
+        var result_value = ans_val[id_ques]
+
+
+        console.log(ans)
+
         for (var i = 0; i < options_len; i++) {
-            if (i === ans - 1) {
-                $(`#q-${qNo}-ans`).append(`
+            var option_current = options[i]
+
+
+
+            if (`${result_value["result_t_f"]}` === "true") {
+                if (option_current === result_value["options_value"]) {
+                    $(`#q-${qNo}-ans`).append(`
                     <div>
                         <input id="ans-c-q-${qNo}-${i}" type="checkbox" checked disabled/>
                         <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
                     </div>
                     `)
-                $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-green-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
-                $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-green-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
+                    $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
+                } else {
+                    $(`#q-${qNo}-ans`).append(`
+                    <div>
+                        <input id="ans-c-q-${qNo}-${i}" type="checkbox" disabled />
+                        <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
+                    </div>
+                    `)
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
+                    $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
+                }
             }
             else {
-                $(`#q-${qNo}-ans`).append(`
-                <div>
-                    <input id="ans-c-q-${qNo}-${i}" type="checkbox" disabled />
-                    <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
-                </div>
-                `)
-                $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
-                $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
+                if (option_current === result_value["options_value"]) {
+                    $(`#q-${qNo}-ans`).append(`
+                    <div>
+                        <input id="ans-c-q-${qNo}-${i}" type="checkbox" checked disabled/>
+                        <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
+                    </div>
+                    `)
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-red-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
+                    $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
+                } else {
+                    $(`#q-${qNo}-ans`).append(`
+                    <div>
+                        <input id="ans-c-q-${qNo}-${i}" type="checkbox" disabled />
+                        <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
+                    </div>
+                    `)
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-gray-50 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
+                    $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
+                }
+
+                if (i === ans - 1) {
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-green-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
+                    $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
+                }
+
+
+
             }
+
         }
     }
 
@@ -135,11 +176,24 @@ export default class ViewQuizResult extends React.Component {
             }
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
+
+                var ans_options = quiz_data[id_ques].ans
+
+                var options_value = ans_options[i][0]
+                var result_t_f = ans_options[i][1]
+                var question_val = ans_options[i][2]
+
+                ans_val[question_val] = { "options_value": options_value, "result_t_f": result_t_f }
+            }
+
+            console.log(ans_val)
+
+            for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
                 var questions_ = Object.keys(data["questions"])[i]
                 var options = data["questions"][questions_]["options"]
                 var ans = data["questions"][questions_]["ans"]
 
-                this.addOption(i, options, data, ans, questions_)
+                this.addOption(i, options, data, ans, questions_, questions_)
             }
 
 

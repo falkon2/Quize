@@ -166,10 +166,12 @@ export default class QuizPage extends React.Component {
                 Swal.showLoading()
 
 
-                var val = Object.keys(correct_ans).length
+                var val = `${Object.keys(correct_ans).length}`
                 var q_keys = Object.keys(Q_option_list)
                 var ans_keys = Object.keys(correct_ans)
                 var Q_and_Ans = {}
+
+                // console.log(q_keys)
 
 
                 for (var i = 0; i < val; i++) {
@@ -183,11 +185,9 @@ export default class QuizPage extends React.Component {
                     }
                 }
 
-                // console.log(Q_and_Ans)
-                // console.log(val)
-                // console.log(this.state.amount)
+                console.log(Q_and_Ans)
 
-                if (val == this.state.amount) {
+                if (val === this.state.amount) {
                     const data = {
                         no_of_question: this.state.amount,
                         subject: this.state.subject,
@@ -317,11 +317,11 @@ export default class QuizPage extends React.Component {
                         </div>
 
                         <form className="md:p-8 max-w-[500px] space-y-8  rounded-lg w-11/12 mb-4">
-                            <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="button"
+                            <button style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="button"
                                 className="bg-yellow-600 cursor-pointer rounde-md w-full p-2 text-white hover:bg-yellow-500"
                                 onClick={() => { this.prevQuiz() }}>
                                 Preview Quiz
-                            </a>
+                            </button>
                         </form>
                     </div>
 

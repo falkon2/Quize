@@ -83,11 +83,11 @@ export default class QuizDetails extends React.Component {
                                 name="class"
                                 className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300">
 
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
+                                <option value="VI">VI</option>
+                                <option value="VII">VII</option>
+                                <option value="VIII">VIII</option>
+                                <option value="IX">IX</option>
+                                <option value="X">X</option>
                             </select>
                         </div>
                         <div className="flex flex-col space-y-2">
