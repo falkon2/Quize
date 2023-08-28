@@ -130,6 +130,11 @@ export default class DashboardTests extends React.Component {
         var q_class = data.class
         var sec_class = data.section
 
+        if(st_class !== "undwfined"){
+          st_class = st_class.split("-")[0]
+          sec_class_st = sec_class_st.split("-")[1]
+        }
+
         if (q_class === st_class || st_class === "undefined") {
           if (sec_class === sec_class_st || st_class === "undefined") {
             if (subject_selected === "All" || subject_selected === data.subject) {
