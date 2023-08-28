@@ -16,7 +16,7 @@ var st_class_ = localStorage.getItem("class")
 var st_class = ""
 var sec_class_st = ""
 
-
+console.log(st_class_)
 
 if (st_class_.includes("-")){
   st_class = st_class_.split("-")[0]
