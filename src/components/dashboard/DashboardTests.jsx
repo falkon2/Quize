@@ -12,8 +12,8 @@ var subject_selected = "All"
 var end_line_displayed = false
 
 var quiz_done = localStorage.getItem("quiz")
-var st_class = localStorage.getItem("class").split("-")[0]
-var sec_class_st = localStorage.getItem("class").split("-")[1]
+var st_class = localStorage.getItem("class")
+var sec_class_st = localStorage.getItem("class")
 
 export default class DashboardTests extends React.Component {
 
