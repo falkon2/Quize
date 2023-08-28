@@ -18,11 +18,12 @@ var sec_class_st = ""
 
 console.log(st_class_)
 
-if (st_class_.includes("-")){
-  st_class = st_class_.split("-")[0]
-  sec_class_st = st_class_.split("-")[1]
+if(st_class_ !== null){
+  if (st_class_.includes("-")){
+    st_class = st_class_.split("-")[0]
+    sec_class_st = st_class_.split("-")[1]
+  }
 }
-
 
 export default class DashboardTests extends React.Component {
 
