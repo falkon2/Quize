@@ -12,8 +12,15 @@ var subject_selected = "All"
 var end_line_displayed = false
 
 var quiz_done = localStorage.getItem("quiz")
-var st_class = localStorage.getItem("class")
-var sec_class_st = localStorage.getItem("class")
+var st_class_ = localStorage.getItem("class")
+var st_class = ""
+var sec_class_st = ""
+
+if (st_class_ !== "undefined"){
+  st_class = st_class_.split("-")[0]
+  sec_class_st = stclass_.split("-")[1]
+}
+
 
 export default class DashboardTests extends React.Component {
 
@@ -130,10 +137,6 @@ export default class DashboardTests extends React.Component {
         var q_class = data.class
         var sec_class = data.section
 
-        if(st_class !== "undwfined"){
-          st_class = st_class.split("-")[0]
-          sec_class_st = sec_class_st.split("-")[1]
-        }
 
         if (q_class === st_class || st_class === "undefined") {
           if (sec_class === sec_class_st || st_class === "undefined") {
