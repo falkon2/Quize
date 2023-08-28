@@ -18,7 +18,7 @@ var sec_class_st = ""
 
 if (st_class_ !== "undefined"){
   st_class = st_class_.split("-")[0]
-  sec_class_st = stclass_.split("-")[1]
+  sec_class_st = st_class_.split("-")[1]
 }
 
 
