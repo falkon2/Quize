@@ -30,7 +30,7 @@ class DashboardStudent extends React.Component {
     option_selected = $("#filter").val()
     update = false
     details = []
-    docsSnap.forEach(doc => {
+    database_data.forEach(doc => {
       var res = doc.data()
 
       this.getStudentData(res.id, res.name, res.class)
