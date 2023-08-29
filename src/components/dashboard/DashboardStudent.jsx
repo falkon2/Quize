@@ -9,11 +9,16 @@ var nameList = []
 var update = false
 var option_selected = "All"
 
+var database_data = null 
+
 class DashboardStudent extends React.Component {
 
   async getStudent() {
     const colRef = collection(db, "Student");
     const docsSnap = await getDocs(colRef);
+    
+    database_data = docsSnap
+    
     docsSnap.forEach(doc => {
       var res = doc.data()
 
@@ -25,7 +30,11 @@ class DashboardStudent extends React.Component {
     option_selected = $("#filter").val()
     update = false
     details = []
-    this.getStudent()
+    docsSnap.forEach(doc => {
+      var res = doc.data()
+
+      this.getStudentData(res.id, res.name, res.class)
+    })
   }
 
 
