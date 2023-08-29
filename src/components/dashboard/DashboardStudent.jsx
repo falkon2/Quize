@@ -24,6 +24,7 @@ class DashboardStudent extends React.Component {
   filter() {
     option_selected = $("#filter").val()
     update = false
+    details = []
     this.getStudent()
   }
 
@@ -54,6 +55,8 @@ class DashboardStudent extends React.Component {
     if (nameList.includes(name) === false) {
       nameList.push(name)
 
+      console.log(class_)
+      
       if(class_ !== "undefined"){
         if(option_selected.includes(class_) || option_selected === "All")
         details.push({
