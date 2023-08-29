@@ -26,14 +26,13 @@ class DashboardStudent extends React.Component {
     })
   }
 
-  filter() {
+  async filter() {
     option_selected = $("#filter").val()
     update = false
     details = []
     database_data.forEach(doc => {
       var res = doc.data()
-
-      this.getStudentData(res.id, res.name, res.class)
+      await this.getStudentData(res.id, res.name, res.class)
     })
   }
 
