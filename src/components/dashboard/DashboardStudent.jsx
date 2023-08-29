@@ -122,12 +122,13 @@ class DashboardStudent extends React.Component {
         <div className="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
           <header className="px-5 py-4 border-b border-slate-100 flex justify-between">
             <h2 className="font-semibold text-slate-800">Student</h2>
-            <div hidden style={{
+            
+            <div style={{
             "minWidth": "400px",
             "display": "flex",
             "justifyContent": "space-evenly",
             "alignItems": 'center'
-          }}>
+          }}  hidden >
 
             <label style={{ marginLeft: "-10px" }} className="text-gray-600 font-medium">
               Class:  {option_selected}
