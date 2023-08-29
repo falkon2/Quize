@@ -31,9 +31,45 @@ class DashboardStudent extends React.Component {
     details = []
     
     await database_data.forEach(async doc => {
-      console.log(update)
       var res = doc.data()
-      await this.getStudentData(res.id, res.name, res.class)
+      var st_id = res.id
+      var name = res.name
+      var class_ = res.class
+
+       const docRef = doc(db, "Student", st_id)
+    const docSnap = await getDoc(docRef);
+    var data = docSnap.data()
+
+    this.setState({ data: data, quiz_id: data.quiz })
+
+    var percentage_list = []
+    var total = 0
+
+    for (var i in data.quiz) {
+      var list_ = data[data.quiz[i]]
+
+      if (list_ !== undefined) {
+        total += list_.percentage
+        percentage_list.push(list_.percentage)
+      }
+    }
+
+    // console.clear()
+
+    if (nameList.includes(name) === false) {
+      nameList.push(name)
+      
+      if(class_ !== "undefined"){
+        if(class_.includes(option_selected) || option_selected === "All")
+        details.push({
+          name: name,
+          class: class_,
+          id: st_id,
+          percent: total / percentage_list.length
+        })
+      }
+
+    }
     })
   }
 
