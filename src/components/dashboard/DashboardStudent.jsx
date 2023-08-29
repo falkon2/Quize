@@ -103,7 +103,7 @@ class DashboardStudent extends React.Component {
           name: name,
           class: class_,
           id: st_id,
-          percent: total / percentage_list.length
+          percent: (total / percentage_list.length).toFixed(2)
         })
       }
 
