@@ -20,6 +20,8 @@ if(st_class_ !== null){
   if (st_class_.includes("-")){
     st_class = st_class_.split("-")[0]
     sec_class_st = st_class_.split("-")[1]
+  }else{
+    st_class = st_class_
   }
 }
 
