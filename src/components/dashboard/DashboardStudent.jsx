@@ -30,7 +30,7 @@ class DashboardStudent extends React.Component {
     update = false
     details = []
     
-    await database_data.forEach( doc => {
+    await database_data.forEach(async doc => {
       var res = doc.data()
       var st_id = res.id
       var name = res.name
@@ -53,8 +53,6 @@ class DashboardStudent extends React.Component {
           percentage_list.push(list_.percentage)
         }
       }
-
-      // console.clear()
 
       if (nameList.includes(name) === false) {
         nameList.push(name)
