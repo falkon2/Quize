@@ -21,7 +21,6 @@ class DashboardStudent extends React.Component {
     
     docsSnap.forEach(doc => {
       var res = doc.data()
-
       this.getStudentData(res.id, res.name, res.class)
     })
   }
@@ -30,8 +29,12 @@ class DashboardStudent extends React.Component {
     option_selected = $("#filter").val()
     update = false
     details = []
+
+    console.log("f1")
+    
     database_data.forEach(async doc => {
       var res = doc.data()
+      console.log("f2")
       await this.getStudentData(res.id, res.name, res.class)
     })
   }
@@ -39,6 +42,7 @@ class DashboardStudent extends React.Component {
 
   
   async getStudentData(st_id, name, class_) {
+    console.log("st_data")
 
     const docRef = doc(db, "Student", st_id)
     const docSnap = await getDoc(docRef);
@@ -62,10 +66,6 @@ class DashboardStudent extends React.Component {
 
     if (nameList.includes(name) === false) {
       nameList.push(name)
-
-      console.log(class_)
-
-      console.log(option_selected)
       
       if(class_ !== "undefined"){
         if(class_.includes(option_selected) || option_selected === "All")
