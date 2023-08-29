@@ -58,7 +58,7 @@ class DashboardStudent extends React.Component {
       console.log(class_)
       
       if(class_ !== "undefined"){
-        if(option_selected.includes(class_) || option_selected === "All")
+        if(class_.includes(option_selected) || option_selected === "All")
         details.push({
           name: name,
           class: class_,
