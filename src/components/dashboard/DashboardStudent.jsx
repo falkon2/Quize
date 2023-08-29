@@ -18,6 +18,9 @@ class DashboardStudent extends React.Component {
     const docsSnap = await getDocs(colRef);
     
     database_data = docsSnap
+
+    console.log(database_data)
+    console.log(docsSnap)
     
     docsSnap.forEach(doc => {
       var res = doc.data()
