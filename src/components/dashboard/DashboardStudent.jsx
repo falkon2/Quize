@@ -2,7 +2,7 @@ import React from 'react';
 import Jdenticon from 'react-jdenticon';
 import { db } from "../../firebase/firebaseConfig"
 import { getDoc, doc, collection, getDocs } from "firebase/firestore";
-
+import $ from "jquery"
 
 var details = []
 var nameList = []
@@ -90,7 +90,7 @@ class DashboardStudent extends React.Component {
           }}>
 
             <label style={{ marginLeft: "-10px" }} className="text-gray-600 font-medium">
-              Class:  {st_class}-{sec_class_st}
+              Class:  `${option_selected}`
             </label>
 
             <label className="text-gray-600 font-medium" htmlFor="filter">
