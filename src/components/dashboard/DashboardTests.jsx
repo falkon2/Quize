@@ -102,7 +102,6 @@ export default class DashboardTests extends React.Component {
     } else {
       return ('ended');
     }
-
   }
 
   display_quiz_details() {

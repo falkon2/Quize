@@ -81,9 +81,8 @@ export default class displayResultsStudent extends React.Component {
       "no_of_question": no_of_question_,
       "dates": quiz_date_
     })
-
-
   }
+
 
   componentDidMount() {
     this.getQuiz()
@@ -134,7 +133,7 @@ export default class displayResultsStudent extends React.Component {
               <div class="text-center">${marks}/${no_ques}</div>
             </td>
             <td class="p-2">
-              <div class="text-center">${percentage}%</div>
+              <div class="text-center">${percentage.toFixed(2)}%</div>
             </td>
 
             <td id="view-quiz${i}" class="p-2">

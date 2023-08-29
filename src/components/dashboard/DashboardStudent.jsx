@@ -70,6 +70,7 @@ class DashboardStudent extends React.Component {
     })
   }
 
+  
 
   
   async getStudentData(st_id, name, class_) {
@@ -91,8 +92,6 @@ class DashboardStudent extends React.Component {
         percentage_list.push(list_.percentage)
       }
     }
-
-    // console.clear()
 
     if (nameList.includes(name) === false) {
       nameList.push(name)
@@ -125,10 +124,10 @@ class DashboardStudent extends React.Component {
             
             <div style={{
             "minWidth": "400px",
-            // "display": "flex",
+            "display": "flex",
             "justifyContent": "space-evenly",
             "alignItems": 'center'
-          }}  hidden >
+          }}   >
 
             <label style={{ marginLeft: "-10px" }} className="text-gray-600 font-medium">
               Class:  {option_selected}

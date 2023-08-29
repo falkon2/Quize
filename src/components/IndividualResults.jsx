@@ -132,10 +132,10 @@ export default class IndividualResult extends React.Component {
               <div class="text-center">${date}</div>
             </td>
             <td class="p-2">
-              <div class="text-center">${marks}/${no_ques}</div>
+              <div id="marks" class="text-center">${marks}/${no_ques}</div>
             </td>
             <td class="p-2">
-              <div class="text-center">${percentage}%</div>
+              <div id="%age" class="text-center">${percentage}%</div>
             </td>
           </tr>
         `)

@@ -3,6 +3,7 @@ import NavBar from './NavBar'
 import { db } from "../firebase/firebaseConfig"
 import { getDoc, doc } from "firebase/firestore";
 import $ from 'jquery'
+import Swal from 'sweetalert2';
 
 var question_add = false
 var ans_val = {}
@@ -52,6 +53,48 @@ export default class ViewQuizResult extends React.Component {
         var data = docSnap.data()
 
         this.setState({ data: data })
+
+        var status_ = this.check_date(data["quiz_date"], data["start_time"], data["end_time"])
+        console.log(status_)
+
+        if (status_ !== "ended") {
+            $('#question-container').css('filter', 'blur(5px)');
+            $('body').css('overflow-y', 'hidden');
+
+            
+            if (this.state.st_data["class"] === "undefined") {
+                
+                console.log(this.state.st_data["class"])
+                Swal.fire({
+                    title: "Quiz not ended",
+                    text: `Please came back after ${data["end_time"]}`,
+                    icon: "info",
+                    confirmButtonText: 'Go, Back',
+                    cancelButtonText: "View Result"
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        window.history.back();
+                    } else {
+                        $('#question-container').css('filter', 'blur(0px)');
+                        $('body').css('overflow-y', 'auto');
+                    }
+                })
+
+            } else {
+
+                Swal.fire({
+                    title: "Quiz not ended",
+                    text: `Please came back after ${data["end_time"]}`,
+                    icon: "info",
+                    confirmButtonText: 'Go, Back',
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        window.history.back();
+                    }
+                })
+            }
+        }
+
         this.addQuestion(data, path2)
     }
 
@@ -211,43 +254,75 @@ export default class ViewQuizResult extends React.Component {
         window.location.replace(`/${name_}/result`)
     }
 
+    check_date(date, st_time, end_time) {
+        // Define the date, start time, and end time of the quiz
+        var quizDate = date;  // Replace with the quiz date
+        var quizStartTime = st_time;  // Replace with the quiz start time
+        var quizEndTime = end_time;    // Replace with the quiz end time
+
+        // Get the current date and time
+        var currentDate = new Date();
+
+        // Parse the quiz date, start time, and end time
+        var [quizYear, quizMonth, quizDay] = quizDate.split('-').map(Number);
+        var [startHour, startMinute] = quizStartTime.split(':').map(Number);
+        var [endHour, endMinute] = quizEndTime.split(':').map(Number);
+
+        // Convert the quiz date, start time, and end time to Date objects
+        var quizStartDate = new Date(quizYear, quizMonth - 1, quizDay, startHour, startMinute, 0);
+        var quizEndDate = new Date(quizYear, quizMonth - 1, quizDay, endHour, endMinute, 0);
+
+        // Compare the current date and time with the quiz start and end times
+        if (currentDate < quizStartDate) {
+            return ('will_Start');
+        } else if (currentDate >= quizStartDate && currentDate <= quizEndDate) {
+            return ('progress');
+        } else {
+            return ('ended');
+        }
+
+    }
+
 
     render() {
-        return (
-            <div className="bg-[cbd5e1] ">
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
+        if (this.state.data.length !== 0) {
 
-                <NavBar link={this.state.link} />
+            return (
+                <div className="bg-[cbd5e1] ">
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
 
-                <div className="flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
-                    <form className="bg-white p-5 md:p-8 max-w-[500px] space-y-2 shadow rounded-lg w-11/12 mb-4">
-                        <h2 className="text-3xl font-medium pb-4">Result:</h2>
-                    </form>
+                    <NavBar link={this.state.link} />
 
-                    <form className="bg-white p-5 md:p-8 max-w-[500px] space-y-2 shadow rounded-lg w-11/12 mb-4">
-                        <h2 className="text-3xl font-medium pb-4">Details:</h2>
-                        <h4 className="text-2xl font-medium">Subject: {`${this.state.data["subject"]}`}</h4>
-                        <h4 className="text-2xl font-medium">Class & Section: {`${this.state.data["class"]}/${this.state.data["section"]}`}</h4>
-                        <h4 className="text-2xl font-medium">Date: {`${this.state.data["quiz_date"]}`}</h4>
-                        <h4 className="text-2xl font-medium">Duration {`${this.state.data["start_time"]} - ${this.state.data["end_time"]}`}</h4>
-                    </form>
+                    <div className="flex justify-center items-center min-h-screen flex-col mt-10" id="questions" >
+                        <form className="bg-white p-5 md:p-8 max-w-[500px] space-y-2 shadow rounded-lg w-11/12 mb-4">
+                            <h2 className="text-3xl font-medium pb-4">Result:</h2>
+                        </form>
+
+                        <form className="bg-white p-5 md:p-8 max-w-[500px] space-y-2 shadow rounded-lg w-11/12 mb-4">
+                            <h2 className="text-3xl font-medium pb-4">Details:</h2>
+                            <h4 className="text-2xl font-medium">Subject: {`${this.state.data["subject"]}`}</h4>
+                            <h4 className="text-2xl font-medium">Class & Section: {`${this.state.data["class"]}/${this.state.data["section"]}`}</h4>
+                            <h4 className="text-2xl font-medium">Date: {`${this.state.data["quiz_date"]}`}</h4>
+                            <h4 className="text-2xl font-medium">Duration {`${this.state.data["start_time"]} - ${this.state.data["end_time"]}`}</h4>
+                        </form>
 
 
 
-                    <div id='question-container' className="w-full flex justify-center items-center min-h-screen flex-col">
+                        <div id='question-container' className="w-full flex justify-center items-center min-h-screen flex-col">
 
+                        </div>
+
+                        <form className="md:p-8 max-w-[500px] flex rounded-lg w-11/12 mb-4">
+                            <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
+                                className="bg-yellow-600 cursor-pointer rounded-md w-full p-2 ml-5 text-white hover:bg-yellow-500"
+                                onClick={() => { this.submit() }}>
+                                Back
+                            </a>
+                        </form>
                     </div>
 
-                    <form className="md:p-8 max-w-[500px] flex rounded-lg w-11/12 mb-4">
-                        <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
-                            className="bg-yellow-600 cursor-pointer rounded-md w-full p-2 ml-5 text-white hover:bg-yellow-500"
-                            onClick={() => { this.submit() }}>
-                            Back
-                        </a>
-                    </form>
                 </div>
-
-            </div>
-        )
+            )
+        }
     }
 }

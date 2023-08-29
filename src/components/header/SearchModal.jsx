@@ -4,7 +4,7 @@ import Transition from '../../services/Transition';
 import { db } from '../../firebase/firebaseConfig'
 import { getDocs, collection } from "firebase/firestore";
 import Swal from 'sweetalert2';
-import $ from "jquery"
+// import $ from "jquery"
 
 var studentDetails = []
 var looked_up = []
@@ -102,7 +102,7 @@ export default class SearchModal extends React.Component {
 
 
   render() {
-    const { id, modalOpen, setModalOpen } = this.props;
+    const { id, modalOpen } = this.props;
     const { searchResults } = this.state;
 
     return (
