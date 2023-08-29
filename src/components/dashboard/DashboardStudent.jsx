@@ -47,12 +47,14 @@ class DashboardStudent extends React.Component {
     if (nameList.includes(name) === false) {
       nameList.push(name)
 
-      details.push({
-        name: name,
-        class: class_,
-        id: st_id,
-        percent: total / percentage_list.length
-      })
+      if(class_ !== "undefined"){
+        details.push({
+          name: name,
+          class: class_,
+          id: st_id,
+          percent: total / percentage_list.length
+        })
+      }
 
     }
 
