@@ -7,6 +7,7 @@ import { getDoc, doc, collection, getDocs } from "firebase/firestore";
 var details = []
 var nameList = []
 var update = false
+var option_selected = "All"
 
 class DashboardStudent extends React.Component {
 
@@ -18,10 +19,18 @@ class DashboardStudent extends React.Component {
 
       this.getStudentData(res.id, res.name, res.class)
     })
-
-
   }
 
+  filter() {
+    option_selected = $("#filter").val()
+    update = false
+    $("#quiz-details").remove()
+    $("#table").append(`<tbody id='quiz-details' className="text-sm font-medium divide-y divide-slate-100"></tbody>`)
+    this.display_quiz_details()
+  }
+
+
+  
   async getStudentData(st_id, name, class_) {
 
     const docRef = doc(db, "Student", st_id)
@@ -48,6 +57,7 @@ class DashboardStudent extends React.Component {
       nameList.push(name)
 
       if(class_ !== "undefined"){
+        if(option_selected.includes(class_) || option_selected === "All")
         details.push({
           name: name,
           class: class_,
@@ -71,6 +81,42 @@ class DashboardStudent extends React.Component {
         <div className="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
           <header className="px-5 py-4 border-b border-slate-100">
             <h2 className="font-semibold text-slate-800">Student</h2>
+
+            <div style={{
+            "minWidth": "400px",
+            "display": "flex",
+            "justifyContent": "space-evenly",
+            "alignItems": 'center'
+          }}>
+
+            <label style={{ marginLeft: "-10px" }} className="text-gray-600 font-medium">
+              Class:  {st_class}-{sec_class_st}
+            </label>
+
+            <label className="text-gray-600 font-medium" htmlFor="filter">
+              Section:
+            </label>
+
+            <select
+              id="filter"
+              name="filter"
+              className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+            >
+              
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+            </select>
+
+            <button style={{ borderRadius: "10px" }} type="submit" className="bg-green-600 rounde-md p-3 text-white hover:bg-yellow-500"
+              onClick={(e) => { this.filter() }}>
+              Filter
+            </button>
+          </div>
+
+            
           </header>
           <div className="p-3">
 
