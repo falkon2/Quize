@@ -30,46 +30,45 @@ class DashboardStudent extends React.Component {
     update = false
     details = []
     
-    await database_data.forEach(async doc => {
+    await database_data.forEach( doc => {
       var res = doc.data()
       var st_id = res.id
       var name = res.name
       var class_ = res.class
 
-       const docRef = doc(db, "Student", st_id)
-    const docSnap = await getDoc(docRef);
-    var data = docSnap.data()
+      const docRef = doc(db, "Student", st_id)
+      const docSnap = await getDoc(docRef);
+      var data = docSnap.data()
 
-    this.setState({ data: data, quiz_id: data.quiz })
+      this.setState({ data: data, quiz_id: data.quiz })
 
-    var percentage_list = []
-    var total = 0
+      var percentage_list = []
+      var total = 0
 
-    for (var i in data.quiz) {
-      var list_ = data[data.quiz[i]]
+      for (var i in data.quiz) {
+        var list_ = data[data.quiz[i]]
 
-      if (list_ !== undefined) {
-        total += list_.percentage
-        percentage_list.push(list_.percentage)
+        if (list_ !== undefined) {
+          total += list_.percentage
+          percentage_list.push(list_.percentage)
+        }
       }
-    }
 
-    // console.clear()
+      // console.clear()
 
-    if (nameList.includes(name) === false) {
-      nameList.push(name)
+      if (nameList.includes(name) === false) {
+        nameList.push(name)
       
-      if(class_ !== "undefined"){
-        if(class_.includes(option_selected) || option_selected === "All")
-        details.push({
-          name: name,
-          class: class_,
-          id: st_id,
-          percent: total / percentage_list.length
-        })
-      }
-
-    }
+        if(class_ !== "undefined"){
+          if(class_.includes(option_selected) || option_selected === "All")
+            details.push({
+              name: name,
+              class: class_,
+              id: st_id,
+              percent: total / percentage_list.length
+            })
+          }
+        }
     })
   }
 
@@ -155,7 +154,7 @@ class DashboardStudent extends React.Component {
             </select>
 
             <button style={{ borderRadius: "10px" }} type="submit" className="bg-green-600 rounde-md p-3 text-white hover:bg-yellow-500"
-              onClick={async (e) => {await this.filter() }}>
+              onClick={async function() {await this.filter() }}>
               Filter
             </button>
           </div>
