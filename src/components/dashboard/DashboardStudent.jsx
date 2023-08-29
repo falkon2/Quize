@@ -125,7 +125,7 @@ class DashboardStudent extends React.Component {
             
             <div style={{
             "minWidth": "400px",
-            "display": "flex",
+            // "display": "flex",
             "justifyContent": "space-evenly",
             "alignItems": 'center'
           }}  hidden >
