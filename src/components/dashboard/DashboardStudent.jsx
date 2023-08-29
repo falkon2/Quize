@@ -154,7 +154,7 @@ class DashboardStudent extends React.Component {
             </select>
 
             <button style={{ borderRadius: "10px" }} type="submit" className="bg-green-600 rounde-md p-3 text-white hover:bg-yellow-500"
-              onClick={async function() {await this.filter() }}>
+              onClick={()=>{this.filter() }}>
               Filter
             </button>
           </div>
