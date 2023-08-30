@@ -89,7 +89,7 @@ export default class PreviewQuiz extends React.Component {
     }
 
     addQuestion(data) {
-        if (question_add == false) {
+        if (question_add === false) {
             // console.log(data["questions"])
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
@@ -439,11 +439,11 @@ export default class PreviewQuiz extends React.Component {
                                 className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
                                 defaultValue={this.state.data["class"]}>
 
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
+                                <option value="VI">VI</option>
+                                <option value="VII">VII</option>
+                                <option value="VIII">VIII</option>
+                                <option value="XI">IX</option>
+                                <option value="X">X</option>
                             </select>
                         </div>
                         <div className="flex flex-col space-y-2">

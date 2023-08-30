@@ -203,7 +203,7 @@ export default class StartQuiz extends React.Component {
             var update_data_structure = {
                 "ans": correct_ans,
                 "marks": score,
-                "percentage": (score / total_q) * 100,
+                "percentage": ((score / total_q) * 100).toFixed(2),
             }
 
             // console.log(update_data_structure)
