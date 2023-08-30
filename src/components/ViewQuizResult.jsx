@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 var question_add = false
 var ans_val = {}
+var color = true
 
 export default class ViewQuizResult extends React.Component {
     constructor(props) {
@@ -41,6 +42,7 @@ export default class ViewQuizResult extends React.Component {
         const docSnap = await getDoc(docRef);
         var data = docSnap.data()
 
+
         this.setState({ st_data: data, question_id: data.quiz })
 
 
@@ -52,46 +54,35 @@ export default class ViewQuizResult extends React.Component {
         const docSnap = await getDoc(docRef);
         var data = docSnap.data()
 
+        console.log(data)
+
         this.setState({ data: data })
 
         var status_ = this.check_date(data["quiz_date"], data["start_time"], data["end_time"])
         console.log(status_)
 
         if (status_ !== "ended") {
-            $('#question-container').css('filter', 'blur(5px)');
+            $('#question-container').css('filter', 'blur(10px)');
+            $('body').css("height",  '100%');
             $('body').css('overflow-y', 'hidden');
+
+            color = false
 
             
             if (this.state.st_data["class"] === "undefined") {
                 
-                console.log(this.state.st_data["class"])
                 Swal.fire({
                     title: "Quiz not ended",
                     text: `Please came back after ${data["end_time"]}`,
                     icon: "info",
                     confirmButtonText: 'Go, Back',
                     cancelButtonText: "View Result"
-                }).then(async (result) => {
-                    if (result.isConfirmed) {
-                        window.history.back();
-                    } else {
-                        $('#question-container').css('filter', 'blur(0px)');
-                        $('body').css('overflow-y', 'auto');
-                    }
-                })
-
-            } else {
-
-                Swal.fire({
-                    title: "Quiz not ended",
-                    text: `Please came back after ${data["end_time"]}`,
-                    icon: "info",
-                    confirmButtonText: 'Go, Back',
-                }).then(async (result) => {
+                }).then((result) => {
                     if (result.isConfirmed) {
                         window.history.back();
                     }
                 })
+
             }
         }
 
@@ -113,13 +104,16 @@ export default class ViewQuizResult extends React.Component {
 
             if (`${result_value["result_t_f"]}` === "true") {
                 if (option_current === result_value["options_value"]) {
+                    var color_applied = "grey"
+                    if(color===true)color_applied = "green"
+
                     $(`#q-${qNo}-ans`).append(`
                     <div>
                         <input id="ans-c-q-${qNo}-${i}" type="checkbox" checked disabled/>
                         <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
                     </div>
                     `)
-                    $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-green-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", `bg-${color_applied}-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
                     $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
                 } else {
                     $(`#q-${qNo}-ans`).append(`
@@ -134,13 +128,15 @@ export default class ViewQuizResult extends React.Component {
             }
             else {
                 if (option_current === result_value["options_value"]) {
+                    var color_applied = "grey"
+                    if(color===true)color_applied = "red"
                     $(`#q-${qNo}-ans`).append(`
                     <div>
                         <input id="ans-c-q-${qNo}-${i}" type="checkbox" checked disabled/>
                         <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
                     </div>
                     `)
-                    $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-red-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", `bg-${color_applied}-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
                     $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
                 } else {
                     $(`#q-${qNo}-ans`).append(`
@@ -154,7 +150,9 @@ export default class ViewQuizResult extends React.Component {
                 }
 
                 if (i === ans - 1) {
-                    $(`#ans-op-q-${qNo}-${i}`).attr("class", "bg-green-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100")
+                    var color_applied = "grey"
+                    if(color===true)color_applied = "green"
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", `bg-${color_applied}-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
                     $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
                 }
 
@@ -167,12 +165,12 @@ export default class ViewQuizResult extends React.Component {
 
     addQuestion(data, id_ques) {
         if (question_add === false) {
-            console.clear()
+            // console.clear()
 
             var quiz_data = this.state.st_data
 
-            console.log(quiz_data[id_ques].ans)
-            console.log(id_ques)
+            // console.log(quiz_data[id_ques].ans)
+            // console.log(id_ques)
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
                 var questions = Object.keys(data["questions"])[i]
