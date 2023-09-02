@@ -160,7 +160,7 @@ export default class IndividualResult extends React.Component {
     let name_ = localStorage.getItem('name')
 
     window.location.replace(`/${name_}/ViewQuizResult?` + location + id)
-    console.log(id)
+    // console.log(id)
   }
 
 

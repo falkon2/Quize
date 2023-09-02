@@ -139,8 +139,6 @@ export default class DashboardTests extends React.Component {
         var q_class = data.class
         var sec_class = data.section
 
-        console.log("st: ", st_class)
-        console.log("q: ", q_class)
         
         if (q_class === st_class || st_class === "undefined") {
           if (sec_class === sec_class_st || st_class === "undefined") {

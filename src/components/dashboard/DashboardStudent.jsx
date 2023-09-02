@@ -9,7 +9,7 @@ var nameList = []
 var update = false
 var option_selected = "All"
 
-var database_data = null
+// var database_data = null
 
 class DashboardStudent extends React.Component {
 
@@ -17,7 +17,7 @@ class DashboardStudent extends React.Component {
     const colRef = query(collection(db, "Student"), orderBy("name")); 
     const docsSnap = await getDocs(colRef);
 
-    database_data = docsSnap
+    // database_data = docsSnap
 
     docsSnap.forEach(doc => {
       var res = doc.data()
@@ -29,10 +29,10 @@ class DashboardStudent extends React.Component {
     option_selected = $("#filter").val()
     update = false
 
-    const colRef = query(collection(db, "Student"), where("class", "==", `IX-${option_selected}`), orderBy("name"));
+    const colRef = query(collection(db, "Student"), where("class", "==", `IX-${option_selected}`), orderBy("namex"));
     const docsSnap = await getDocs(colRef);
 
-    database_data = docsSnap
+    // database_data = docsSnap
 
     docsSnap.forEach(doc => {
       var res = doc.data()

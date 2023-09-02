@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 var question_add = false
 var ans_val = {}
 var color = true
+var option_id_green = []
+var option_id_red = []
 
 export default class ViewQuizResult extends React.Component {
     constructor(props) {
@@ -28,7 +30,7 @@ export default class ViewQuizResult extends React.Component {
 
         var path1 = searchParams.get("path1")
         var path2 = searchParams.get("path2")
-        console.log(path2)
+        // console.log(path2)
 
         this.setState({ path1: path1, path2: path2 })
         this.get_answer_data(path1, path2)
@@ -54,23 +56,22 @@ export default class ViewQuizResult extends React.Component {
         const docSnap = await getDoc(docRef);
         var data = docSnap.data()
 
-        console.log(data)
+        // console.log(data)
 
         this.setState({ data: data })
 
         var status_ = this.check_date(data["quiz_date"], data["start_time"], data["end_time"])
-        console.log(status_)
+        // console.log(status_)
 
         if (status_ !== "ended") {
             $('#question-container').css('filter', 'blur(10px)');
-            $('body').css("height",  '100%');
+            $('body').css("height", '100%');
             $('body').css('overflow-y', 'hidden');
 
             color = false
 
-            
             if (this.state.st_data["class"] === "undefined") {
-                
+
                 Swal.fire({
                     title: "Quiz not ended",
                     text: `Please came back after ${data["end_time"]}`,
@@ -85,8 +86,9 @@ export default class ViewQuizResult extends React.Component {
 
             }
         }
-
+        // console.log(color_change)
         this.addQuestion(data, path2)
+        this.ans_color()
     }
 
     addOption = (qNo, options, data, ans, ques, id_ques) => {
@@ -95,17 +97,14 @@ export default class ViewQuizResult extends React.Component {
         var result_value = ans_val[id_ques]
 
 
-        console.log(ans)
+        // console.log(ans)
 
         for (var i = 0; i < options_len; i++) {
             var option_current = options[i]
 
-
-
             if (`${result_value["result_t_f"]}` === "true") {
                 if (option_current === result_value["options_value"]) {
-                    var color_applied = "grey"
-                    if(color===true)color_applied = "green"
+                    option_id_green.push(`ans-op-q-${qNo}-${i}`)
 
                     $(`#q-${qNo}-ans`).append(`
                     <div>
@@ -113,7 +112,7 @@ export default class ViewQuizResult extends React.Component {
                         <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
                     </div>
                     `)
-                    $(`#ans-op-q-${qNo}-${i}`).attr("class", `bg-${color_applied}-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", `m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
                     $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
                 } else {
                     $(`#q-${qNo}-ans`).append(`
@@ -128,15 +127,15 @@ export default class ViewQuizResult extends React.Component {
             }
             else {
                 if (option_current === result_value["options_value"]) {
-                    var color_applied = "grey"
-                    if(color===true)color_applied = "red"
+                    option_id_red.push(`ans-op-q-${qNo}-${i}`)
+
                     $(`#q-${qNo}-ans`).append(`
                     <div>
                         <input id="ans-c-q-${qNo}-${i}" type="checkbox" checked disabled/>
                         <input id='ans-op-q-${qNo}-${i}' type="text" value="${options[i]}" disabled></input>
                     </div>
                     `)
-                    $(`#ans-op-q-${qNo}-${i}`).attr("class", `bg-${color_applied}-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", ` m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
                     $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
                 } else {
                     $(`#q-${qNo}-ans`).append(`
@@ -150,18 +149,32 @@ export default class ViewQuizResult extends React.Component {
                 }
 
                 if (i === ans - 1) {
-                    var color_applied = "grey"
-                    if(color===true)color_applied = "green"
-                    $(`#ans-op-q-${qNo}-${i}`).attr("class", `bg-${color_applied}-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
+                    if (option_id_green.includes(`ans-op-q-${qNo}-${i}`) === false) {
+                        option_id_green.push(`ans-op-q-${qNo}-${i}`)
+                    }
+
+                    $(`#ans-op-q-${qNo}-${i}`).attr("class", `m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
                     $(`#ans-op-q-${qNo}-${i}`).attr("style", "min-width:90%")
                 }
-
-
 
             }
 
         }
     }
+
+
+    ans_color() {
+        if (color) {
+            for (var i = 0; i < option_id_green.length; i++) {
+                $(`#${option_id_green[i]}`).attr("class", `bg-green-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
+            }
+            for (var f = 0; f < option_id_red.length; f++) {
+                $(`#${option_id_red[f]}`).attr("class", `bg-red-100 m-1 ml-4 p-2 rounded-md outline-0 focus:bg-gray-100`)
+            }
+        }
+    }
+
+
 
     addQuestion(data, id_ques) {
         if (question_add === false) {
@@ -169,8 +182,8 @@ export default class ViewQuizResult extends React.Component {
 
             var quiz_data = this.state.st_data
 
-            // console.log(quiz_data[id_ques].ans)
-            // console.log(id_ques)
+            // // console.log(quiz_data[id_ques].ans)
+            // // console.log(id_ques)
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
                 var questions = Object.keys(data["questions"])[i]
@@ -227,7 +240,7 @@ export default class ViewQuizResult extends React.Component {
                 ans_val[question_val] = { "options_value": options_value, "result_t_f": result_t_f }
             }
 
-            console.log(ans_val)
+            // console.log(ans_val)
 
             for (let i = 0; i < parseInt(data["no_of_question"]); i++) {
                 var questions_ = Object.keys(data["questions"])[i]
@@ -246,11 +259,6 @@ export default class ViewQuizResult extends React.Component {
         window.location.replace(`/edit-quiz?path1=${this.state.path1}&path2=${this.state.path2}`)
     }
 
-    submit() {
-        let name_ = localStorage.getItem("name")
-
-        window.location.replace(`/${name_}/result`)
-    }
 
     check_date(date, st_time, end_time) {
         // Define the date, start time, and end time of the quiz
@@ -313,7 +321,10 @@ export default class ViewQuizResult extends React.Component {
                         <form className="md:p-8 max-w-[500px] flex rounded-lg w-11/12 mb-4">
                             <a style={{ borderRadius: "10px", textAlign: "center" }} id="prev-quiz" type="submit"
                                 className="bg-yellow-600 cursor-pointer rounded-md w-full p-2 ml-5 text-white hover:bg-yellow-500"
-                                onClick={() => { this.submit() }}>
+                                onClick={() => {
+                                    let name_ = localStorage.getItem("name")
+                                    window.location.replace(`/${name_}/result`)
+                                }}>
                                 Back
                             </a>
                         </form>

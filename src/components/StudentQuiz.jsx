@@ -47,7 +47,7 @@ export default class StartQuiz extends React.Component {
         // console.log(ans)
 
         for (var i = 0; i < options_len; i++) {
-            var op_ans = options[i]
+            // var op_ans = options[i]
             if (i === ans - 1) {
                 // console.log(`: ${i}`)
                 $(`#q-${qNo}-ans`).append(`
@@ -151,7 +151,7 @@ export default class StartQuiz extends React.Component {
 
     submit() {
 
-        console.log(this.state.data["start_time"], this.state.data["end_time"])
+        // console.log(this.state.data["start_time"], this.state.data["end_time"])
         const currentTime = new Date();
 
         // Extract hours and minutes from start and end times
@@ -171,8 +171,6 @@ export default class StartQuiz extends React.Component {
         if (currentTime >= startTime && currentTime <= endTime) {
             // Your existing submission logic here
 
-            var score = 0;
-
             var score = 0
             var path1 = `Student/`
             var path2 = localStorage.getItem("user-id")
@@ -185,11 +183,11 @@ export default class StartQuiz extends React.Component {
                 var passed_quiz = localStorage.getItem("quiz")
                 quiz = passed_quiz.split(",")
                 quiz.push(this.state.path2)
-                console.log(quiz)
+                // console.log(quiz)
             }
             catch (err) { console.log(err) }
 
-            console.log(correct_ans)
+            // console.log(correct_ans)
 
             var keys = Object.keys(correct_ans)
 

@@ -185,7 +185,7 @@ export default class QuizPage extends React.Component {
                     }
                 }
 
-                console.log(Q_and_Ans)
+                // console.log(Q_and_Ans)
 
                 if (val === this.state.amount) {
                     const data = {
@@ -209,7 +209,7 @@ export default class QuizPage extends React.Component {
 
                         addDoc(dbRef, data)
                             .then(docRef => {
-                                console.log(docRef.id)
+                                // console.log(docRef.id)
                                 path2 = `${docRef.id}`
                                 setTimeout(() => { window.location.replace(`/prev-quiz?path1=${path1}&path2=${path2}`) }, 1000)
                             })
