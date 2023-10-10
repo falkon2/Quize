@@ -17,7 +17,7 @@ function UserMenu() {
     localStorage.removeItem('user-id')
     localStorage.removeItem('name')
     localStorage.removeItem('role');
-    window.location.href = '/login'
+    window.location.href = '/'
   }  
   // close on click outside
   useEffect(() => {

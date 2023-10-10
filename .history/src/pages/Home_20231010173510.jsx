@@ -7,7 +7,6 @@ import AOS from 'aos';
 import Header from '../components/home/Header';
 import HeroHome from '../components/home/HeroHome';
 import FeaturesHome from '../components/home/Features';
-import Creator from '../components/home/Creators';
 import FeaturesBlocks from '../components/home/FeaturesBlocks';
 
 function Home() {
@@ -22,11 +21,10 @@ function Home() {
   return (
     <div className="flex flex-col  min-h-screen overflow-hidden">
       {/*  Site header */}
-      <Header />
+      {/* <Header /> */}
       {/*  Page content */}
       <main className="flex-grow ">
         <HeroHome />
-        <Creator />
         <FeaturesHome />
         <FeaturesBlocks />
       </main>
