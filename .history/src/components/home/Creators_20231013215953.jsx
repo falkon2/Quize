@@ -114,10 +114,10 @@ export default function Creator() {
                   leaveStart="opacity-100 translate-y-0"
                   leaveEnd="opacity-0 -translate-y-16"
                 >
-                  <div className="relative p-20 inline-flex flex-col">
+                  <div className="relative inline-flex flex-col">
           <div className="w-128 h-128 rounded-full overflow-hidden mx-auto transform animate-float">
             <img
-              className=" object-contain w-full h-full"
+              className="object-center w-full h-full"
               src={CreatorUI}alt="Portrait"
             />
           </div>
@@ -135,7 +135,7 @@ export default function Creator() {
                   leaveStart="opacity-100 translate-y-0"
                   leaveEnd="opacity-0 -translate-y-16"
                 >
-                  <div className="relative p-8 inline-flex flex-col">
+                  <div className="relative inline-flex flex-col">
           <div className="w-128 h-128 rounded-full overflow-hidden mx-auto transform animate-float">
             <img
               className="object-cover w-full h-full"
@@ -157,7 +157,7 @@ export default function Creator() {
                   leaveStart="opacity-100 translate-y-0"
                   leaveEnd="opacity-0 -translate-y-16"
                 >
-                  <div className="relative p-9 inline-flex flex-col">
+                  <div className="relative inline-flex flex-col">
           <div className="w-128 h-128 rounded-full overflow-hidden mx-auto transform animate-float">
             <img
               className="object-cover w-full h-full"
