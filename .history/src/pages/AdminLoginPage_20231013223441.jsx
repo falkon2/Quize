@@ -151,7 +151,7 @@ export default class AdminLoginPage extends React.Component {
                 </label>
                 <input id="password" type="password" placeholder="password" className="input input-bordered backdrop-blur-sm bg-white/40 text-black" />
                 <Link to='/ForgetPassword' className="label">
-                  <div  id="fog-pass" className="label-text-alt link link-hover text-black hover:text-blue-300 text-bold">Forgot password?</div>
+                  <button  id="fog-pass" className="label-text-alt link link-hover text-black hover:text-blue-300 text-bold">Forgot password?</button>
                 </Link>
               </div>
               <div className="form-control mt-6">

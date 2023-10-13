@@ -150,7 +150,7 @@ export default class AdminLoginPage extends React.Component {
                   <span className="label-text text-black" placeholder="Password">Password</span>
                 </label>
                 <input id="password" type="password" placeholder="password" className="input input-bordered backdrop-blur-sm bg-white/40 text-black" />
-                <Link to='/ForgetPassword' className="label">
+                <Link to='/ForgetPassword' >
                   <div  id="fog-pass" className="label-text-alt link link-hover text-black hover:text-blue-300 text-bold">Forgot password?</div>
                 </Link>
               </div>
