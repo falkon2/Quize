@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Modal from './Utilities/Modal';
 
+import bg from './images/bg.png'
 import HeroImage from './images/hero-images.png';
 
 function HeroHome() {

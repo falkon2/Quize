@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Transition from './Utilities/Transition';
 
-import FeaturesElement from './images/tests.png'
+import FeaturesElement from './images/preview.png'
 import Featuresteacher from './images/teacherbg.png'
 import FeaturesUi from './images/ui.png'
 export default function Features() {

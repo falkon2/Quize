@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Transition from './Utilities/Transition';
 
-import FeaturesElement from './images/tests.png'
-import Featuresteacher from './images/teacherbg.png'
-import FeaturesUi from './images/ui.png'
-export default function Features() {
+
+import CreatorTeacher from './images/Munindra.jpg'
+
+export default function Creator() {
 
   const [tab, setTab] = useState(1);
 
@@ -33,8 +33,9 @@ export default function Features() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="h2 mb-4">Explore the solutions</h1>
-            <p className="text-xl text-gray-600">Quize enables teachers and students to take advantage of its cutting-edge technology and comprehensive suite of features for effective performance tracking and assessment.</p>
+            <h1 className="h2 mb-4"><span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">Brains </span>behind Quize</h1>
+            <p className="text-xl text-gray-600">Meet the brilliant minds behind the Quiz project, each bringing their expertise to the
+        table. Guided by our visionary leader, they turned innovative ideas into reality.</p>
           </div>
 
           {/* Section content */}
@@ -43,8 +44,8 @@ export default function Features() {
             {/* Content */}
             <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6 md:mt-6" data-aos="fade-right">
               <div className="md:pr-4 lg:pr-12 xl:pr-16 mb-8">
-                <h3 className="h3 mb-3">Powerful suite of tools</h3>
-                <p className="text-xl text-gray-600">Quize provides a powerful suite of tools that enable teachers to create customized assessments and analyze student performance in a seamless and intuitive manner.</p>
+                <h3 className="h3 mb-3">The <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">Team</span> behind Quize</h3>
+                <p className="text-xl text-gray-600">At the heart of every successful project lies a collaborative team, each member contributing their unique strengths. Our Quiz project is no exception. Meet the individuals whose collaboration turned ideas into innovation</p>
               </div>
               {/* Tabs buttons */}
               <div className="mb-8 md:mb-0">
@@ -54,8 +55,9 @@ export default function Features() {
                   onClick={(e) => { e.preventDefault(); setTab(1); }}
                 >
                   <div>
-                    <div className="font-bold leading-snug tracking-tight mb-1">User-friendly Interface 😍</div>
-                    <div className="text-gray-600">Our website has an intuitive and easy-to-use interface that enables both teachers and students to navigate and use it effortlessly.</div>
+                    <div className="font-bold leading-snug tracking-tight mb-1">Munindra Mazumdar 👨‍🏫</div>
+                    <div className="text-gray-600">Our project's visionary, Munindra Sir, heads the Mathematics Department and holds a PhD
+            in Mathematics. His guidance shaped our vision.</div>
                   </div>
                   <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
                     <svg className="w-3 h-3 fill-current" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
@@ -69,8 +71,9 @@ export default function Features() {
                   onClick={(e) => { e.preventDefault(); setTab(2); }}
                 >
                   <div>
-                    <div className="font-bold leading-snug tracking-tight mb-1">Analytics Dashboard 🔍</div>
-                    <div className="text-gray-600">Our website boasts an analytics dashboard that provides detailed reports on individual student performance, class-wide reports, and trend analysis over time.</div>
+                    <div className="font-bold leading-snug tracking-tight mb-1">Anchit Lankar 👨‍💻</div>
+                    <div className="text-gray-600">Anchit, an accomplished 11th-grader, developed our website's robust back-end, ensuring
+            high-performance functionality.</div>
                   </div>
                   <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
                     <svg className="w-3 h-3 fill-current" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
@@ -84,8 +87,9 @@ export default function Features() {
                   onClick={(e) => { e.preventDefault(); setTab(3); }}
                 >
                   <div>
-                    <div className="font-bold leading-snug tracking-tight mb-1">Customizable Assessments 🔥</div>
-                    <div className="text-gray-600">Our platform empowers teachers to customize their assessments by selecting questions from the question bank or creating their own</div>
+                    <div className="font-bold leading-snug tracking-tight mb-1">Zahin Ahmed Tapadar 👨‍💻</div>
+                    <div className="text-gray-600">Zahin Tapadar, a talented 10th-grader, crafted our website's front-end, delivering an
+            engaging user experience.</div>
                   </div>
                   <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
                     <svg className="w-3 h-3 fill-current" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
@@ -98,23 +102,30 @@ export default function Features() {
 
             {/* Tabs items */}
             <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 md:order-1" data-aos="zoom-y-out" ref={tabs}>
-              <div className="relative flex flex-col text-center lg:text-right">
-                {/* Item 1 */}
-                <Transition
-                  show={tab === 1}
-                  appear={true}
-                  className="w-full"
-                  enter="transition ease-in-out duration-700 transform order-first"
-                  enterStart="opacity-0 translate-y-16"
-                  enterEnd="opacity-100 translate-y-0"
-                  leave="transition ease-in-out duration-300 transform absolute"
-                  leaveStart="opacity-100 translate-y-0"
-                  leaveEnd="opacity-0 -translate-y-16"
-                >
-                  <div className="relative inline-flex flex-col">
-                    <img className="md:max-w-none mx-auto transform animate-float rounded" src={FeaturesUi} width="500" height="462" alt="Features bg" />
-                  </div>
-                </Transition>
+  <div className="relative flex flex-col text-center lg:text-right">
+    {/* Item 1 */}
+    <Transition
+      show={tab === 1}
+      appear={true}
+      className="w-full"
+      enter="transition ease-in-out duration-700 transform order-first"
+      enterStart="opacity-0 translate-y-16"
+      enterEnd="opacity-100 translate-y-0"
+      leave="transition ease-in-out duration-300 transform absolute"
+      leaveStart="opacity-100 translate-y-0"
+      leaveEnd="opacity-0 -translate-y-16"
+    >
+      <div className="relative flex items-center justify-center">
+        <div className="w-2/3 md:w-1/2 lg:w-1/3 h-auto rounded-lg overflow-hidden mx-auto transform scale-150">
+          {/* Adjust the scale-150 to control the level of magnification */}
+          <img
+            className="object-cover w-full h-full"
+            src={CreatorTeacher}
+            alt="Portrait"
+          />
+        </div>
+      </div>
+    </Transition>
                 {/* Item 2 */}
                 <Transition
                   show={tab === 2}
@@ -128,8 +139,14 @@ export default function Features() {
                   leaveEnd="opacity-0 -translate-y-16"
                 >
                   <div className="relative inline-flex flex-col">
-                    <img className="md:max-w-none mx-auto transform animate-float rounded" src={FeaturesElement} width="500" height="462" alt="Features bg" />
-                  </div>
+          <div className="w-128 h-128 rounded-full overflow-hidden mx-auto transform animate-float">
+            <img
+              className="object-cover w-full h-full"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+              alt="Portrait"
+            />
+          </div>
+        </div>
                 </Transition>
                 {/* Item 3 */}
                 <Transition
@@ -144,8 +161,14 @@ export default function Features() {
                   leaveEnd="opacity-0 -translate-y-16"
                 >
                   <div className="relative inline-flex flex-col">
-                    <img className="md:max-w-none mx-auto transform animate-float rounded" src={Featuresteacher} width="500" height="462" alt="Features bg" />
-                  </div>
+          <div className="w-128 h-128 rounded-full overflow-hidden mx-auto transform animate-float">
+            <img
+              className="object-cover w-full h-full"
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+              alt="Portrait"
+            />
+          </div>
+        </div>
                 </Transition>
               </div>
             </div >
