@@ -67,7 +67,7 @@ function HeroHome() {
             <div className="relative flex justify-center mb-8" data-aos="zoom-y-out" data-aos-delay="450">
               <div className="flex flex-col justify-center">
                 <AdvancedImage cldImg={heroIMG} className="mx-auto transform animate-float"  width="768" height="432" alt="Hero" />
-                
+                <AdvancedImage cldImg={myImage} />
                 <svg
                   className="absolute inset-0 max-w-full mx-auto md:max-w-none h-auto"
                   width="768"

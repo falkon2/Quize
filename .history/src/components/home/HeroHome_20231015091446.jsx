@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Modal from './Utilities/Modal';
-import {Cloudinary} from "@cloudinary/url-gen";
-import {AdvancedImage} from '@cloudinary/react';
+
 import bg from './images/bg.png'
 import HeroImage from './images/hero-images.png';
 
@@ -12,13 +11,6 @@ function HeroHome() {
   useEffect(() => {
     videoModalOpen ? video.current.play() : video.current.pause();
   }, [videoModalOpen]);    
-
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: 'dvx6axvmy'
-    }
-  });
-  const heroIMG = cld.image('hero-images_ojhnyk'); 
 
   return (
     <section className="relative">
@@ -66,8 +58,7 @@ function HeroHome() {
           <div>
             <div className="relative flex justify-center mb-8" data-aos="zoom-y-out" data-aos-delay="450">
               <div className="flex flex-col justify-center">
-                <AdvancedImage cldImg={heroIMG} className="mx-auto transform animate-float"  width="768" height="432" alt="Hero" />
-                
+                <img className="mx-auto transform animate-float" src="https://res.cloudinary.com/dvx6axvmy/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697340519/hero-images_ojhnyk.jpg?_s=public-apps" width="768" height="432" alt="Hero" />
                 <svg
                   className="absolute inset-0 max-w-full mx-auto md:max-w-none h-auto"
                   width="768"

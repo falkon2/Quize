@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.11.2",
     "@material-tailwind/react": "^2.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -11,6 +13,7 @@
     "aos": "^2.3.4",
     "chart.js": "^4.2.1",
     "chartjs-adapter-moment": "^1.0.1",
+    "cloudinary": "^1.41.0",
     "daisyui": "^2.51.5",
     "firebase": "^9.18.0",
     "flowbite": "^1.6.4",
