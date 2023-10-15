@@ -4,17 +4,16 @@ import React, {useState} from 'react';
 function  WelcomeBanner() {
   const name = localStorage.getItem('name')
   
-  const [Click, setClick] = useState(0);
+  const [Click, setClick] = useState(0)
 
-const EasterEggClick = () => {
-  const newClick = Click + 1;
-  setClick(newClick);
-  console.log(newClick);
-  if (newClick === 3) {
-    alert("You've found the easter egg!");
-    window.location.replace('https://www.youtube.com/watch?v=rRPQs_kM_nw');
+  const  EasterEggClick = () => {
+    setClick(Click+1)
+    console.log(Click)
+    if (Click = 3) {
+    alert("You've found the easter egg!")
+    window.replace('https://www.youtube.com/watch?v=PXqcHi2fkXI')
+    }
   }
-}
 
     return (
       <div className="relative bg-indigo-200 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">

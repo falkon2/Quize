@@ -12,7 +12,7 @@ const EasterEggClick = () => {
   console.log(newClick);
   if (newClick === 3) {
     alert("You've found the easter egg!");
-    window.location.replace('https://www.youtube.com/watch?v=rRPQs_kM_nw');
+    window.location.replace(https://www.youtube.com/watch?v=rRPQs_kM_nw');
   }
 }
 

@@ -36,7 +36,7 @@ export default function PasswordForget() {
       <p class="text-lg" >If you've forgotten your password, consider reaching out to your teacher or Munindra Sir for help. If they're unavailable, contact our support team at <a href='mailto:eufalkon@gmail.com' className="link text-blue-500">eufalkon@gmail.com</a> for assistance.<br/> Your security matters to us.</p>
     </div>
     <div class="error__nav e-nav ">
-      <a href='mailto:eufalkon@gmail.com'  class=" btn-primary text-white rounded-full e-nav__link"></a>
+      <a href='mailto:eufalkon@gmail.com'  class=" btn-primary text-white rounded-full e-nav__link">Mail Us</a>
     </div>
   </div>
 
