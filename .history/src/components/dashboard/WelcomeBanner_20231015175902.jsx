@@ -1,21 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 
 function  WelcomeBanner() {
   const name = localStorage.getItem('name')
   
-  const [Click, setClick] = useState(0);
-
-const EasterEggClick = () => {
-  const newClick = Click + 1;
-  setClick(newClick);
-  console.log(newClick);
-  if (newClick === 3) {
-    alert("You've found the easter egg!");
-    window.location.replace('https://www.youtube.com/watch?v=rRPQs_kM_nw');
-  }
-}
-
     return (
       <div className="relative bg-indigo-200 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
 
@@ -63,7 +51,7 @@ const EasterEggClick = () => {
 
         {/* Content */}
         <div className="relative">
-          <h1 id="greeting" className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">{`Welcome, ${name}.`} <span onClick={EasterEggClick}>👋</span></h1>
+          <h1 id="greeting" className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">{`Welcome, ${name}.`} <span>👋</span></h1>
           <p className='text-gray-600'>Here is what’s happening with your projects today:</p>
         </div>
 

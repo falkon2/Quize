@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/notFound.css'
 import { Link } from 'react-router-dom'
-export default function NotFound() {
+export default function PasswordForget() {
     return (
       <>
   <header class="top-header  ">
@@ -32,11 +32,11 @@ export default function NotFound() {
 
   <div class="error__content">
     <div class="error__message message">
-      <h1 class="message__title">Page Not Found</h1>
-      <p class="message__text">We're sorry, the page you were looking for isn't found here. The link you followed may either be broken or no longer exists. Please try again, or take a look at our.</p>
+      <h1 className="h1 p-20 self-center text-center">Forgot Password Assistance</h1>
+      <p class="text-lg" >If you've forgotten your password, consider reaching out to your teacher or Munindra Sir for help. If they're unavailable, contact our support team at <a href='mailto:eufalkon@gmail.com' className="link text-blue-500">eufalkon@gmail.com</a> for assistance.<br/> Your security matters to us.</p>
     </div>
     <div class="error__nav e-nav ">
-      <Link to="/"  class=" btn-primary text-white rounded-full e-nav__link"></Link>
+      <a href='mailto:eufalkon@gmail.com'  class=" btn-primary text-white rounded-full e-nav__link">Mail Us</a>
     </div>
   </div>
 
