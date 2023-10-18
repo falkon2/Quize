@@ -1,13 +1,14 @@
 import React from 'react';
 import { db } from "../firebase/firebaseConfig"
 import { getDoc, doc } from "firebase/firestore";
-import $ from "jquery"
+import $, { data } from "jquery"
 
 var quiz_displayed = ""
 
 var subject_1 = ""
 var no_of_question_1 = ""
 var dates_1 = ""
+var st_type = "all"
 
 export default class IndividualResult extends React.Component {
 
@@ -49,6 +50,8 @@ export default class IndividualResult extends React.Component {
     var no_of_question_ = {}
     var quiz_date_ = {}
 
+    quiz_id.shift()
+
     for (var i in quiz_id) {
 
       try {
@@ -74,12 +77,12 @@ export default class IndividualResult extends React.Component {
       subject_1 = subject_
       no_of_question_1 = no_of_question_
       dates_1 = quiz_date_
-  
-  
+
+
       this.setState({
         "subject": subject_,
         "no_of_question": no_of_question_,
-        "dates": quiz_date_
+        "dates": quiz_date_,
       })
     }
 
@@ -89,6 +92,14 @@ export default class IndividualResult extends React.Component {
     this.getQuiz()
 
   }
+
+
+  filter() {
+    var v = $("#filter").val()
+    st_type = v
+    this.display_quiz_details()
+  }
+
 
   display_quiz_details() {
 
@@ -105,6 +116,7 @@ export default class IndividualResult extends React.Component {
 
 
       for (var i = 0; i < quiz_id.length; i++) {
+
         var list_ = quiz_data[quiz_id[i]]
         var subs_ = subject[quiz_id[i]]
         var date = dates[quiz_id[i]]
@@ -112,13 +124,16 @@ export default class IndividualResult extends React.Component {
         var percentage, marks
         var location = `path1=questions/&path2=`
 
-        if (list_ !== undefined) {
-          try {
-            percentage = (list_.percentage)
-            marks = (list_.marks)
+        var Ttype = quiz_data[quiz_id[i]]["Ttype"]
+
+        if (Ttype === st_type || st_type === "all") {
+          if (list_ !== undefined) {
+            try {
+              percentage = (list_.percentage)
+              marks = (list_.marks)
 
 
-            $("#quiz-details").append(`
+              $("#quiz-details").append(`
           <tr>
             <td class="p-2">
               <div class="flex items-center">
@@ -127,6 +142,9 @@ export default class IndividualResult extends React.Component {
                   <div class="text-slate-800">${subs_}</div>
                 </div>
               </div>
+            </td>
+            <td class="p-2">
+              <div class="text-center">${Ttype}</div>
             </td>
             <td class="p-2">
               <div class="text-center">${date}</div>
@@ -139,17 +157,17 @@ export default class IndividualResult extends React.Component {
             </td>
           </tr>
         `)
-            $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+              $(`#view-quiz${i}`).on("click", (e) => { this.view_quiz(e, location) })
+            }
+            catch (err) {
+              console.log(err)
+              continue
+            }
           }
-          catch (err) {
-            console.log(err)
-            continue
-          }
+
+
         }
-
-
       }
-
     }
     quiz_displayed = !quiz_displayed
   }
@@ -165,14 +183,50 @@ export default class IndividualResult extends React.Component {
 
 
   render() {
-    const {name} = this.state
+    const { name } = this.state
     return (
-      <div className="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-slate-200">
-        <header id="name_header" className="px-5 py-4 border-b border-slate-100">
+      <div className="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
+        <header className="px-5 py-4 border-b border-slate-100 flex justify-between">
           <h2 id="name" className="font-semibold text-slate-800">QUIZS Results:  {name}</h2>
-        </header>
-        <div className="p-3">
 
+          <div style={{
+            "minWidth": "400px",
+            "display": "flex",
+            "justifyContent": "space-evenly",
+            "alignItems": 'center'
+          }}   >
+
+
+            <label className="text-gray-600 font-medium" htmlFor="filter">
+              Text Type:
+            </label>
+
+            <select
+              id="filter"
+              name="filter"
+              className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300"
+            >
+
+              <option value="Class Test">Class Test</option>
+              <option value="Minor Test">Minor Test</option>
+              <option value="Major Test">Major Test</option>
+
+            </select>
+
+            <button style={{ borderRadius: "10px" }} type="submit" className="bg-green-600 rounde-md p-3 text-white hover:bg-yellow-500"
+              onClick={() => {
+                this.filter()
+              }}>
+              Filter
+            </button>
+          </div>
+
+
+        </header>
+
+
+
+        <div className="p-3">
           {/* Table */}
           <div style={{ maxHeight: "340px", minHeight: "100px" }} className="overflow-x-auto overflow-y-auto">
             <table className="table-auto w-full">
@@ -181,6 +235,9 @@ export default class IndividualResult extends React.Component {
                 <tr>
                   <th className="p-2">
                     <div className="font-semibold text-left">Subject</div>
+                  </th>
+                  <th className="p-2">
+                    <div className="font-semibold text-center">Test Type</div>
                   </th>
                   <th className="p-2">
                     <div className="font-semibold text-center">Dates</div>
@@ -205,7 +262,7 @@ export default class IndividualResult extends React.Component {
 
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }

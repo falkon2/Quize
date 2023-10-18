@@ -46,8 +46,10 @@ export default class displayResultsStudent extends React.Component {
     var no_of_question_ = {}
     var quiz_date_ = {}
 
-    for (var i in quiz_id) {
+    
+    quiz_id.shift()
 
+    for (var i in quiz_id) {
       try {
         const docRef = doc(db, "questions", quiz_id[i])
         const docSnap = await getDoc(docRef);
@@ -99,7 +101,7 @@ export default class displayResultsStudent extends React.Component {
       var no_of_question = no_of_question_1
       var dates = dates_1
 
-      console.log(subject)
+      console.log(subject_1)
 
       for (var i = 0; i < quiz_id.length; i++) {
         var list_ = quiz_data[quiz_id[i]]
@@ -127,13 +129,16 @@ export default class displayResultsStudent extends React.Component {
               </div>
             </td>
             <td class="p-2">
+              <div class="text-center">${quiz_data[quiz_id[i]]["Ttype"]}</div>
+            </td>
+            <td class="p-2">
               <div class="text-center">${date}</div>
             </td>
             <td class="p-2">
               <div class="text-center">${marks}/${no_ques}</div>
             </td>
             <td class="p-2">
-              <div class="text-center">${percentage.toFixed(2)}%</div>
+              <div class="text-center">${percentage}%</div>
             </td>
 
             <td id="view-quiz${i}" class="p-2">
@@ -182,6 +187,9 @@ export default class displayResultsStudent extends React.Component {
                 <tr>
                   <th className="p-2">
                     <div className="font-semibold text-left">Subject</div>
+                  </th>
+                  <th className="p-2">
+                    <div className="font-semibold text-center">Test Type</div>
                   </th>
                   <th className="p-2">
                     <div className="font-semibold text-center">Dates</div>

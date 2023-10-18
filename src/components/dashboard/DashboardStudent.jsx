@@ -29,13 +29,14 @@ class DashboardStudent extends React.Component {
     option_selected = $("#filter").val()
     update = false
 
-    const colRef = query(collection(db, "Student"), where("class", "==", `IX-${option_selected}`), orderBy("namex"));
+    const colRef = query(collection(db, "Student"), where("class", "==", `IX-${option_selected}`), orderBy("name"));
     const docsSnap = await getDocs(colRef);
 
     // database_data = docsSnap
 
     docsSnap.forEach(doc => {
       var res = doc.data()
+
       this.getStudentData(res.id, res.name, res.class)
     })
   }

@@ -75,6 +75,21 @@ export default class QuizDetails extends React.Component {
                         </div>
 
                         <div className="flex flex-col space-y-2">
+                            <label className="text-gray-600 font-medium" htmlFor="Ttype">
+                                Test Type
+                            </label>
+                            <select
+                                id="Ttype"
+                                name="Ttype"
+                                className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300">
+
+                                <option value="Class Test">Class Test</option>
+                                <option value="Minor Test">Minor Test</option>
+                                <option value="Major Test">Major Test</option>
+                            </select>
+                        </div>
+
+                        <div className="flex flex-col space-y-2">
                             <label className="text-gray-600 font-medium" htmlFor="class">
                                 Select Class
                             </label>

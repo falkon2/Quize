@@ -54,6 +54,7 @@ export default class DashboardTests extends React.Component {
         "section": res.section,
         "quiz_date": res.quiz_date,
         "time": `${res.start_time} - ${res.end_time}`,
+        "Ttype": res.Ttype,
         "id": doc.id
       }
     })
@@ -161,6 +162,9 @@ export default class DashboardTests extends React.Component {
                 </td>
                 <td class="p-2">
                   <div class="text-center">${time}</div>
+                </td>
+                <td class="p-2">
+                  <div class="text-center">${data.Ttype}</div>
                 </td>
                 <td id="status-${i}" class="p-2">
 
@@ -297,6 +301,9 @@ export default class DashboardTests extends React.Component {
                   </th>
                   <th className="p-2">
                     <div className="font-semibold text-center">Duration</div>
+                  </th>
+                  <th className="p-2">
+                    <div className="font-semibold text-center">Type</div>
                   </th>
                   <th className="p-2">
                     <div className="font-semibold text-center">Status</div>

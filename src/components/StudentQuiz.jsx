@@ -202,6 +202,7 @@ export default class StartQuiz extends React.Component {
                 "ans": correct_ans,
                 "marks": score,
                 "percentage": ((score / total_q) * 100).toFixed(2),
+                "Ttype": this.state.data["Ttype"]
             }
 
             // console.log(update_data_structure)
@@ -279,6 +280,7 @@ export default class StartQuiz extends React.Component {
                         <h4 className="text-2xl font-medium">Class & Section: {`${this.state.data["class"]}/${this.state.data["section"]}`}</h4>
                         <h4 className="text-2xl font-medium">Date: {`${this.state.data["quiz_date"]}`}</h4>
                         <h4 className="text-2xl font-medium">Duration {`${this.state.data["start_time"]} - ${this.state.data["end_time"]}`}</h4>
+                        <h4 className="text-2xl font-medium">Test Type: {`${this.state.data["Ttype"]}`}</h4>
                     </form>
 
                     <div id='question-container' className="w-full flex justify-center items-center min-h-screen flex-col">

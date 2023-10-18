@@ -26,6 +26,7 @@ export default class PreviewQuiz extends React.Component {
             start_time: "",
             quiz_date: "",
             end_time: "",
+            Ttype:"",
             qAdd: false,
             link: "/admin-dashboard"
         }
@@ -184,7 +185,8 @@ export default class PreviewQuiz extends React.Component {
             section: $('#section').val(),
             start_time: $('#start_time').val(),
             quiz_date: $('#date').val(),
-            end_time: $('#end_time').val()
+            end_time: $('#end_time').val(),
+            Ttype: $('Ttype').val()
         })
 
         this.prevQuiz()
@@ -255,6 +257,7 @@ export default class PreviewQuiz extends React.Component {
                             start_time: this.state.start_time,
                             quiz_date: this.state.quiz_date,
                             end_time: this.state.end_time,
+                            Ttype: this.state.Ttype,
                             questions: Q_and_Ans
 
                         };
@@ -427,6 +430,21 @@ export default class PreviewQuiz extends React.Component {
                                     defaultValue={this.state.data["end_time"]}
                                 />
                             </div>
+                        </div>
+
+                        <div className="flex flex-col space-y-2">
+                            <label className="text-gray-600 font-medium" htmlFor="Ttype">
+                                Test Type
+                            </label>
+                            <select
+                                id="Ttype"
+                                name="Ttype"
+                                className="bg-gray-200 p-2 rounded-md outline-0 focus:bg-gray-300">
+
+                                <option value="Class Test">Class Test</option>
+                                <option value="Minor Test">Minor Test</option>
+                                <option value="Major Test">Major Test</option>
+                            </select>
                         </div>
 
                         <div className="flex flex-col space-y-2">

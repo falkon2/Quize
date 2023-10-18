@@ -26,6 +26,7 @@ export default class QuizPage extends React.Component {
             start_time: "",
             quiz_date: "",
             end_time: "",
+            Ttype:"",
             qAdd: false,
             link: "/admin-dashboard"
         }
@@ -41,7 +42,8 @@ export default class QuizPage extends React.Component {
             section: searchParams.get('section'),
             start_time: searchParams.get('start_time'),
             quiz_date: searchParams.get('date'),
-            end_time: searchParams.get('end_time')
+            end_time: searchParams.get('end_time'),
+            Ttype: searchParams.get("Ttype")
         })
     }
 
@@ -196,6 +198,7 @@ export default class QuizPage extends React.Component {
                         start_time: this.state.start_time,
                         quiz_date: this.state.quiz_date,
                         end_time: this.state.end_time,
+                        Ttype: this.state.Ttype,
                         questions: Q_and_Ans
 
                     };
@@ -310,6 +313,7 @@ export default class QuizPage extends React.Component {
                             <h2 className="text-3xl font-medium">Questions</h2>
                             <h4 className="text-2xl font-medium">Subject: {`${this.state.subject}`}</h4>
                             <h4 className="text-2xl font-medium">Section: {`${this.state.section}`}</h4>
+                            <h4 className="text-2xl font-medium">Test Type: {`${this.state.Ttype}`}</h4>
                         </form>
 
                         <div id='question-container' className="w-full flex justify-center items-center min-h-screen flex-col">
