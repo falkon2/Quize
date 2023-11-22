@@ -63,8 +63,9 @@ const EasterEggClick = () => {
 
         {/* Content */}
         <div className="relative">
-          <h1 id="greeting" className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">{`Welcome, ${name}.`} <span onClick={EasterEggClick}>👋</span></h1>
-          <p className='text-gray-600'>Here is what’s happening with your projects today:</p>
+          <h1 id="greeting" className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">{`Welcome, ${name}.`} <span
+              onClick={EasterEggClick}>👋</span></h1>
+          <p className='text-gray-600'>Here is what’s happening with your Tests today:</p>
         </div>
 
       </div>
