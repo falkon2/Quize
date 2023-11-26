@@ -142,7 +142,7 @@ export default class DashboardTests extends React.Component {
 
         
         if (q_class === st_class || st_class === "undefined") {
-          if (sec_class === sec_class_st || st_class === "undefined") {
+          if (sec_class === sec_class_st || st_class === "undefined"  || sec_class === "All") {
             if (subject_selected === "All" || subject_selected === data.subject) {
 
               end_line_displayed = false
