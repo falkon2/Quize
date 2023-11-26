@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from './NavBar'
 import { db } from "../firebase/firebaseConfig"
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, getFirestore, doc, deleteDoc } from "firebase/firestore";
 import $ from 'jquery'
 import Swal from 'sweetalert2';
 
@@ -29,9 +29,9 @@ export default class PreviewQuiz extends React.Component {
         var path2 = searchParams.get("path2")
         var test_status = searchParams.get("status")
 
-        
+
         this.setState({ path1: path1, path2: path2, test_status: test_status })
-        
+
         this.getData(path1, path2)
         // this.addQuestion(this.state.data)
     }
@@ -166,6 +166,41 @@ export default class PreviewQuiz extends React.Component {
         }
     }
 
+    deleteQuiz() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+
+            if (result.isConfirmed) {
+                const db = getFirestore();
+
+                const docRef = doc(db, `${this.state.path1}`, `${this.state.path2}`);
+
+                await deleteDoc(docRef)
+                    .then(() => {
+                        console.log("Entire Document has been deleted successfully.")
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+
+                        setTimeout(() => { window.location.replace("/admin-dashboard") }, 2000)
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+
+            }
+        });
+    }
+
     submit() {
         Swal.fire(
             "Quiz Ready",
@@ -206,7 +241,13 @@ export default class PreviewQuiz extends React.Component {
                         </a>
 
                         <a style={{ borderRadius: "10px", textAlign: "center" }} href="javascript:void(0);" id="prev-quiz" type="submit"
-                            className="bg-yellow-600 rounded-md w-full p-2 ml-5 text-white hover:bg-yellow-500"
+                            className="bg-red-600 rounded-md w-full p-2 ml-5 text-white hover:bg-red-500"
+                            onClick={() => { this.deleteQuiz() }}>
+                            Delete Quiz
+                        </a>
+
+                        <a style={{ borderRadius: "10px", textAlign: "center" }} href="javascript:void(0);" id="prev-quiz" type="submit"
+                            className="bg-green-600 rounded-md w-full p-2 ml-5 text-white hover:bg-green-500"
                             onClick={() => { this.submit() }}>
                             Submit
                         </a>
