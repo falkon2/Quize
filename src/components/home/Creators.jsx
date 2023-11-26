@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Transition from './Utilities/Transition';
 
 
 import CreatorTeacher from './images/Munindra.jpg'
 import CreatorUI from './images/zahinPhoto.jpg'
+
 export default function Creator() {
 
   const [tab, setTab] = useState(1);
@@ -116,10 +117,10 @@ export default function Creator() {
                 >
                   <div className="relative p-20 inline-flex flex-col">
           <div className="w-128 h-128 rounded-full overflow-hidden mx-auto transform animate-float">
-            <img
-              className=" object-contain w-full h-full"
-              src={CreatorUI}alt="Portrait"
-            />
+              <img
+                  className=" object-contain w-full h-full"
+                  src={CreatorUI} alt="Portrait"
+              />
           </div>
         </div>
                 </Transition>
@@ -137,11 +138,11 @@ export default function Creator() {
                 >
                   <div className="relative p-8 inline-flex flex-col">
           <div className="w-128 h-128 rounded-full overflow-hidden mx-auto transform animate-float">
-            <img
-              className="object-cover w-full h-full"
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-              alt="Portrait"
-            />
+              <img
+                  className="object-cover w-full h-full"
+                  src="https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?w=826&t=st=1700714582~exp=1700715182~hmac=00497386ee1bd8bd20cf35042bdef380d2aa1bf241f775c1f4cc15724d8e9f42"
+                  alt="Portrait"
+              />
           </div>
         </div>
                 </Transition>
