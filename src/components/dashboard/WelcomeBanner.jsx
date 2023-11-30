@@ -11,7 +11,27 @@ const EasterEggClick = () => {
   setClick(newClick);
   console.log(newClick);
   if (newClick === 3) {
-    alert("You've found the easter egg!");
+    await Swal.fire({
+    title: '$Easter #gg _discovered*',
+    position: 'top',
+    showClass: {
+      popup: `
+      animate__animated
+      animate__fadeInDown
+      animate__faster
+    `,
+    },
+    hideClass: {
+      popup: `
+      animate__animated
+      animate__fadeOutUp
+      animate__faster
+    `,
+    },
+    grow: 'row',
+    showConfirmButton: false,
+    showCloseButton: true,
+  });
     window.location.replace('https://quizeeasteregg.vercel.app/');
   }
 }
