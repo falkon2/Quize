@@ -13,10 +13,30 @@ const EasterEggClick = async () => {
   if (newClick === 3) {
     Swal.fire({
   title: "Something mysterious appeared",
-  text: "Lets find out",
-  icon: "question"
-  });
-    await delay(5000);
+  width: 600,
+  padding: "3em",
+  color: "#716add",
+  background: "#fff url(https://sweetalert2.github.io/#images/trees.png)",
+  backdrop: `
+    rgba(0,0,123,0.4)
+    url("https://media.tenor.com/GJ72TMihJP8AAAAC/aesthetic-tv.gif")
+    center
+    repeat
+  `,
+  timer: 5000,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading();
+    const timer = Swal.getPopup().querySelector("b");
+    timerInterval = setInterval(() => {
+      timer.textContent = `${Swal.getTimerLeft()}`;
+    }, 100);
+  },
+  willClose: () => {
+    clearInterval(timerInterval);
+  }
+
+});
     window.location.replace('https://quizeeasteregg.vercel.app/');
   }
 }
