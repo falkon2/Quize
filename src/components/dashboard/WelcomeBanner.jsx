@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 
 function  WelcomeBanner() {
   const name = localStorage.getItem('name')
-  
+  const delay = ms => new Promise(res => setTimeout(res, ms));
   const [Click, setClick] = useState(0);
 
 const EasterEggClick = async () => {
