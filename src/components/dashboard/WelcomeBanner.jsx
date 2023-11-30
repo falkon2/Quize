@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { setTimeout } from "timers/promises";
 import Swal from 'sweetalert2';
 
 function  WelcomeBanner() {
@@ -17,7 +16,7 @@ const EasterEggClick = async () => {
   text: "Lets find out",
   icon: "question"
   });
-    await setTimeout(3000);
+    await delay(5000);
     window.location.replace('https://quizeeasteregg.vercel.app/');
   }
 }
