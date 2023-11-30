@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 
+import Swal from 'sweetalert2';
 
 function  WelcomeBanner() {
   const name = localStorage.getItem('name')
