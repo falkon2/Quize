@@ -23,7 +23,7 @@ const EasterEggClick = async () => {
     center
     repeat
   `,
-  timerInterval = 1000,
+  timerInterval: 1000,
   timer: 5000,
   timerProgressBar: true,
   didOpen: () => {
