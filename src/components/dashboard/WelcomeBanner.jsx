@@ -15,7 +15,6 @@ const EasterEggClick = () => {
   title: "Something mysterious appeared",
   text: "Lets find out",
   icon: "question"
-});
   });
     window.location.replace('https://quizeeasteregg.vercel.app/');
   }
