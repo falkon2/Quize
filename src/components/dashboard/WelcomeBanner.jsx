@@ -12,7 +12,7 @@ const EasterEggClick = () => {
   console.log(newClick);
   if (newClick === 3) {
     alert("You've found the easter egg!");
-    window.location.replace('https://falkon2.github.io/quizeeasteregg/');
+    window.location.replace('https://quizeeasteregg.vercel.app/');
   }
 }
 
