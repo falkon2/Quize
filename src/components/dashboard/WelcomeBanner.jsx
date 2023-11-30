@@ -11,26 +11,11 @@ const EasterEggClick = () => {
   setClick(newClick);
   console.log(newClick);
   if (newClick === 3) {
-    await Swal.fire({
-    title: '$Easter #gg _discovered*',
-    position: 'top',
-    showClass: {
-      popup: `
-      animate__animated
-      animate__fadeInDown
-      animate__faster
-    `,
-    },
-    hideClass: {
-      popup: `
-      animate__animated
-      animate__fadeOutUp
-      animate__faster
-    `,
-    },
-    grow: 'row',
-    showConfirmButton: false,
-    showCloseButton: true,
+    Swal.fire({
+  title: "Something mysterious appeared",
+  text: "Lets find out",
+  icon: "question"
+});
   });
     window.location.replace('https://quizeeasteregg.vercel.app/');
   }
