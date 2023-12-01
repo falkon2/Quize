@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import StudentDashboardPage from './pages/StudentDashboardPage';
 // import Welcome from './Welcome'
@@ -20,9 +20,9 @@ import ViewQuizResult from './components/ViewQuizResult';
 import IndividualResult from './pages/StudentResultIn'
 import PasswordForget from './pages/PasswordForget';
 
+
 function Router() {
     const name = localStorage.getItem('name')
-
     return (
         <Routes>
             <Route path='*' element={<NotFound />} />
