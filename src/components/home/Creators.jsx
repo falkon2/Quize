@@ -89,7 +89,10 @@ export default function Creator() {
                 >
                   <div>
                     <div className="font-bold leading-snug tracking-tight mb-1">Munindra Mazumdar 👨‍🏫</div>
-                    <div className="text-gray-600">Our Project’s visionary, Dr. Munindra Kumar Mazumdar Maria’s Public School and hold PhD in Mathematics and recipient three national awards from DST, NCERT and CBSE. His guidance shaped our vision.</div>
+                      <div className="text-gray-600">Our Project’s visionary, Dr. Munindra Kumar Mazumdar holds PhD in
+                          Mathematics and recipient three national awards from DST, NCERT and CBSE. His guidance shaped
+                          our vision.
+                      </div>
                   </div>
                   <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
                     <svg className="w-3 h-3 fill-current" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
