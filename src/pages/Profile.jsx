@@ -44,6 +44,7 @@ export default function Profile() {
                             </div>
                             <div
                                 className='text-2xl py-11 my-5 rounded-xl bg-slate-500'>{`${name}`}<br/>{role}<br/>{`${Class}`}
+                                {/*-octagon.lhohq.info*/}
                             </div>
                         </div>
                     </div>
