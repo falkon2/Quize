@@ -9,6 +9,9 @@ function  WelcomeBanner() {
 
 const EasterEggClick = async () => {
   const newClick = Click + 1;
+  const website = ["https://quizeeasteregg.vercel.app/","http://beautyinchaos.com/"]
+  const randomIndex = Math.floor(Math.random() * 2);
+
   setClick(newClick);
   console.log(newClick);
   if (newClick === 3) {
@@ -40,7 +43,7 @@ const EasterEggClick = async () => {
 
 });
     await delay(5500);
-    window.location.replace('https://quizeeasteregg.vercel.app/');
+    window.location.replace(website[randomIndex]);
   }
 }
 
